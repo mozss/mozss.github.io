@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="我们只能越来越像我们自己。">
+<meta name="description" content="冒泡排序 核心逻辑：比较相邻的两个元素。  比较并交换：从首元素开始，相邻元素比较，较小的元素置于前边 从首到尾：逐个进行“比较并交换”的过程，直到最后一个元素被比较，一趟冒泡的过程结束，最大的元素置于最尾端 重复以上步骤：待排序列变为N-1，需要比较N-1轮  123456789101112131415161718192021222324public class BubbleSort &amp;#123">
 <meta name="keywords" content="排序算法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基本功之10大排序算法（二）：冒泡排序">
 <meta property="og:url" content="http://yoursite.com/2017/05/20/基本功之10大排序算法（二）：冒泡排序/index.html">
 <meta property="og:site_name" content="MOZSS">
-<meta property="og:description" content="我们只能越来越像我们自己。">
+<meta property="og:description" content="冒泡排序 核心逻辑：比较相邻的两个元素。  比较并交换：从首元素开始，相邻元素比较，较小的元素置于前边 从首到尾：逐个进行“比较并交换”的过程，直到最后一个元素被比较，一趟冒泡的过程结束，最大的元素置于最尾端 重复以上步骤：待排序列变为N-1，需要比较N-1轮  123456789101112131415161718192021222324public class BubbleSort &amp;#123">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-16T12:47:34.394Z">
+<meta property="og:updated_time" content="2019-07-18T04:00:58.140Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基本功之10大排序算法（二）：冒泡排序">
-<meta name="twitter:description" content="我们只能越来越像我们自己。">
+<meta name="twitter:description" content="冒泡排序 核心逻辑：比较相邻的两个元素。  比较并交换：从首元素开始，相邻元素比较，较小的元素置于前边 从首到尾：逐个进行“比较并交换”的过程，直到最后一个元素被比较，一趟冒泡的过程结束，最大的元素置于最尾端 重复以上步骤：待排序列变为N-1，需要比较N-1轮  123456789101112131415161718192021222324public class BubbleSort &amp;#123">
 
 
 
@@ -363,7 +363,15 @@
       
 
       
-        
+        <h3 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h3><p> 核心逻辑：比较相邻的两个元素。</p>
+<ul>
+<li>比较并交换：从首元素开始，相邻元素比较，较小的元素置于前边</li>
+<li>从首到尾：逐个进行“比较并交换”的过程，直到最后一个元素被比较，一趟冒泡的过程结束，最大的元素置于最尾端</li>
+<li>重复以上步骤：待排序列变为N-1，需要比较N-1轮</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BubbleSort</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] sort(<span class="keyword">int</span>[] array)&#123;</span><br><span class="line">        <span class="comment">//这里for循环表示总共需要比较多少轮</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt; array.length; i++)&#123;</span><br><span class="line">            <span class="comment">//设定一个标记，若为true，则表示此次循环没有进行交换，也就是待排序列已经有序，排序已经完成。</span></span><br><span class="line">            <span class="keyword">boolean</span> flag = <span class="keyword">true</span>;</span><br><span class="line">            <span class="comment">//这里for循环表示每轮比较参与的元素下标</span></span><br><span class="line">            <span class="comment">//对当前无序区间array[0......length-i]进行排序</span></span><br><span class="line">            <span class="comment">//j的范围很关键，这个范围是在逐步缩小的,因为每轮比较都会将最大的放在右边</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span> ; j &lt; array.length-i ; j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(array[j]&gt;array[j+<span class="number">1</span>])&#123;</span><br><span class="line">                    <span class="keyword">int</span> temp = array[j];</span><br><span class="line">                    array[j] = array[j+<span class="number">1</span>];</span><br><span class="line">                    array[j+<span class="number">1</span>] = temp;</span><br><span class="line">                    flag = <span class="keyword">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(flag)&#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> array; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
       
     </div>
     
@@ -457,12 +465,19 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="Mozss_莫斯">
             
               <p class="site-author-name" itemprop="name">Mozss_莫斯</p>
               <p class="site-description motion-element" itemprop="description">我们只能越来越像我们自己。</p>
@@ -475,7 +490,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">109</span>
+                  <span class="site-state-item-count">111</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -530,31 +545,27 @@
 
           
           
-            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
               <div class="links-of-blogroll-title">
                 <i class="fa  fa-fw fa-link"></i>
-                Website Links
+                WebsiteLinks
               </div>
               <ul class="links-of-blogroll-list">
                 
                   <li class="links-of-blogroll-item">
-                    <a href="https://docs.oracle.com/javase/8/docs/api/" title="Java8API" target="_blank">Java8API</a>
+                    <a href="https://tool.lu/software/" title="工具集合" target="_blank">工具集合</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://vimjc.com" title="Vim教程网" target="_blank">Vim教程网</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://sobooks.cc/" title="好多书" target="_blank">好多书</a>
                   </li>
                 
                   <li class="links-of-blogroll-item">
                     <a href="http://man.linuxde.net/" title="Linux命令大全" target="_blank">Linux命令大全</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://www.bejson.com/jsoneditoronline/" title="Json在线编辑器" target="_blank">Json在线编辑器</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://tool.lu/software/" title="在线工具" target="_blank">在线工具</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="http://www.paperweekly.site/" title="Paperweekly" target="_blank">Paperweekly</a>
                   </li>
                 
               </ul>
@@ -566,6 +577,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#冒泡排序"><span class="nav-number">1.</span> <span class="nav-text">冒泡排序</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -580,7 +607,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -767,8 +794,6 @@
   
 
   
-  <script type="text/javascript" src="/js/src/exturl.js?v=5.1.4"></script>
-
 
 </body>
 </html>
