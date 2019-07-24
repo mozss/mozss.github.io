@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="MOZSS">
 <meta property="og:description" content="面向对象的两个重要元素：类和接口。设计原则就是类，接口，类和接口协作的时候需要满足的原则。 使用场景    描述接口设计隔离原则；单一原则类的设计1.类本身要考虑类的职责是否单一（单一原则）；2.继承关系的类要注意子类是否改变父类的方法，目标是不要改变，子类应该只扩展父类的行为（里氏替换原则，开闭原则），这样才能把将来子类变化时产生的影响缩小到最小的范围；顶层框架设计（类和接口的协作）    1.">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-23T15:11:59.163Z">
+<meta property="og:updated_time" content="2019-07-24T13:55:05.429Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基本功之设计原则&amp;设计模式（概要）：6原则&amp;23模式">
 <meta name="twitter:description" content="面向对象的两个重要元素：类和接口。设计原则就是类，接口，类和接口协作的时候需要满足的原则。 使用场景    描述接口设计隔离原则；单一原则类的设计1.类本身要考虑类的职责是否单一（单一原则）；2.继承关系的类要注意子类是否改变父类的方法，目标是不要改变，子类应该只扩展父类的行为（里氏替换原则，开闭原则），这样才能把将来子类变化时产生的影响缩小到最小的范围；顶层框架设计（类和接口的协作）    1.">
@@ -381,6 +381,33 @@
 <p>接口隔离<br>Interface Segregation Principle</p>
 <p>依赖倒置<br>Dependence Inversion Principle</p>
 <p>这六个字母联合起来 Solid 稳定的；<br>Law of Demeter(迪米特法则)不常用</p>
+<h3 id="单一职责（Single-Responsibility-Principle-SRP）：单一职责指的是应该有且仅有一个原因引起类的变更。"><a href="#单一职责（Single-Responsibility-Principle-SRP）：单一职责指的是应该有且仅有一个原因引起类的变更。" class="headerlink" title="单一职责（Single Responsibility Principle SRP）：单一职责指的是应该有且仅有一个原因引起类的变更。"></a>单一职责（Single Responsibility Principle SRP）：单一职责指的是应该有且仅有一个原因引起类的变更。</h3><p>解析：分清职责，接口一定要做到单一职责，方法也要做到，类尽量做到</p>
+<h3 id="开闭原则"><a href="#开闭原则" class="headerlink" title="开闭原则"></a>开闭原则</h3><p>定义<br>一个软件实体（项目或者软件产品中按照一定的逻辑规则划分的模块）如类、模块和函数应该对扩展开放，对修改关闭<br>解释<br>一个软件产品在开发周期内，肯定会有变化，我们的设计应该尽量适应这些变化，开闭原则则告诉我们尽量通过扩展软件实体的行为来实现变化，而不是修改已有的代码来完成变化。<br>重要性<br>其他几个原则都是开闭原则的具体形态；<br>可提高复用性；可提高可维护性<br>使用<br>抽象约束、元数据控制模块行为、制定项目章程、封装变化<br>封装变化有两层含义：<br>第一：将相同的变化封装到一个接口或抽象类中；<br>第二：将不同的变化封装到不同的接口或抽象类中。</p>
+<p>23种设计模式都是从各个不同的角度对变化进行封装的</p>
+<h3 id="里氏替换（Liskov-Substitution-Principle-LSP）"><a href="#里氏替换（Liskov-Substitution-Principle-LSP）" class="headerlink" title="里氏替换（Liskov Substitution Principle LSP）"></a>里氏替换（Liskov Substitution Principle LSP）</h3><p>定义：所有引用基类的地方必须能透明地使用其子类的对象，通俗的来讲就是父类能出现的地方子类就可以出现，但是反过来就不行了。子类可以扩展父类的功能，但不能改变父类原有的功能。</p>
+<p>定义包含四层意思：<br>1） 子类可以实现父的抽象方法，但不能覆写父类的非抽象方法。 父类中凡是已经实现好的方法（相对于抽象方法而言），实际上是在设定一系列的规范和契约，虽然它不强制要求所有的子类必须遵从这些契约，但是如果子类对这些非抽象方法任意修改，就会对整个继承体系造成破坏。<br>2） 子类中可以增加自己特有的方法。<br>3） 覆写或实现父类的方法时，输入参数可以被放大。（覆写指的覆写一个正常方法并重写，是实现指的是实现接口或者抽象方法）<br>4） 覆写或实现父类的方法时输出结果可以被缩小（若放大，还能用子类替换父类吗？）</p>
+<p>说明：</p>
+<ol>
+<li>为良好的继承定义了一个规范；</li>
+<li>在类中调用其他类时务必要使用父类或者接口，如果不能使用父类或者接口，则说明类的设计已经违背了LSP原则；</li>
+<li>我们在做系统设计时，经常会定义一个接口或者抽象类，然后编码实现，调用类则直接传入接口或者抽象类，不关心具体实现；</li>
+<li>如果子类不能完整地实现父类的方法，或者父类的某些方法在子类中已经发生“畸变”，则建议断开父子继承关系，采用依赖、聚集、组合等关系代替继承；</li>
+<li>在项目中采用里氏替换原则时，尽量避免子类的个性，一旦子类有个性这个子类和父类的关系就很难调和了。</li>
+</ol>
+<h3 id="迪米特法则（Least-Knowledge-Principle-LKP）也称为最少知识原则："><a href="#迪米特法则（Least-Knowledge-Principle-LKP）也称为最少知识原则：" class="headerlink" title="迪米特法则（Least Knowledge Principle LKP）也称为最少知识原则："></a>迪米特法则（Least Knowledge Principle LKP）也称为最少知识原则：</h3><p>描述：一个对象应该对其他对象有最少的了解，一个类只需要知道自己需要耦合或者调用类的public方法即可。一个类公开的public方法越多，修改时涉及的面也越大，变更的风险也越大。</p>
+<p>核心观念：类间的解耦，弱耦合，但是也要衡量，既要让结构清晰，又要高内聚低耦合，我们在使用原则时，要反复衡量。</p>
+<p>解释：一个类只和朋友类交流，出现在成员变量、方法的输入输出参数中的类称为成员朋友类，而出现在方法体内部的类不属于朋友类。</p>
+<p>实践：在实际中如果遇到，一个方法放在本类中也可以，放在其他类中也合适，那么你可以坚持这样一个原则：如果一个方法放在本类中，既不增加类间关系，也 对本类不产生负面影响，那就放置在本类中。</p>
+<h3 id="接口隔离（Interface-Segregation-Principle-ISP）"><a href="#接口隔离（Interface-Segregation-Principle-ISP）" class="headerlink" title="接口隔离（Interface Segregation Principle ISP）"></a>接口隔离（Interface Segregation Principle ISP）</h3><p>定义：<br>把一个臃肿的接口变更为两个独立的接口所依赖的原则就是接口隔离原则（首先必须满足单一职责原则）；</p>
+<p>说明：<br>客户端不应该依赖它不需要的接口；类间的依赖关系应该建立在最小的接口上；</p>
+<p>原则：<br>1）一个接口只服务于一个子模块或业务逻辑，接口要高内聚<br>2）通过业务逻辑压缩接口中的public方法<br>3）已被污染的接口尽量去修改，若变更风险大，可用适配器模式进行转化处理<br>4）定制服务，为不同的用户定制不同的服务，了解业务背景，避免生搬硬套模式。</p>
+<p>开发中只能根据，经验和常识来判断接口粒度的大小。</p>
+<h3 id="依赖倒置原则（Dependence-Inversion-Principle-DIP）"><a href="#依赖倒置原则（Dependence-Inversion-Principle-DIP）" class="headerlink" title="依赖倒置原则（Dependence Inversion Principle DIP）"></a>依赖倒置原则（Dependence Inversion Principle DIP）</h3><p>定义：<br>1）高层模块不应该依赖低层模块<br>2）抽象不应该依赖细节<br>3）细节依赖抽象</p>
+<p>在Java中的表现为：面向接口编程 OOP<br>1）模块间的依赖通过抽象发生，实现类间不发生直接的依赖关系，其依赖关系通过接口或者抽象类产生；<br>2）接口或抽象类不依赖于实现类<br>3）实现类依赖于接口或者抽象类</p>
+<p>好处：<br>依赖倒置原则可以减少类之间的耦合性，提高系统的稳定性；降低并行开发引起的风险。<br>要并行开发就要解决模块间的依赖关系，依赖倒置原则正好解决这个问题。<br>在Java中，只要定义变量就必然要有类型，一个变量可以有两种类型，表面类型和实际类型，UserDao是表面类型，UserDaoImpl是实际类型。</p>
+<p>依赖的三种写法：<br>依赖是可以传递的，只要做到抽象依赖，即使是多层的依赖也没关系。<br>1）构造函数传递依赖对象<br>2）Setter方法传递依赖对象<br>3）接口方法中传入依赖对象</p>
+<p>最佳实践：<br>1）每个类尽量都有接口或者抽象类<br>2）变量的表面类型尽量是接口或者抽象类<br>3）不从具体类派生类<br>4）尽量不覆写基类的方法，只实现；</p>
+<p>倒置的概念就是所谓的抽象依赖。</p>
 
       
     </div>
@@ -475,8 +502,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -580,6 +616,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#单一职责（Single-Responsibility-Principle-SRP）：单一职责指的是应该有且仅有一个原因引起类的变更。"><span class="nav-number">1.</span> <span class="nav-text">单一职责（Single Responsibility Principle SRP）：单一职责指的是应该有且仅有一个原因引起类的变更。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开闭原则"><span class="nav-number">2.</span> <span class="nav-text">开闭原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#里氏替换（Liskov-Substitution-Principle-LSP）"><span class="nav-number">3.</span> <span class="nav-text">里氏替换（Liskov Substitution Principle LSP）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迪米特法则（Least-Knowledge-Principle-LKP）也称为最少知识原则："><span class="nav-number">4.</span> <span class="nav-text">迪米特法则（Least Knowledge Principle LKP）也称为最少知识原则：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接口隔离（Interface-Segregation-Principle-ISP）"><span class="nav-number">5.</span> <span class="nav-text">接口隔离（Interface Segregation Principle ISP）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#依赖倒置原则（Dependence-Inversion-Principle-DIP）"><span class="nav-number">6.</span> <span class="nav-text">依赖倒置原则（Dependence Inversion Principle DIP）</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
