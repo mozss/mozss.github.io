@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="MOZSS">
 <meta property="og:description" content="面向对象的两个重要元素：类和接口。设计原则就是类，接口，类和接口协作的时候需要满足的原则。 使用场景    描述接口设计隔离原则；单一原则类的设计1.类本身要考虑类的职责是否单一（单一原则）；2.继承关系的类要注意子类是否改变父类的方法，目标是不要改变，子类应该只扩展父类的行为（里氏替换原则，开闭原则），这样才能把将来子类变化时产生的影响缩小到最小的范围；顶层框架设计（类和接口的协作）    1.">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-24T13:55:05.429Z">
+<meta property="og:updated_time" content="2019-07-25T23:53:10.718Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基本功之设计原则&amp;设计模式（概要）：6原则&amp;23模式">
 <meta name="twitter:description" content="面向对象的两个重要元素：类和接口。设计原则就是类，接口，类和接口协作的时候需要满足的原则。 使用场景    描述接口设计隔离原则；单一原则类的设计1.类本身要考虑类的职责是否单一（单一原则）；2.继承关系的类要注意子类是否改变父类的方法，目标是不要改变，子类应该只扩展父类的行为（里氏替换原则，开闭原则），这样才能把将来子类变化时产生的影响缩小到最小的范围；顶层框架设计（类和接口的协作）    1.">
@@ -408,6 +408,7 @@
 <p>依赖的三种写法：<br>依赖是可以传递的，只要做到抽象依赖，即使是多层的依赖也没关系。<br>1）构造函数传递依赖对象<br>2）Setter方法传递依赖对象<br>3）接口方法中传入依赖对象</p>
 <p>最佳实践：<br>1）每个类尽量都有接口或者抽象类<br>2）变量的表面类型尽量是接口或者抽象类<br>3）不从具体类派生类<br>4）尽量不覆写基类的方法，只实现；</p>
 <p>倒置的概念就是所谓的抽象依赖。</p>
+<h3 id="分布式设计原则"><a href="#分布式设计原则" class="headerlink" title="分布式设计原则"></a>分布式设计原则</h3><p>系统设计<br>    系统设计基础<br>        性能、伸缩性、扩展性、可用性、安全性<br>    分布式<br>        分布式锁、分布式事务、CAP、BASE、Paxos、Raft<br>    集群<br>        负载均衡、Session 管理<br>    攻击技术<br>        XSS、CSRF、SQL 注入、DDoS<br>    缓存<br>        缓存特征、缓存位置、缓存问题、数据分布、一致性哈希、LRU、CDN<br>    消息队列<br>        消息处理模型、使用场景、可靠性</p>
 
       
     </div>
@@ -626,7 +627,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#单一职责（Single-Responsibility-Principle-SRP）：单一职责指的是应该有且仅有一个原因引起类的变更。"><span class="nav-number">1.</span> <span class="nav-text">单一职责（Single Responsibility Principle SRP）：单一职责指的是应该有且仅有一个原因引起类的变更。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开闭原则"><span class="nav-number">2.</span> <span class="nav-text">开闭原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#里氏替换（Liskov-Substitution-Principle-LSP）"><span class="nav-number">3.</span> <span class="nav-text">里氏替换（Liskov Substitution Principle LSP）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迪米特法则（Least-Knowledge-Principle-LKP）也称为最少知识原则："><span class="nav-number">4.</span> <span class="nav-text">迪米特法则（Least Knowledge Principle LKP）也称为最少知识原则：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接口隔离（Interface-Segregation-Principle-ISP）"><span class="nav-number">5.</span> <span class="nav-text">接口隔离（Interface Segregation Principle ISP）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#依赖倒置原则（Dependence-Inversion-Principle-DIP）"><span class="nav-number">6.</span> <span class="nav-text">依赖倒置原则（Dependence Inversion Principle DIP）</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#单一职责（Single-Responsibility-Principle-SRP）：单一职责指的是应该有且仅有一个原因引起类的变更。"><span class="nav-number">1.</span> <span class="nav-text">单一职责（Single Responsibility Principle SRP）：单一职责指的是应该有且仅有一个原因引起类的变更。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开闭原则"><span class="nav-number">2.</span> <span class="nav-text">开闭原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#里氏替换（Liskov-Substitution-Principle-LSP）"><span class="nav-number">3.</span> <span class="nav-text">里氏替换（Liskov Substitution Principle LSP）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迪米特法则（Least-Knowledge-Principle-LKP）也称为最少知识原则："><span class="nav-number">4.</span> <span class="nav-text">迪米特法则（Least Knowledge Principle LKP）也称为最少知识原则：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接口隔离（Interface-Segregation-Principle-ISP）"><span class="nav-number">5.</span> <span class="nav-text">接口隔离（Interface Segregation Principle ISP）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#依赖倒置原则（Dependence-Inversion-Principle-DIP）"><span class="nav-number">6.</span> <span class="nav-text">依赖倒置原则（Dependence Inversion Principle DIP）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式设计原则"><span class="nav-number">7.</span> <span class="nav-text">分布式设计原则</span></a></li></ol></div>
             
 
           </div>
