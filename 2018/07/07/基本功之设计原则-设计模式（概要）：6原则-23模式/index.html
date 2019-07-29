@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="面向对象的两个重要元素：类和接口。设计原则就是类，接口，类和接口协作的时候需要满足的原则。 使用场景    描述接口设计隔离原则；单一原则类的设计1.类本身要考虑类的职责是否单一（单一原则）；2.继承关系的类要注意子类是否改变父类的方法，目标是不要改变，子类应该只扩展父类的行为（里氏替换原则，开闭原则），这样才能把将来子类变化时产生的影响缩小到最小的范围；顶层框架设计（类和接口的协作）    1.">
+<meta name="description" content="前言本系列的文章为设计模式的学习笔记本，主要参考书籍为阎宏博士的《Java与模式》，从大学听到“设计模式”这个词之后的几年里，也之前陆陆 续续看过一些大佬们写的设计模式相关的书籍。这些书的组织结构基本类似，从“什么是设计模式？”问题引入，然后是6大设计原则和23种设计模 式的简单介绍，之后是这些设计模式也是应用案例。由于公司内部培训的原因，我师父“爽姐”抽空让我深入学习一下设计模式，公司有多本设计">
 <meta name="keywords" content="设计原则与设计模式">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基本功之设计原则&amp;设计模式（概要）：6原则&amp;23模式">
 <meta property="og:url" content="http://yoursite.com/2018/07/07/基本功之设计原则-设计模式（概要）：6原则-23模式/index.html">
 <meta property="og:site_name" content="MOZSS">
-<meta property="og:description" content="面向对象的两个重要元素：类和接口。设计原则就是类，接口，类和接口协作的时候需要满足的原则。 使用场景    描述接口设计隔离原则；单一原则类的设计1.类本身要考虑类的职责是否单一（单一原则）；2.继承关系的类要注意子类是否改变父类的方法，目标是不要改变，子类应该只扩展父类的行为（里氏替换原则，开闭原则），这样才能把将来子类变化时产生的影响缩小到最小的范围；顶层框架设计（类和接口的协作）    1.">
+<meta property="og:description" content="前言本系列的文章为设计模式的学习笔记本，主要参考书籍为阎宏博士的《Java与模式》，从大学听到“设计模式”这个词之后的几年里，也之前陆陆 续续看过一些大佬们写的设计模式相关的书籍。这些书的组织结构基本类似，从“什么是设计模式？”问题引入，然后是6大设计原则和23种设计模 式的简单介绍，之后是这些设计模式也是应用案例。由于公司内部培训的原因，我师父“爽姐”抽空让我深入学习一下设计模式，公司有多本设计">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-25T23:53:10.718Z">
+<meta property="og:updated_time" content="2019-07-29T02:57:36.530Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基本功之设计原则&amp;设计模式（概要）：6原则&amp;23模式">
-<meta name="twitter:description" content="面向对象的两个重要元素：类和接口。设计原则就是类，接口，类和接口协作的时候需要满足的原则。 使用场景    描述接口设计隔离原则；单一原则类的设计1.类本身要考虑类的职责是否单一（单一原则）；2.继承关系的类要注意子类是否改变父类的方法，目标是不要改变，子类应该只扩展父类的行为（里氏替换原则，开闭原则），这样才能把将来子类变化时产生的影响缩小到最小的范围；顶层框架设计（类和接口的协作）    1.">
+<meta name="twitter:description" content="前言本系列的文章为设计模式的学习笔记本，主要参考书籍为阎宏博士的《Java与模式》，从大学听到“设计模式”这个词之后的几年里，也之前陆陆 续续看过一些大佬们写的设计模式相关的书籍。这些书的组织结构基本类似，从“什么是设计模式？”问题引入，然后是6大设计原则和23种设计模 式的简单介绍，之后是这些设计模式也是应用案例。由于公司内部培训的原因，我师父“爽姐”抽空让我深入学习一下设计模式，公司有多本设计">
 
 
 
@@ -374,13 +374,46 @@
       
 
       
-        <p>面向对象的两个重要元素：类和接口。设计原则就是类，接口，类和接口协作的时候需要满足的原则。</p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>本系列的文章为设计模式的学习笔记本，主要参考书籍为阎宏博士的《Java与模式》，从大学听到“设计模式”这个词之后的几年里，也之前陆陆
+续续看过一些大佬们写的设计模式相关的书籍。这些书的组织结构基本类似，从“什么是设计模式？”问题引入，然后是6大设计原则和23种设计模
+式的简单介绍，之后是这些设计模式也是应用案例。由于公司内部培训的原因，我师父“爽姐”抽空让我深入学习一下设计模式，公司有多本设计模式
+相关的书籍，大概翻了翻之后，我选择了阎宏博士的《Java与模式》一书进行拜读。</code></pre><h3 id="我自己对于设计模式的认知"><a href="#我自己对于设计模式的认知" class="headerlink" title="我自己对于设计模式的认知"></a>我自己对于设计模式的认知</h3><pre><code>书的序言中，朱天华博士提到“软件是人类心灵和智慧在虚拟空间中的投射。软件的性能就是人类能力的扩展，它的活动就是人类心智活动的反应。
+软件直接表达出设计者对于目标的理解，对用户的期待，以及对自己的定位。”
+
+没有参加工作之前，在我的心里，软件是“自由的”，它是人类社会在另一个世界的体现。工作之后，我快速上后公司的业务和技术体系之后，开始
+拼命造轮子，时间就久了，造轮子也就成了忙碌的日常，繁重的开发任务让我再也不想在业余时间看一行代码。自己编写的代码不但没有长进，反而
+经常犯低级性错误，这让我很是头疼。我再次学习设计模式之后，我意识到是自己的编程能力到达了某一个节点，我必须提升自己的编程能力，让自己
+对编程这件事情再次变得积极。</code></pre><h3 id="什么是设计模式？"><a href="#什么是设计模式？" class="headerlink" title="什么是设计模式？"></a>什么是设计模式？</h3><pre><code>OOP编程下，一系列结构合理，易于复用，易于维护的解决方案。</code></pre><h3 id="设计原则和23种设计模式"><a href="#设计原则和23种设计模式" class="headerlink" title="设计原则和23种设计模式"></a>设计原则和23种设计模式</h3><h3 id="6大设计原则概述"><a href="#6大设计原则概述" class="headerlink" title="6大设计原则概述"></a>6大设计原则概述</h3><table>
+<thead>
+<tr>
+<th align="center">设计原则名称</th>
+<th align="center">英文名称</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">单一原则</td>
+<td align="center">Single Responsibility Principle</td>
+</tr>
+<tr>
+<td align="center">开闭原则</td>
+<td align="center">Open Closed Principle</td>
+</tr>
+<tr>
+<td align="center">里氏替换原则</td>
+<td align="center">Liskov Substitution Principle</td>
+</tr>
+<tr>
+<td align="center">接口隔离原则</td>
+<td align="center">Interface Segregation Principle</td>
+</tr>
+<tr>
+<td align="center">依赖倒置原则</td>
+<td align="center">Dependence Inversion Principle</td>
+</tr>
+</tbody></table>
+<p>这五个原则的首字母联合起来 Solid 稳定的<br>此外还有第六个原则：Law of Demeter(迪米特法则)不常用</p>
+<h3 id="23种设计原则概述"><a href="#23种设计原则概述" class="headerlink" title="23种设计原则概述"></a>23种设计原则概述</h3><p>面向对象的两个重要元素：类和接口。设计原则就是类，接口，类和接口协作的时候需要满足的原则。</p>
 <p>使用场景    描述<br>接口设计<br>隔离原则；单一原则<br>类的设计<br>1.类本身<br>要考虑类的职责是否单一（单一原则）；<br>2.继承关系的类<br>要注意子类是否改变父类的方法，目标是不要改变，子类应该只扩展父类的行为（里氏替换原则，开闭原则），这样才能把将来子类变化时产生的影响缩小到最小的范围；<br>顶层框架设计<br>（类和接口的协作）    1.接口之间<br>考虑相互协作，协作应该是接口之间发生关系，接口之间的调用（依赖倒置原则）；<br>2.类之间<br>当1个类需要和其他类发生调用关系时，可以考虑增加1个中间者来转发调用关系（迪米特法则，不常用），缩小类更变影响的范围。</p>
-<p>设计原则名称    英文    备注<br>单一职责<br>Single Responsibility Principle</p>
-<p>开闭原则<br>Open Closed Principle<br>最基础的设计原则<br>里氏替换<br>Liskov Substitution Principle</p>
-<p>接口隔离<br>Interface Segregation Principle</p>
-<p>依赖倒置<br>Dependence Inversion Principle</p>
-<p>这六个字母联合起来 Solid 稳定的；<br>Law of Demeter(迪米特法则)不常用</p>
 <h3 id="单一职责（Single-Responsibility-Principle-SRP）：单一职责指的是应该有且仅有一个原因引起类的变更。"><a href="#单一职责（Single-Responsibility-Principle-SRP）：单一职责指的是应该有且仅有一个原因引起类的变更。" class="headerlink" title="单一职责（Single Responsibility Principle SRP）：单一职责指的是应该有且仅有一个原因引起类的变更。"></a>单一职责（Single Responsibility Principle SRP）：单一职责指的是应该有且仅有一个原因引起类的变更。</h3><p>解析：分清职责，接口一定要做到单一职责，方法也要做到，类尽量做到</p>
 <h3 id="开闭原则"><a href="#开闭原则" class="headerlink" title="开闭原则"></a>开闭原则</h3><p>定义<br>一个软件实体（项目或者软件产品中按照一定的逻辑规则划分的模块）如类、模块和函数应该对扩展开放，对修改关闭<br>解释<br>一个软件产品在开发周期内，肯定会有变化，我们的设计应该尽量适应这些变化，开闭原则则告诉我们尽量通过扩展软件实体的行为来实现变化，而不是修改已有的代码来完成变化。<br>重要性<br>其他几个原则都是开闭原则的具体形态；<br>可提高复用性；可提高可维护性<br>使用<br>抽象约束、元数据控制模块行为、制定项目章程、封装变化<br>封装变化有两层含义：<br>第一：将相同的变化封装到一个接口或抽象类中；<br>第二：将不同的变化封装到不同的接口或抽象类中。</p>
 <p>23种设计模式都是从各个不同的角度对变化进行封装的</p>
@@ -627,7 +660,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#单一职责（Single-Responsibility-Principle-SRP）：单一职责指的是应该有且仅有一个原因引起类的变更。"><span class="nav-number">1.</span> <span class="nav-text">单一职责（Single Responsibility Principle SRP）：单一职责指的是应该有且仅有一个原因引起类的变更。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开闭原则"><span class="nav-number">2.</span> <span class="nav-text">开闭原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#里氏替换（Liskov-Substitution-Principle-LSP）"><span class="nav-number">3.</span> <span class="nav-text">里氏替换（Liskov Substitution Principle LSP）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迪米特法则（Least-Knowledge-Principle-LKP）也称为最少知识原则："><span class="nav-number">4.</span> <span class="nav-text">迪米特法则（Least Knowledge Principle LKP）也称为最少知识原则：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接口隔离（Interface-Segregation-Principle-ISP）"><span class="nav-number">5.</span> <span class="nav-text">接口隔离（Interface Segregation Principle ISP）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#依赖倒置原则（Dependence-Inversion-Principle-DIP）"><span class="nav-number">6.</span> <span class="nav-text">依赖倒置原则（Dependence Inversion Principle DIP）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式设计原则"><span class="nav-number">7.</span> <span class="nav-text">分布式设计原则</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#我自己对于设计模式的认知"><span class="nav-number">2.</span> <span class="nav-text">我自己对于设计模式的认知</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是设计模式？"><span class="nav-number">3.</span> <span class="nav-text">什么是设计模式？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设计原则和23种设计模式"><span class="nav-number">4.</span> <span class="nav-text">设计原则和23种设计模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6大设计原则概述"><span class="nav-number">5.</span> <span class="nav-text">6大设计原则概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#23种设计原则概述"><span class="nav-number">6.</span> <span class="nav-text">23种设计原则概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单一职责（Single-Responsibility-Principle-SRP）：单一职责指的是应该有且仅有一个原因引起类的变更。"><span class="nav-number">7.</span> <span class="nav-text">单一职责（Single Responsibility Principle SRP）：单一职责指的是应该有且仅有一个原因引起类的变更。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开闭原则"><span class="nav-number">8.</span> <span class="nav-text">开闭原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#里氏替换（Liskov-Substitution-Principle-LSP）"><span class="nav-number">9.</span> <span class="nav-text">里氏替换（Liskov Substitution Principle LSP）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迪米特法则（Least-Knowledge-Principle-LKP）也称为最少知识原则："><span class="nav-number">10.</span> <span class="nav-text">迪米特法则（Least Knowledge Principle LKP）也称为最少知识原则：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接口隔离（Interface-Segregation-Principle-ISP）"><span class="nav-number">11.</span> <span class="nav-text">接口隔离（Interface Segregation Principle ISP）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#依赖倒置原则（Dependence-Inversion-Principle-DIP）"><span class="nav-number">12.</span> <span class="nav-text">依赖倒置原则（Dependence Inversion Principle DIP）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式设计原则"><span class="nav-number">13.</span> <span class="nav-text">分布式设计原则</span></a></li></ol></div>
             
 
           </div>
