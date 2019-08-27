@@ -458,6 +458,18 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[Linux下安装Mysql_5.7]]></title>
+    <url>%2F2018%2F08%2F27%2FLinux%E4%B8%8B%E5%AE%89%E8%A3%85Mysql%2F</url>
+    <content type="text"><![CDATA[参考：https://www.jianshu.com/p/531cc35b15e7 安装说明：以下安装基于CentOS 7 配置yum源 现在centos上默认是没有yum源的，yum安装的是 MariaDB。因此需先配置yum源。下载yum源：wget ‘https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm&#39;安装yum源：rpm -Uvh mysql57-community-release-el7-11.noarch.rpm查看有哪些版本的mysql: yum repolist all | grep mysql 安装Mysql yum install -y mysql-community-server 启动Mysql 需要注意： 1.在centos7中，没有了service命令，都是使用systemctl命令； 2.命令中是mysqld而不是mysql查看状态：systemctl status mysqld 登录数据库+修改密码mysql5.7的新特性之一就是在初始化的时候会生成一个自定义的密码，然后你需要找到这个密码，登录的时候输入。注意，输入密码的时候是不显示。 找到密码: grep ‘temporary password’ /var/log/mysqld.log 登录数据库：mysql -uroot -p （-p之后不用输入密码，回车后再输入） 修改密码：注意，密码需复杂（大小写字母+数字+符号），否则修改不成功。切记，mysql里面的命令要加分号！SET PASSWORD = PASSWORD(‘PassWord1234!’); 配置 设置可以远程登录 1.这里需要关掉CentOS7的防火墙（否则需要设置防火墙规则），如果这里不设置，在使用Navicat连接过程中会报10038错误ystemctl stop firewalld.service //停止firewallsystemctl disable firewalld.service //禁止firewall开机启动firewall-cmd –state //查看默认防火墙状态（关闭后显示notrunning，开启后显示running） 2.云服务器上的3306端口开放+配置远程可以访问：GRANT ALL PRIVILEGES ON . TO ‘root’@’%’ IDENTIFIED BY ‘Admin123!’ WITH GRANT OPTION;3.flush命令使配置立即生效： flush privileges; 其他配置1.默认的字符集是拉丁字符集，需要修改为utf8；2.默认还不支持group by语句,需要开启；3.默认的时区非北京时间(东八区)，需要修改。先输入exit退出数据库客户端，然后打开配置文件(vim /etc/my.cnf )，yum安装的默认在/etc文件夹下。 在字符串“[mysqld]”下面添加下方三行内容，不需要分号。（注意是utf8而不是utf-8!） 12345character-set-server=utf8 sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION default-time_zone = '+8:00' 最后重启数据库，使配置生效：systemctl restart mysqld 补充：show variables like ‘char%’;可以查看数据库的字符集 设置开机启动 script12systemctl enable mysqldsystemctl daemon-reload]]></content>
+      <categories>
+        <category>安装文档</category>
+        <category>数据库</category>
+      </categories>
+      <tags>
+        <tag>Help</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[基本功之设计原则&设计模式（七）：11种行为型之模板模式]]></title>
     <url>%2F2018%2F08%2F23%2F%E5%9F%BA%E6%9C%AC%E5%8A%9F%E4%B9%8B%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%88%E4%B8%83%EF%BC%89%EF%BC%9A11%E7%A7%8D%E8%A1%8C%E4%B8%BA%E5%9E%8B%E4%B9%8B%E6%A8%A1%E6%9D%BF%E6%A8%A1%E5%BC%8F%2F</url>
     <content type="text"></content>
