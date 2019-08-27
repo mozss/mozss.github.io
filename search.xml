@@ -1,19 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[Linux命令之yum]]></title>
-    <url>%2F2019%2F08%2F26%2FLinux%E5%91%BD%E4%BB%A4%E4%B9%8Byum%2F</url>
-    <content type="text"><![CDATA[yum（全称为 Yellow dog Updater, Modified）是一个在Fedora和RedHat以及SUSE中的Shell前端软件包管理器。基于RPM包管理，能够从指定的服务器自动下载RPM包并且安装，可以自动处理依赖性关系，并且一次安装所有依赖的软体包，无须繁琐地一次次下载、安装。yum提供了查找、安装、删除某一个、一组甚至全部软件包的命令，而且命令简洁而又好记。 Redhat和Fedora的软件安装命令是rpm，但是用rpm安装软件最大的麻烦就是需要手动寻找安装该软件所需要的一系列依赖关系，超级 麻烦不说，要是软件不用了需要卸载的话由于卸载掉了某个依赖关系而导致其他的软件不能用是非常恼人的。令人高兴的是，Fedora终于推出了类似于 ubuntu中的apt的命令yum，令Fedora的软件安装变得简单容易。Yum 有以下特点：可以同时配置多个资源库(Repository)简洁的配置文件(/etc/yum.conf)自动解决增加或删除rpm包时遇到的倚赖性问题使用方便保持与RPM数据库的一致性 1 安装yum install 全部安装yum install package1 安装指定的安装包package1yum groupinsall group1 安装程序组group1 2 更新和升级yum update 全部更新yum update package1 更新指定程序包package1yum check-update 检查可更新的程序yum upgrade package1 升级指定程序包package1yum groupupdate group1 升级程序组group1 3 查找和显示yum info package1 显示安装包信息package1yum list 显示所有已经安装和可以安装的程序包yum list package1 显示指定程序包安装情况package1yum groupinfo group1 显示程序组group1信息yum search string 根据关键字string查找安装包 4 删除程序yum remove &#124; erase package1 删除程序包package1yum groupremove group1 删除程序组group1yum deplist package1 查看程序package1依赖情况 5 清除缓存yum clean packages 清除缓存目录下的软件包yum clean headers 清除缓存目录下的 headersyum clean oldheaders 清除缓存目录下旧的 headersyum clean, yum clean all (= yum clean packages; yum clean oldheaders) 清除缓存目录下的软件包及旧的headers]]></content>
-      <categories>
-        <category>基本功</category>
-        <category>Linux基础</category>
-        <category>Linux常用命令</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[做一个成熟的人]]></title>
     <url>%2F2019%2F07%2F17%2F%E5%81%9A%E4%B8%80%E4%B8%AA%E6%88%90%E7%86%9F%E7%9A%84%E4%BA%BA%2F</url>
     <content type="text"><![CDATA[转载一篇文章，已经找不到出处了。 一个人的成熟程度，与其的情商是成正比的，一个人成事的概率也与其情商是成正比的。一：沉稳（1）不要随便显露你的情绪。（2）不要逢人就诉说你的困难和遭遇。（3）在征询别人的意见之前，自己先思考，但不要先讲。（4）不要一有机会就唠叨你的不满。（5）重要的决定尽量有别人商量，最好隔一天再发布。（6）讲话不要有任何的慌张，走路也是。（7）自信是好，但是别忽略任何人的想法。（8）人无高低，不要一副拽拽的样子，对人对事，别忘了礼貌。你没有比任何人优秀。二：细心（1）对身边发生的事情，常思考它们的因果关系。（2）对做不到位的问题，要发掘它们的根本症结。（3）对习以为常的做事方法，要有改进或优化的建议。（4）做什么事情都要养成有条不紊和井然有序的习惯。（5）经常去找几个别人看不出来的毛病或弊端。（6）自己要随时随地对有所不足的地方补位。三：胆识（1）不要常用缺乏自信的词句。（2）不要常常反悔，轻易推翻已经决定的事。（3）在众人争执不休时，不要没有主见。（4）整体氛围低落时，你要乐观、阳光。（5）做任何事情都要用心，因为有人在看着你。（6）事情不顺的时候，歇口气，重新寻找突破口，就结束也要干净利落。四：大度（1）不要刻意把有可能是伙伴的人变成对手。（2）对别人的小过失、小错误不要斤斤计较。（3）在金钱上要大方，学习三施（财施、法施、无畏施）。（4）不要有权力的傲慢和知识的偏见。（5）任何成果和成就都应和别人分享。五：诚信（1）做不到的事情不要说，说了就努力做到。（2）虚的口号或标语不要常挂嘴上。（3）停止一切“不道德”的手段。（4）耍弄小聪明，要不得！六：担当（1）检讨任何过失的时候，先从自身或自己人开始反省。（2）事情结束后，先审查过错，再列述功劳。（3）一个计划，要统筹全局，规划未来。（4）勇于承担责任所造成的损失。七：内涵（1）学习各方面的知识，虚心观察周围的事物。眼界宽阔。（2）了解自己，培养属于自己的审美观。（3）笑对生活。懒惰要不得。培养健康的生活习惯。（4）不要盲目的做任何事。要有目标。（5）不仅仅只关注内在美，外在美也很重要。（6）不要整天的对着电脑，玩着无聊的东西。（7）理智的判断，学会控制情绪。]]></content>
@@ -460,13 +447,27 @@
   <entry>
     <title><![CDATA[Linux下安装Mysql_5.7]]></title>
     <url>%2F2018%2F08%2F27%2FLinux%E4%B8%8B%E5%AE%89%E8%A3%85Mysql%2F</url>
-    <content type="text"><![CDATA[参考：https://www.jianshu.com/p/531cc35b15e7 安装说明：以下安装基于CentOS 7 配置yum源 现在centos上默认是没有yum源的，yum安装的是 MariaDB。因此需先配置yum源。下载yum源：wget ‘https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm&#39;安装yum源：rpm -Uvh mysql57-community-release-el7-11.noarch.rpm查看有哪些版本的mysql: yum repolist all | grep mysql 安装Mysql yum install -y mysql-community-server 启动Mysql 需要注意： 1.在centos7中，没有了service命令，都是使用systemctl命令； 2.命令中是mysqld而不是mysql查看状态：systemctl status mysqld 登录数据库+修改密码mysql5.7的新特性之一就是在初始化的时候会生成一个自定义的密码，然后你需要找到这个密码，登录的时候输入。注意，输入密码的时候是不显示。 找到密码: grep ‘temporary password’ /var/log/mysqld.log 登录数据库：mysql -uroot -p （-p之后不用输入密码，回车后再输入） 修改密码：注意，密码需复杂（大小写字母+数字+符号），否则修改不成功。切记，mysql里面的命令要加分号！SET PASSWORD = PASSWORD(‘PassWord1234!’); 配置 设置可以远程登录 1.这里需要关掉CentOS7的防火墙（否则需要设置防火墙规则），如果这里不设置，在使用Navicat连接过程中会报10038错误ystemctl stop firewalld.service //停止firewallsystemctl disable firewalld.service //禁止firewall开机启动firewall-cmd –state //查看默认防火墙状态（关闭后显示notrunning，开启后显示running） 2.云服务器上的3306端口开放+配置远程可以访问：GRANT ALL PRIVILEGES ON . TO ‘root’@’%’ IDENTIFIED BY ‘Admin123!’ WITH GRANT OPTION;3.flush命令使配置立即生效： flush privileges; 其他配置1.默认的字符集是拉丁字符集，需要修改为utf8；2.默认还不支持group by语句,需要开启；3.默认的时区非北京时间(东八区)，需要修改。先输入exit退出数据库客户端，然后打开配置文件(vim /etc/my.cnf )，yum安装的默认在/etc文件夹下。 在字符串“[mysqld]”下面添加下方三行内容，不需要分号。（注意是utf8而不是utf-8!） 12345character-set-server=utf8 sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION default-time_zone = '+8:00' 最后重启数据库，使配置生效：systemctl restart mysqld 补充：show variables like ‘char%’;可以查看数据库的字符集 设置开机启动 script12systemctl enable mysqldsystemctl daemon-reload]]></content>
+    <content type="text"><![CDATA[参考：https://www.jianshu.com/p/531cc35b15e7 安装 说明：以下安装基于CentOS 7 +Mysql 5.7 配置yum源现在centos上默认是没有yum源的，yum安装的是 MariaDB。因此需先配置yum源。下载yum源： 'https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm'```1234安装yum源：&lt;br&gt;```rpm -Uvh mysql57-community-release-el7-11.noarch.rpm```&lt;br&gt;查看有哪些版本的mysql: &lt;br&gt;```yum repolist all | grep mysql 安装Mysql install -y mysql-community-server```1234567- 启动Mysql&lt;br&gt; 需要注意：&lt;br&gt; 1.在centos7中，没有了service命令，都是使用systemctl命令； 2.命令中是mysqld而不是mysql 查看状态：&lt;br&gt; ```systemctl status mysqld 登录数据库+修改密码mysql5.7的新特性之一就是在初始化的时候会生成一个自定义的密码，然后你需要找到这个密码，登录的时候输入。注意，输入密码的时候是不显示。找到密码: 'temporary password'``` 1234登录数据库：```mysql -uroot -p``` （-p之后不用输入密码，回车后再输入）&lt;br&gt;修改密码：注意，密码需复杂（大小写字母+数字+符号），否则修改不成功。**切记，mysql里面的命令要加分号！**``` SET PASSWORD = PASSWORD(&apos;PassWord1234!&apos;); 配置 设置可以远程登录 1.这里需要关掉CentOS7的防火墙（否则需要设置防火墙规则），如果这里不设置，在使用Navicat连接过程中会报10038错误 script123ystemctl stop firewalld.service //停止firewallsystemctl disable firewalld.service //禁止firewall开机启动firewall-cmd --state //查看默认防火墙状态（关闭后为notrunning） 2.云服务器上的3306端口开放+配置远程可以访问： ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'Admin123!' WITH GRANT OPTION;```13.flush命令使配置立即生效： ```flush privileges; 其他配置1.默认的字符集是拉丁字符集，需要修改为utf8；2.默认还不支持group by语句,需要开启；3.默认的时区非北京时间(东八区)，需要修改。先输入exit退出数据库客户端，然后打开配置文件(vim /etc/my.cnf )，yum安装的默认在/etc文件夹下。 在字符串“[mysqld]”下面添加下方三行内容，不需要分号。（注意是utf8而不是utf-8!） 12345character-set-server=utf8 sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION default-time_zone = '+8:00' 最后重启数据库，使配置生效：restart mysqld```1234567 补充：show variables like &apos;char%&apos;;可以查看数据库的字符集- 设置开机启动```shell script systemctl enable mysqld systemctl daemon-reload]]></content>
       <categories>
+        <category>Help</category>
         <category>安装文档</category>
         <category>数据库</category>
       </categories>
       <tags>
-        <tag>Help</tag>
+        <tag>Mysql</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Linux命令之yum]]></title>
+    <url>%2F2018%2F08%2F26%2FLinux%E5%91%BD%E4%BB%A4%E4%B9%8Byum%2F</url>
+    <content type="text"><![CDATA[yum（全称为 Yellow dog Updater, Modified）是一个在Fedora和RedHat以及SUSE中的Shell前端软件包管理器。基于RPM包管理，能够从指定的服务器自动下载RPM包并且安装，可以自动处理依赖性关系，并且一次安装所有依赖的软体包，无须繁琐地一次次下载、安装。yum提供了查找、安装、删除某一个、一组甚至全部软件包的命令，而且命令简洁而又好记。 Redhat和Fedora的软件安装命令是rpm，但是用rpm安装软件最大的麻烦就是需要手动寻找安装该软件所需要的一系列依赖关系，超级 麻烦不说，要是软件不用了需要卸载的话由于卸载掉了某个依赖关系而导致其他的软件不能用是非常恼人的。令人高兴的是，Fedora终于推出了类似于 ubuntu中的apt的命令yum，令Fedora的软件安装变得简单容易。Yum 有以下特点：可以同时配置多个资源库(Repository)简洁的配置文件(/etc/yum.conf)自动解决增加或删除rpm包时遇到的倚赖性问题使用方便保持与RPM数据库的一致性 1 安装yum install 全部安装yum install package1 安装指定的安装包package1yum groupinsall group1 安装程序组group1 2 更新和升级yum update 全部更新yum update package1 更新指定程序包package1yum check-update 检查可更新的程序yum upgrade package1 升级指定程序包package1yum groupupdate group1 升级程序组group1 3 查找和显示yum info package1 显示安装包信息package1yum list 显示所有已经安装和可以安装的程序包yum list package1 显示指定程序包安装情况package1yum groupinfo group1 显示程序组group1信息yum search string 根据关键字string查找安装包 4 删除程序yum remove &#124; erase package1 删除程序包package1yum groupremove group1 删除程序组group1yum deplist package1 查看程序package1依赖情况 5 清除缓存yum clean packages 清除缓存目录下的软件包yum clean headers 清除缓存目录下的 headersyum clean oldheaders 清除缓存目录下旧的 headersyum clean, yum clean all (= yum clean packages; yum clean oldheaders) 清除缓存目录下的软件包及旧的headers]]></content>
+      <categories>
+        <category>基本功</category>
+        <category>Linux基础</category>
+        <category>Linux常用命令</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>

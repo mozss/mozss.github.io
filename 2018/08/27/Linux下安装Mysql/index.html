@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Help,">
+  <meta name="keywords" content="Mysql,">
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="参考：https://www.jianshu.com/p/531cc35b15e7 安装说明：以下安装基于CentOS 7   配置yum源 现在centos上默认是没有yum源的，yum安装的是 MariaDB。因此需先配置yum源。下载yum源：wget ‘https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm">
-<meta name="keywords" content="Help">
+<meta name="description" content="参考：https://www.jianshu.com/p/531cc35b15e7 安装  说明：以下安装基于CentOS 7 +Mysql 5.7  配置yum源现在centos上默认是没有yum源的，yum安装的是 MariaDB。因此需先配置yum源。下载yum源： &apos;https://dev.mysql.com/get/mysql57-community-release-el7-11.noa">
+<meta name="keywords" content="Mysql">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux下安装Mysql_5.7">
 <meta property="og:url" content="http://yoursite.com/2018/08/27/Linux下安装Mysql/index.html">
 <meta property="og:site_name" content="MOZSS">
-<meta property="og:description" content="参考：https://www.jianshu.com/p/531cc35b15e7 安装说明：以下安装基于CentOS 7   配置yum源 现在centos上默认是没有yum源的，yum安装的是 MariaDB。因此需先配置yum源。下载yum源：wget ‘https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm">
+<meta property="og:description" content="参考：https://www.jianshu.com/p/531cc35b15e7 安装  说明：以下安装基于CentOS 7 +Mysql 5.7  配置yum源现在centos上默认是没有yum源的，yum安装的是 MariaDB。因此需先配置yum源。下载yum源： &apos;https://dev.mysql.com/get/mysql57-community-release-el7-11.noa">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-27T13:34:21.689Z">
+<meta property="og:updated_time" content="2019-08-27T14:15:10.202Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux下安装Mysql_5.7">
-<meta name="twitter:description" content="参考：https://www.jianshu.com/p/531cc35b15e7 安装说明：以下安装基于CentOS 7   配置yum源 现在centos上默认是没有yum源的，yum安装的是 MariaDB。因此需先配置yum源。下载yum源：wget ‘https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm">
+<meta name="twitter:description" content="参考：https://www.jianshu.com/p/531cc35b15e7 安装  说明：以下安装基于CentOS 7 +Mysql 5.7  配置yum源现在centos上默认是没有yum源的，yum安装的是 MariaDB。因此需先配置yum源。下载yum源： &apos;https://dev.mysql.com/get/mysql57-community-release-el7-11.noa">
 
 
 
@@ -315,7 +315,18 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/安装文档/" itemprop="url" rel="index">
+                  <a href="/categories/Help/" itemprop="url" rel="index">
+                    <span itemprop="name">Help</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Help/安装文档/" itemprop="url" rel="index">
                     <span itemprop="name">安装文档</span>
                   </a>
                 </span>
@@ -326,7 +337,7 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/安装文档/数据库/" itemprop="url" rel="index">
+                  <a href="/categories/Help/安装文档/数据库/" itemprop="url" rel="index">
                     <span itemprop="name">数据库</span>
                   </a>
                 </span>
@@ -364,39 +375,36 @@
 
       
         <p>参考：<a href="https://www.jianshu.com/p/531cc35b15e7" target="_blank" rel="noopener">https://www.jianshu.com/p/531cc35b15e7</a></p>
-<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><p>说明：以下安装基于CentOS 7 </p>
+<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><p>  说明：以下安装基于CentOS 7 +Mysql 5.7</p>
 <ul>
-<li><p>配置yum源</p>
-<p>现在centos上默认是没有yum源的，yum安装的是 MariaDB。因此需先配置yum源。<br>下载yum源：wget ‘<a href="https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm&#39;" target="_blank" rel="noopener">https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm&#39;</a><br>安装yum源：rpm -Uvh mysql57-community-release-el7-11.noarch.rpm<br>查看有哪些版本的mysql: yum repolist all | grep mysql</p>
+<li><p>配置yum源<br><br>现在centos上默认是没有yum源的，yum安装的是 MariaDB。因此需先配置yum源。<br><br>下载yum源：<br></p>
+<figure class="highlight plain"><figcaption><span>'https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm'```<br></span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">安装yum源：&lt;br&gt;</span><br><span class="line">```rpm -Uvh mysql57-community-release-el7-11.noarch.rpm```&lt;br&gt;</span><br><span class="line">查看有哪些版本的mysql: &lt;br&gt;</span><br><span class="line">```yum repolist all | grep mysql</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>安装Mysql</p>
-<p>yum install -y mysql-community-server</p>
-</li>
-<li><p>启动Mysql</p>
-<p>需要注意：<br><br>  1.在centos7中，没有了service命令，都是使用systemctl命令；<br>  2.命令中是mysqld而不是mysql<br>查看状态：systemctl status mysqld  </p>
-</li>
-<li><p>登录数据库+修改密码<br><br>mysql5.7的新特性之一就是在初始化的时候会生成一个自定义的密码，然后你需要找到这个密码，登录的时候输入。<br>注意，输入密码的时候是不显示。</p>
-<p>找到密码: grep ‘temporary password’ /var/log/mysqld.log  <br><br>登录数据库：mysql -uroot -p （-p之后不用输入密码，回车后再输入）</p>
-<p>修改密码：注意，密码需复杂（大小写字母+数字+符号），否则修改不成功。<strong>切记，mysql里面的命令要加分号！</strong><br>SET PASSWORD = PASSWORD(‘PassWord1234!’);</p>
+<li><p>安装Mysql<br></p>
+<figure class="highlight plain"><figcaption><span>install -y mysql-community-server```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 启动Mysql&lt;br&gt;</span><br><span class="line">  需要注意：&lt;br&gt;</span><br><span class="line">    1.在centos7中，没有了service命令，都是使用systemctl命令；      </span><br><span class="line">    2.命令中是mysqld而不是mysql</span><br><span class="line">  查看状态：&lt;br&gt;</span><br><span class="line">  ```systemctl status mysqld</span><br></pre></td></tr></table></figure>
+
+
 </li>
 </ul>
-<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><ul>
-<li><p>设置可以远程登录 <br><br>1.这里需要关掉CentOS7的防火墙（否则需要设置防火墙规则），如果这里不设置，在使用Navicat连接过程中会报10038错误<br>ystemctl stop firewalld.service //停止firewall<br>systemctl disable firewalld.service //禁止firewall开机启动<br>firewall-cmd –state //查看默认防火墙状态（关闭后显示notrunning，开启后显示running）</p>
-<p>2.云服务器上的3306端口开放+配置远程可以访问：<br>GRANT ALL PRIVILEGES ON <em>.</em> TO ‘root’@’%’ IDENTIFIED BY ‘Admin123!’ WITH GRANT OPTION;<br>3.flush命令使配置立即生效： flush privileges;</p>
 <ul>
-<li><p>其他配置<br><br>1.默认的字符集是拉丁字符集，需要修改为utf8；<br><br>2.默认还不支持group by语句,需要开启；<br><br>3.默认的时区非北京时间(东八区)，需要修改。<br><br>先输入exit退出数据库客户端，然后打开配置文件(vim /etc/my.cnf  )，yum安装的默认在/etc文件夹下。</p>
+<li>登录数据库+修改密码<br><br>mysql5.7的新特性之一就是在初始化的时候会生成一个自定义的密码，然后你需要找到这个密码，登录的时候输入。<br><br>注意，输入密码的时候是不显示。<br><br>找到密码: <figure class="highlight plain"><figcaption><span>'temporary password'</span><a href="/var/log/mysqld.log">``` <br></a></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">登录数据库：```mysql -uroot -p``` （-p之后不用输入密码，回车后再输入）&lt;br&gt;</span><br><span class="line"></span><br><span class="line">修改密码：注意，密码需复杂（大小写字母+数字+符号），否则修改不成功。**切记，mysql里面的命令要加分号！**</span><br><span class="line">```  SET PASSWORD = PASSWORD(&apos;PassWord1234!&apos;);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><ul>
+<li><p>设置可以远程登录 <br><br>1.这里需要关掉CentOS7的防火墙（否则需要设置防火墙规则），如果这里不设置，在使用Navicat连接过程中会报10038错误<br></p>
+ <figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ystemctl stop firewalld.service //停止firewall</span><br><span class="line">systemctl disable firewalld.service //禁止firewall开机启动</span><br><span class="line">firewall-cmd --state //查看默认防火墙状态（关闭后为notrunning）</span><br></pre></td></tr></table></figure>
+
+<p>2.云服务器上的3306端口开放+配置远程可以访问：<br></p>
+<figure class="highlight plain"><figcaption><span>ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'Admin123!' WITH GRANT OPTION;```<br></span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3.flush命令使配置立即生效： ```flush privileges;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<ul>
+<li><p>其他配置<br><br>1.默认的字符集是拉丁字符集，需要修改为utf8；<br><br>2.默认还不支持group by语句,需要开启；<br><br>3.默认的时区非北京时间(东八区)，需要修改。<br><br>先输入exit退出数据库客户端，然后打开配置文件(vim /etc/my.cnf  )，yum安装的默认在/etc文件夹下。<br></p>
 <p>在字符串“[mysqld]”下面添加下方三行内容，不需要分号。（注意是utf8而不是utf-8!）<br></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">character-set-server=utf8 </span><br><span class="line"></span><br><span class="line">sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION</span><br><span class="line">  </span><br><span class="line">default-time_zone = '+8:00'</span><br></pre></td></tr></table></figure>
 
-<p>最后重启数据库，使配置生效：systemctl restart mysqld</p>
-<p>补充：show variables like ‘char%’;可以查看数据库的字符集</p>
-</li>
-<li><p>设置开机启动</p>
-<figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable mysqld</span><br><span class="line">systemctl daemon-reload</span><br></pre></td></tr></table></figure>
-
-
-</li>
-</ul>
+<p>最后重启数据库，使配置生效：<figure class="highlight plain"><figcaption><span>restart mysqld```<br></span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> </span><br><span class="line"> 补充：show variables like &apos;char%&apos;;可以查看数据库的字符集</span><br><span class="line"></span><br><span class="line">- 设置开机启动</span><br><span class="line">```shell script</span><br><span class="line">  systemctl enable mysqld</span><br><span class="line">  systemctl daemon-reload</span><br></pre></td></tr></table></figure></p>
 </li>
 </ul>
 
@@ -416,7 +424,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Help/" rel="tag"># Help</a>
+            <a href="/tags/Mysql/" rel="tag"># Mysql</a>
           
         </div>
       
@@ -429,8 +437,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/23/基本功之设计原则-设计模式（七）：11种行为型之模板模式/" rel="next" title="基本功之设计原则&设计模式（七）：11种行为型之模板模式">
-                <i class="fa fa-chevron-left"></i> 基本功之设计原则&设计模式（七）：11种行为型之模板模式
+              <a href="/2018/08/26/Linux命令之yum/" rel="next" title="Linux命令之yum">
+                <i class="fa fa-chevron-left"></i> Linux命令之yum
               </a>
             
           </div>
@@ -531,7 +539,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-count">50</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
