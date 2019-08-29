@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
+<!DOCTYPE html><html class="theme-next gemini use-motion" lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -362,7 +354,7 @@
       
 
       
-        <p><img src="/../about/postsImages/work/%E5%9F%BA%E6%9C%AC%E5%8A%9F/10%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/bj/1.png" alt> </p>
+        <meta name="generator" content="Hexo 3.9.0"><p><img src="/../about/postsImages/work/%E5%9F%BA%E6%9C%AC%E5%8A%9F/10%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/bj/1.png" alt> </p>
 <a id="more"></a> 
 
 
@@ -372,7 +364,7 @@
 <li>交换元素：最小元素是待排序的第一个元素，无操作；最小元素不是带一个，将于第一个元素交换；</li>
 <li>完成前两步，待排序列为N-1，重复上述操作，直到排序结束。</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChoiceSort</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] sort(<span class="keyword">int</span>[] array)&#123;</span><br><span class="line">        <span class="comment">//总共要经过N-1轮比较</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; array.length-<span class="number">1</span> ; i++)&#123; </span><br><span class="line">            <span class="keyword">int</span> min = i;</span><br><span class="line">            <span class="comment">//每轮需要比较的次数</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = i+<span class="number">1</span> ; j &lt; array.length ; j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(array[j]&lt;array[min])&#123;</span><br><span class="line">                    min = j;<span class="comment">//记录目前能找到的最小值元素的下标</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//将找到的最小值和i位置所在的值进行交换</span></span><br><span class="line">            <span class="keyword">if</span>(i != min)&#123;</span><br><span class="line">                <span class="keyword">int</span> temp = array[i];</span><br><span class="line">                array[i] = array[min];</span><br><span class="line">                array[min] = temp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> array;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChoiceSort</span> </span>{</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] sort(<span class="keyword">int</span>[] array){</span><br><span class="line">        <span class="comment">//总共要经过N-1轮比较</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i < array.length-<span class="number">1</span> ; i++){ </span><br><span class="line">            <span class="keyword">int</span> min = i;</span><br><span class="line">            <span class="comment">//每轮需要比较的次数</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = i+<span class="number">1</span> ; j < array.length ; j++){</span><br><span class="line">                <span class="keyword">if</span>(array[j]<array[min]){< span><br><span class="line">                    min = j;<span class="comment">//记录目前能找到的最小值元素的下标</span></span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">            <span class="comment">//将找到的最小值和i位置所在的值进行交换</span></span><br><span class="line">            <span class="keyword">if</span>(i != min){</span><br><span class="line">                <span class="keyword">int</span> temp = array[i];</span><br><span class="line">                array[i] = array[min];</span><br><span class="line">                array[min] = temp;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> array;</span><br><span class="line">    }</span><br><span class="line">}</span><br></array[min]){<></span></pre></td></tr></tbody></table></figure>
 
 
       
@@ -612,7 +604,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">© <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -800,5 +792,6 @@
 
   
 
-</body>
-</html>
+
+
+<script type="text/javascript" charset="utf-8" src="/js/lazyload-plugin/lazyload.intersectionObserver.min.js"></script></body></html>
