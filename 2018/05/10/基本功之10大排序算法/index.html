@@ -79,22 +79,20 @@
 
 
 
-<meta name="description" content="10大排序算法很基础，网络上很多的图已经做了总结：  关于稳定性 稳定的：冒泡、插入、归并和基数。 不稳定的：选择、快速、希尔、堆（记忆：不选快希堆）。 名词解释：  n：数据规模  k：”桶”的个数  In-place：占用常数内存，不占用额外内存  Out-place：占用额外内存  稳定性：排序后 2 个相等键值的顺序和排序之前它们的顺序相同  10大排序算法时空复杂度让人很是头疼，不过最">
 <meta name="keywords" content="排序算法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基本功之10大排序算法">
 <meta property="og:url" content="http://yoursite.com/2018/05/10/基本功之10大排序算法/index.html">
 <meta property="og:site_name" content="MOZSS">
-<meta property="og:description" content="10大排序算法很基础，网络上很多的图已经做了总结：  关于稳定性 稳定的：冒泡、插入、归并和基数。 不稳定的：选择、快速、希尔、堆（记忆：不选快希堆）。 名词解释：  n：数据规模  k：”桶”的个数  In-place：占用常数内存，不占用额外内存  Out-place：占用额外内存  稳定性：排序后 2 个相等键值的顺序和排序之前它们的顺序相同  10大排序算法时空复杂度让人很是头疼，不过最">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/about/postsImages/work/10%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/10%E5%A4%A7%E6%8E%92%E5%BA%8F%E6%8F%8F%E8%BF%B0.jpg">
-<meta property="og:image" content="http://yoursite.com/about/postsImages/work/10%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/10%E5%A4%A7%E6%8E%92%E5%BA%8F.jpg">
-<meta property="og:image" content="http://yoursite.com/about/postsImages/work/10%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/10%E5%A4%A7%E6%8E%92%E5%BA%8F%E5%8F%A3%E8%AF%80.jpg">
-<meta property="og:updated_time" content="2019-07-18T04:30:16.000Z">
+<meta property="og:image" content="http://yoursite.com/about/postsImages/work/%E5%9F%BA%E6%9C%AC%E5%8A%9F/10%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/bj/11.png">
+<meta property="og:image" content="http://yoursite.com/about/postsImages/work/%E5%9F%BA%E6%9C%AC%E5%8A%9F/10%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/10%E5%A4%A7%E6%8E%92%E5%BA%8F%E6%8F%8F%E8%BF%B0.jpg">
+<meta property="og:image" content="http://yoursite.com/about/postsImages/work/%E5%9F%BA%E6%9C%AC%E5%8A%9F/10%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/10%E5%A4%A7%E6%8E%92%E5%BA%8F.jpg">
+<meta property="og:image" content="http://yoursite.com/about/postsImages/work/%E5%9F%BA%E6%9C%AC%E5%8A%9F/10%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/10%E5%A4%A7%E6%8E%92%E5%BA%8F%E5%8F%A3%E8%AF%80.jpg">
+<meta property="og:updated_time" content="2019-08-29T14:24:12.719Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基本功之10大排序算法">
-<meta name="twitter:description" content="10大排序算法很基础，网络上很多的图已经做了总结：  关于稳定性 稳定的：冒泡、插入、归并和基数。 不稳定的：选择、快速、希尔、堆（记忆：不选快希堆）。 名词解释：  n：数据规模  k：”桶”的个数  In-place：占用常数内存，不占用额外内存  Out-place：占用额外内存  稳定性：排序后 2 个相等键值的顺序和排序之前它们的顺序相同  10大排序算法时空复杂度让人很是头疼，不过最">
-<meta name="twitter:image" content="http://yoursite.com/about/postsImages/work/10%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/10%E5%A4%A7%E6%8E%92%E5%BA%8F%E6%8F%8F%E8%BF%B0.jpg">
+<meta name="twitter:image" content="http://yoursite.com/about/postsImages/work/%E5%9F%BA%E6%9C%AC%E5%8A%9F/10%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/bj/11.png">
 
 
 
@@ -367,8 +365,13 @@
       
 
       
-        <p> 10大排序算法很基础，网络上很多的图已经做了总结：</p>
-<p><img src="/../about/postsImages/work/10%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/10%E5%A4%A7%E6%8E%92%E5%BA%8F%E6%8F%8F%E8%BF%B0.jpg" alt="10大排序描述.jpg"></p>
+        <p><img src="/../about/postsImages/work/%E5%9F%BA%E6%9C%AC%E5%8A%9F/10%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/bj/11.png" alt> </p>
+<a id="more"></a> 
+
+
+
+<p> 10大排序算法很基础，网络上很多的图已经做了总结：</p>
+<p><img src="/../about/postsImages/work/%E5%9F%BA%E6%9C%AC%E5%8A%9F/10%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/10%E5%A4%A7%E6%8E%92%E5%BA%8F%E6%8F%8F%E8%BF%B0.jpg" alt="10大排序描述.jpg"></p>
 <p>关于稳定性</p>
 <p>稳定的：冒泡、插入、归并和基数。</p>
 <p>不稳定的：选择、快速、希尔、堆（记忆：不选快希堆）。</p>
@@ -380,8 +383,8 @@
 <li>Out-place：占用额外内存 </li>
 <li>稳定性：排序后 2 个相等键值的顺序和排序之前它们的顺序相同</li>
 </ul>
-<p>10大排序算法时空复杂度让人很是头疼，不过最近看到了一则来自马士兵老师的口诀（<a href="http://mashibing.com/?p=116），大家可以参考一下，然后补充到博客里面来，不过已经做了调整。" target="_blank" rel="noopener">http://mashibing.com/?p=116），大家可以参考一下，然后补充到博客里面来，不过已经做了调整。</a><br><img src="/../about/postsImages/work/10%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/10%E5%A4%A7%E6%8E%92%E5%BA%8F.jpg" alt="10大排序.jpg"></p>
-<p><img src="/../about/postsImages/work/10%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/10%E5%A4%A7%E6%8E%92%E5%BA%8F%E5%8F%A3%E8%AF%80.jpg" alt="10大排序口诀.jpg"></p>
+<p>10大排序算法时空复杂度让人很是头疼，不过最近看到了一则来自马士兵老师的口诀（<a href="http://mashibing.com/?p=116），大家可以参考一下，然后补充到博客里面来，不过已经做了调整。" target="_blank" rel="noopener">http://mashibing.com/?p=116），大家可以参考一下，然后补充到博客里面来，不过已经做了调整。</a><br><img src="/../about/postsImages/work/%E5%9F%BA%E6%9C%AC%E5%8A%9F/10%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/10%E5%A4%A7%E6%8E%92%E5%BA%8F.jpg" alt="10大排序.jpg"></p>
+<p><img src="/../about/postsImages/work/%E5%9F%BA%E6%9C%AC%E5%8A%9F/10%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/10%E5%A4%A7%E6%8E%92%E5%BA%8F%E5%8F%A3%E8%AF%80.jpg" alt="10大排序口诀.jpg"></p>
 
       
     </div>

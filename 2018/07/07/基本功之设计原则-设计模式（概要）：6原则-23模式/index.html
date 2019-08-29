@@ -79,18 +79,17 @@
 
 
 
-<meta name="description" content="前言本系列的文章为设计模式的学习笔记本，主要参考书籍为阎宏博士的《Java与模式》，从大学听到“设计模式”这个词之后的几年里，也之前陆陆 续续看过一些大佬们写的设计模式相关的书籍。这些书的组织结构基本类似，从“什么是设计模式？”问题引入，然后是6大设计原则和23种设计模 式的简单介绍，之后是这些设计模式也是应用案例。由于公司内部培训的原因，我师父“爽姐”抽空让我深入学习一下设计模式，公司有多本设计">
 <meta name="keywords" content="设计原则与设计模式">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基本功之设计原则&amp;设计模式（概要）：6原则&amp;23模式">
 <meta property="og:url" content="http://yoursite.com/2018/07/07/基本功之设计原则-设计模式（概要）：6原则-23模式/index.html">
 <meta property="og:site_name" content="MOZSS">
-<meta property="og:description" content="前言本系列的文章为设计模式的学习笔记本，主要参考书籍为阎宏博士的《Java与模式》，从大学听到“设计模式”这个词之后的几年里，也之前陆陆 续续看过一些大佬们写的设计模式相关的书籍。这些书的组织结构基本类似，从“什么是设计模式？”问题引入，然后是6大设计原则和23种设计模 式的简单介绍，之后是这些设计模式也是应用案例。由于公司内部培训的原因，我师父“爽姐”抽空让我深入学习一下设计模式，公司有多本设计">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-29T02:57:36.000Z">
+<meta property="og:image" content="http://yoursite.com/about/postsImages/work/%E5%9F%BA%E6%9C%AC%E5%8A%9F/23%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/bj/24.png">
+<meta property="og:updated_time" content="2019-08-29T14:24:12.757Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基本功之设计原则&amp;设计模式（概要）：6原则&amp;23模式">
-<meta name="twitter:description" content="前言本系列的文章为设计模式的学习笔记本，主要参考书籍为阎宏博士的《Java与模式》，从大学听到“设计模式”这个词之后的几年里，也之前陆陆 续续看过一些大佬们写的设计模式相关的书籍。这些书的组织结构基本类似，从“什么是设计模式？”问题引入，然后是6大设计原则和23种设计模 式的简单介绍，之后是这些设计模式也是应用案例。由于公司内部培训的原因，我师父“爽姐”抽空让我深入学习一下设计模式，公司有多本设计">
+<meta name="twitter:image" content="http://yoursite.com/about/postsImages/work/%E5%9F%BA%E6%9C%AC%E5%8A%9F/23%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/bj/24.png">
 
 
 
@@ -374,7 +373,11 @@
       
 
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>本系列的文章为设计模式的学习笔记本，主要参考书籍为阎宏博士的《Java与模式》，从大学听到“设计模式”这个词之后的几年里，也之前陆陆
+        <p><img src="/../about/postsImages/work/%E5%9F%BA%E6%9C%AC%E5%8A%9F/23%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/bj/24.png" alt> </p>
+<a id="more"></a> 
+
+
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>本系列的文章为设计模式的学习笔记本，主要参考书籍为阎宏博士的《Java与模式》，从大学听到“设计模式”这个词之后的几年里，也之前陆陆
 续续看过一些大佬们写的设计模式相关的书籍。这些书的组织结构基本类似，从“什么是设计模式？”问题引入，然后是6大设计原则和23种设计模
 式的简单介绍，之后是这些设计模式也是应用案例。由于公司内部培训的原因，我师父“爽姐”抽空让我深入学习一下设计模式，公司有多本设计模式
 相关的书籍，大概翻了翻之后，我选择了阎宏博士的《Java与模式》一书进行拜读。</code></pre><h3 id="我自己对于设计模式的认知"><a href="#我自己对于设计模式的认知" class="headerlink" title="我自己对于设计模式的认知"></a>我自己对于设计模式的认知</h3><pre><code>书的序言中，朱天华博士提到“软件是人类心灵和智慧在虚拟空间中的投射。软件的性能就是人类能力的扩展，它的活动就是人类心智活动的反应。
