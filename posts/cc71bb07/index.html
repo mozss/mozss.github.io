@@ -1,0 +1,794 @@
+<!DOCTYPE html><html class="theme-next gemini use-motion" lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Linux,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="当发生下面几种情况的时候会调用短程调度器，然后就看下次执行那个进程啦 时钟中断 I/O中断 操作系统调用 信号（如信号量）    进程调度算法：     先来先服务（FCFS）     短作业优先（SPN）     最短剩余时间（SRT）     时间片轮转     最高响应比优先     公平共享调度      先来先服务就和名字一样，哪个进程先来就先获得处理器时间，，用一个队列暂存等待处理器的">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基本功之Linux(二)：进程调度算法">
+<meta property="og:url" content="http://yoursite.com/posts/cc71bb07/index.html">
+<meta property="og:site_name" content="MOZSS">
+<meta property="og:description" content="当发生下面几种情况的时候会调用短程调度器，然后就看下次执行那个进程啦 时钟中断 I/O中断 操作系统调用 信号（如信号量）    进程调度算法：     先来先服务（FCFS）     短作业优先（SPN）     最短剩余时间（SRT）     时间片轮转     最高响应比优先     公平共享调度      先来先服务就和名字一样，哪个进程先来就先获得处理器时间，，用一个队列暂存等待处理器的">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-08-29T17:34:25.142Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基本功之Linux(二)：进程调度算法">
+<meta name="twitter:description" content="当发生下面几种情况的时候会调用短程调度器，然后就看下次执行那个进程啦 时钟中断 I/O中断 操作系统调用 信号（如信号量）    进程调度算法：     先来先服务（FCFS）     短作业优先（SPN）     最短剩余时间（SRT）     时间片轮转     最高响应比优先     公平共享调度      先来先服务就和名字一样，哪个进程先来就先获得处理器时间，，用一个队列暂存等待处理器的">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/posts/cc71bb07/">
+
+
+
+
+
+  <title>基本功之Linux(二)：进程调度算法 | MOZSS</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta custom-logo">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">MOZSS</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/posts/cc71bb07/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mozss_莫斯">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MOZSS">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">基本功之Linux(二)：进程调度算法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-18T10:42:59+08:00">
+                2019-01-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/基本功/" itemprop="url" rel="index">
+                    <span itemprop="name">基本功</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/基本功/Linux基础/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <meta name="generator" content="Hexo 3.9.0"><p>当发生下面几种情况的时候会调用短程调度器，然后就看下次执行那个进程啦</p>
+<pre><code>时钟中断
+I/O中断
+操作系统调用
+信号（如信号量）
+
+
+
+进程调度算法：
+    先来先服务（FCFS）
+    短作业优先（SPN）
+    最短剩余时间（SRT）
+    时间片轮转
+    最高响应比优先
+    公平共享调度
+
+
+
+
+
+先来先服务</code></pre><p>就和名字一样，哪个进程先来就先获得处理器时间，，用一个队列暂存等待处理器的进程，优点是实现简单（太简单了吧喂），缺点，遇到那种又臭又长的进程就很不爽了，好比食堂打饭，前面的人不买一直问，后面的人一直排队，那么后面的人就怎么了呢？后面的人就饥饿！同时如果现在有一个马上就要饿死的人急需吃饭，这就很尴尬了（紧急的进程无法处理，优先级高的进程处于饥饿状态），所以有了优先级队列的先来先服务算法，这样也不是很好，因为总有又臭又长的进程，排队是谁都不乐意的吧，而且处理器时间就不公平了。</p>
+<pre><code>短作业优先</code></pre><p>因为先来先服务不好，所以有了短作业优先，通过设置执行时间短的进程作业的优先级为高来实现，也很简单粗暴，就是说进程时间越短就越先执行，看着是比较好了，不浪费时间了，但是有没有想过长进程的感受，来了一群短的进程，然后一直来短进程，这是要饿死长进程的节奏，人家长有错么？如果是可抢占的方式（见最短剩余时间版本），就更惨了，只要来了更短的就别想好好执行了。。。</p>
+<pre><code>最短剩余时间</code></pre><p>就是刚才说的短作业优先的抢占版本，说过他的缺点了，当前执行的进程还剩10个时间单位，但是一直来了一群只要2个时间单位就跑完的进程，那当前的进程就会被抢占，然后含恨饿死。。</p>
+<pre><code>时间片轮转</code></pre><p>既然上面几种算法都有可能出现饥饿进程，那么我就干脆让每个进程都执行那么一会，这样不就比较公平了？每个进程都有机会在处理器上跑，看起来很和谐，但是还是没有解决优先级的问题，优先级不好控制，比如有什么紧急的进程需要立即执行，就不好办了。而且每个进程的具体情况也是不一样的，比如有I/O消耗型进程，和处理器消耗型进程，在同样的事件片里真正占用处理器的时间是不一样的，而我们是真正占用处理器的时间希望能一样的，这样就公平了嘛。这样看来，时间片轮转也是有缺点的。</p>
+<pre><code>最高响应比优先</code></pre><p>什么是响应比？看一下这个公式：R=(w+s)/s，其中R是响应比，w是等待处理器的时间，s是期待的服务时间，简单的来说响应比就是，进程从加入等待队列开始一直到执行完毕经历的时间除以进程使用处理器的时间，这个响应比比较高的就证明该进程等待比较久了，它估计会很饿，先让它吃！</p>
+<pre><code>公平共享调度</code></pre><p>Linux系统中普通进程使用的调度方法就是公平共享调度的一个实例，被称作完全公平调度算法（CFS），虽然一定不可能公平。。。详情参照我的另一篇博客。。传送门召唤！！：<a href="http://www.cnblogs.com/lenomirei/p/5516872.html" target="_blank" rel="noopener">http://www.cnblogs.com/lenomirei/p/5516872.html</a></p>
+<pre><code>Linux系统中的进程调度方案</code></pre><p>Linux在进行进程调度的时候把进程分为两种：1.普通进程；2.实时进程</p>
+<p>实时进程的优先级永远比普通进程的优先级高，也就是说实时进程只要来了就可以抢占普通进程，而且还抓住处理器就不撒手，直到所有的实时进程都执行完毕，才会把处理器让出来给普通进程使用</p>
+<p>之前也说了，普通进程的调度采用的是完全公平调度（CFS）对应的是SCHED_NORMAL</p>
+<p>而实时进程采用的调度方法就比较简单粗暴了，Linux提供了两种实时调度策略：SCHED_FIFO和SCHED_RR。</p>
+<p>SCHED_FIFO：简单的先入先出的调度算法，不使用时间片，只可能被更高优先级的FIFO或者SCHED_RR抢占</p>
+<p>SCHED_RR：时间片轮转的方式，优先级比SCHED_FIFO还要高，可以抢占SCHED_FIFO</p>
+<p>实时进程的调度没有实时优先级这一说法，采用的是静态优先级，一开始定好优先级之后就不会改变了。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/540e9659/" rel="next" title="基本功之Linux(一)：线程，进程">
+                <i class="fa fa-chevron-left"></i> 基本功之Linux(一)：线程，进程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/c732760b/" rel="prev" title="基本功之Linux(三)：常用命令相关">
+                基本功之Linux(三)：常用命令相关 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="Mozss_莫斯">
+            
+              <p class="site-author-name" itemprop="name">Mozss_莫斯</p>
+              <p class="site-description motion-element" itemprop="description">我们只能越来越像我们自己。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">117</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/mozss" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:mozss@outlook.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                WebsiteLinks
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://tool.lu/software/" title="工具集合" target="_blank">工具集合</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://vimjc.com" title="Vim教程网" target="_blank">Vim教程网</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://sobooks.cc/" title="好多书" target="_blank">好多书</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://man.linuxde.net/" title="Linux命令大全" target="_blank">Linux命令大全</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">© <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mozss_莫斯</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+
+<script type="text/javascript" charset="utf-8" src="/js/lazyload-plugin/lazyload.intersectionObserver.min.js"></script></body></html>

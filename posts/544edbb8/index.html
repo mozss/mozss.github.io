@@ -1,0 +1,868 @@
+<!DOCTYPE html><html class="theme-next gemini use-motion" lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="设计原则与设计模式,">
+
+
+
+
+
+
+
+
+
+
+<meta name="keywords" content="设计原则与设计模式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基本功之设计原则&设计模式（概要）：6原则&23模式">
+<meta property="og:url" content="http://yoursite.com/posts/544edbb8/index.html">
+<meta property="og:site_name" content="MOZSS">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/about/postsImages/work/%E5%9F%BA%E6%9C%AC%E5%8A%9F/23%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/bj/24.png">
+<meta property="og:updated_time" content="2019-08-29T17:34:25.234Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基本功之设计原则&设计模式（概要）：6原则&23模式">
+<meta name="twitter:image" content="http://yoursite.com/about/postsImages/work/%E5%9F%BA%E6%9C%AC%E5%8A%9F/23%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/bj/24.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/posts/544edbb8/">
+
+
+
+
+
+  <title>基本功之设计原则&设计模式（概要）：6原则&23模式 | MOZSS</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta custom-logo">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">MOZSS</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/posts/544edbb8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mozss_莫斯">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MOZSS">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">基本功之设计原则&设计模式（概要）：6原则&23模式</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-07T11:03:40+08:00">
+                2018-07-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/基本功/" itemprop="url" rel="index">
+                    <span itemprop="name">基本功</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/基本功/23设计模式/" itemprop="url" rel="index">
+                    <span itemprop="name">23设计模式</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/基本功/23设计模式/6原则-23模式概要/" itemprop="url" rel="index">
+                    <span itemprop="name">6原则&23模式概要</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <meta name="generator" content="Hexo 3.9.0"><p><img src="/../about/postsImages/work/%E5%9F%BA%E6%9C%AC%E5%8A%9F/23%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/bj/24.png" alt> </p>
+<a id="more"></a> 
+
+
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>本系列的文章为设计模式的学习笔记本，主要参考书籍为阎宏博士的《Java与模式》，从大学听到“设计模式”这个词之后的几年里，也之前陆陆
+续续看过一些大佬们写的设计模式相关的书籍。这些书的组织结构基本类似，从“什么是设计模式？”问题引入，然后是6大设计原则和23种设计模
+式的简单介绍，之后是这些设计模式也是应用案例。由于公司内部培训的原因，我师父“爽姐”抽空让我深入学习一下设计模式，公司有多本设计模式
+相关的书籍，大概翻了翻之后，我选择了阎宏博士的《Java与模式》一书进行拜读。</code></pre><h3 id="我自己对于设计模式的认知"><a href="#我自己对于设计模式的认知" class="headerlink" title="我自己对于设计模式的认知"></a>我自己对于设计模式的认知</h3><pre><code>书的序言中，朱天华博士提到“软件是人类心灵和智慧在虚拟空间中的投射。软件的性能就是人类能力的扩展，它的活动就是人类心智活动的反应。
+软件直接表达出设计者对于目标的理解，对用户的期待，以及对自己的定位。”
+
+没有参加工作之前，在我的心里，软件是“自由的”，它是人类社会在另一个世界的体现。工作之后，我快速上后公司的业务和技术体系之后，开始
+拼命造轮子，时间就久了，造轮子也就成了忙碌的日常，繁重的开发任务让我再也不想在业余时间看一行代码。自己编写的代码不但没有长进，反而
+经常犯低级性错误，这让我很是头疼。我再次学习设计模式之后，我意识到是自己的编程能力到达了某一个节点，我必须提升自己的编程能力，让自己
+对编程这件事情再次变得积极。</code></pre><h3 id="什么是设计模式？"><a href="#什么是设计模式？" class="headerlink" title="什么是设计模式？"></a>什么是设计模式？</h3><pre><code>OOP编程下，一系列结构合理，易于复用，易于维护的解决方案。</code></pre><h3 id="设计原则和23种设计模式"><a href="#设计原则和23种设计模式" class="headerlink" title="设计原则和23种设计模式"></a>设计原则和23种设计模式</h3><h3 id="6大设计原则概述"><a href="#6大设计原则概述" class="headerlink" title="6大设计原则概述"></a>6大设计原则概述</h3><table>
+<thead>
+<tr>
+<th align="center">设计原则名称</th>
+<th align="center">英文名称</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">单一原则</td>
+<td align="center">Single Responsibility Principle</td>
+</tr>
+<tr>
+<td align="center">开闭原则</td>
+<td align="center">Open Closed Principle</td>
+</tr>
+<tr>
+<td align="center">里氏替换原则</td>
+<td align="center">Liskov Substitution Principle</td>
+</tr>
+<tr>
+<td align="center">接口隔离原则</td>
+<td align="center">Interface Segregation Principle</td>
+</tr>
+<tr>
+<td align="center">依赖倒置原则</td>
+<td align="center">Dependence Inversion Principle</td>
+</tr>
+</tbody></table>
+<p>这五个原则的首字母联合起来 Solid 稳定的<br>此外还有第六个原则：Law of Demeter(迪米特法则)不常用</p>
+<h3 id="23种设计原则概述"><a href="#23种设计原则概述" class="headerlink" title="23种设计原则概述"></a>23种设计原则概述</h3><p>面向对象的两个重要元素：类和接口。设计原则就是类，接口，类和接口协作的时候需要满足的原则。</p>
+<p>使用场景    描述<br>接口设计<br>隔离原则；单一原则<br>类的设计<br>1.类本身<br>要考虑类的职责是否单一（单一原则）；<br>2.继承关系的类<br>要注意子类是否改变父类的方法，目标是不要改变，子类应该只扩展父类的行为（里氏替换原则，开闭原则），这样才能把将来子类变化时产生的影响缩小到最小的范围；<br>顶层框架设计<br>（类和接口的协作）    1.接口之间<br>考虑相互协作，协作应该是接口之间发生关系，接口之间的调用（依赖倒置原则）；<br>2.类之间<br>当1个类需要和其他类发生调用关系时，可以考虑增加1个中间者来转发调用关系（迪米特法则，不常用），缩小类更变影响的范围。</p>
+<h3 id="单一职责（Single-Responsibility-Principle-SRP）：单一职责指的是应该有且仅有一个原因引起类的变更。"><a href="#单一职责（Single-Responsibility-Principle-SRP）：单一职责指的是应该有且仅有一个原因引起类的变更。" class="headerlink" title="单一职责（Single Responsibility Principle SRP）：单一职责指的是应该有且仅有一个原因引起类的变更。"></a>单一职责（Single Responsibility Principle SRP）：单一职责指的是应该有且仅有一个原因引起类的变更。</h3><p>解析：分清职责，接口一定要做到单一职责，方法也要做到，类尽量做到</p>
+<h3 id="开闭原则"><a href="#开闭原则" class="headerlink" title="开闭原则"></a>开闭原则</h3><p>定义<br>一个软件实体（项目或者软件产品中按照一定的逻辑规则划分的模块）如类、模块和函数应该对扩展开放，对修改关闭<br>解释<br>一个软件产品在开发周期内，肯定会有变化，我们的设计应该尽量适应这些变化，开闭原则则告诉我们尽量通过扩展软件实体的行为来实现变化，而不是修改已有的代码来完成变化。<br>重要性<br>其他几个原则都是开闭原则的具体形态；<br>可提高复用性；可提高可维护性<br>使用<br>抽象约束、元数据控制模块行为、制定项目章程、封装变化<br>封装变化有两层含义：<br>第一：将相同的变化封装到一个接口或抽象类中；<br>第二：将不同的变化封装到不同的接口或抽象类中。</p>
+<p>23种设计模式都是从各个不同的角度对变化进行封装的</p>
+<h3 id="里氏替换（Liskov-Substitution-Principle-LSP）"><a href="#里氏替换（Liskov-Substitution-Principle-LSP）" class="headerlink" title="里氏替换（Liskov Substitution Principle LSP）"></a>里氏替换（Liskov Substitution Principle LSP）</h3><p>定义：所有引用基类的地方必须能透明地使用其子类的对象，通俗的来讲就是父类能出现的地方子类就可以出现，但是反过来就不行了。子类可以扩展父类的功能，但不能改变父类原有的功能。</p>
+<p>定义包含四层意思：<br>1） 子类可以实现父的抽象方法，但不能覆写父类的非抽象方法。 父类中凡是已经实现好的方法（相对于抽象方法而言），实际上是在设定一系列的规范和契约，虽然它不强制要求所有的子类必须遵从这些契约，但是如果子类对这些非抽象方法任意修改，就会对整个继承体系造成破坏。<br>2） 子类中可以增加自己特有的方法。<br>3） 覆写或实现父类的方法时，输入参数可以被放大。（覆写指的覆写一个正常方法并重写，是实现指的是实现接口或者抽象方法）<br>4） 覆写或实现父类的方法时输出结果可以被缩小（若放大，还能用子类替换父类吗？）</p>
+<p>说明：</p>
+<ol>
+<li>为良好的继承定义了一个规范；</li>
+<li>在类中调用其他类时务必要使用父类或者接口，如果不能使用父类或者接口，则说明类的设计已经违背了LSP原则；</li>
+<li>我们在做系统设计时，经常会定义一个接口或者抽象类，然后编码实现，调用类则直接传入接口或者抽象类，不关心具体实现；</li>
+<li>如果子类不能完整地实现父类的方法，或者父类的某些方法在子类中已经发生“畸变”，则建议断开父子继承关系，采用依赖、聚集、组合等关系代替继承；</li>
+<li>在项目中采用里氏替换原则时，尽量避免子类的个性，一旦子类有个性这个子类和父类的关系就很难调和了。</li>
+</ol>
+<h3 id="迪米特法则（Least-Knowledge-Principle-LKP）也称为最少知识原则："><a href="#迪米特法则（Least-Knowledge-Principle-LKP）也称为最少知识原则：" class="headerlink" title="迪米特法则（Least Knowledge Principle LKP）也称为最少知识原则："></a>迪米特法则（Least Knowledge Principle LKP）也称为最少知识原则：</h3><p>描述：一个对象应该对其他对象有最少的了解，一个类只需要知道自己需要耦合或者调用类的public方法即可。一个类公开的public方法越多，修改时涉及的面也越大，变更的风险也越大。</p>
+<p>核心观念：类间的解耦，弱耦合，但是也要衡量，既要让结构清晰，又要高内聚低耦合，我们在使用原则时，要反复衡量。</p>
+<p>解释：一个类只和朋友类交流，出现在成员变量、方法的输入输出参数中的类称为成员朋友类，而出现在方法体内部的类不属于朋友类。</p>
+<p>实践：在实际中如果遇到，一个方法放在本类中也可以，放在其他类中也合适，那么你可以坚持这样一个原则：如果一个方法放在本类中，既不增加类间关系，也 对本类不产生负面影响，那就放置在本类中。</p>
+<h3 id="接口隔离（Interface-Segregation-Principle-ISP）"><a href="#接口隔离（Interface-Segregation-Principle-ISP）" class="headerlink" title="接口隔离（Interface Segregation Principle ISP）"></a>接口隔离（Interface Segregation Principle ISP）</h3><p>定义：<br>把一个臃肿的接口变更为两个独立的接口所依赖的原则就是接口隔离原则（首先必须满足单一职责原则）；</p>
+<p>说明：<br>客户端不应该依赖它不需要的接口；类间的依赖关系应该建立在最小的接口上；</p>
+<p>原则：<br>1）一个接口只服务于一个子模块或业务逻辑，接口要高内聚<br>2）通过业务逻辑压缩接口中的public方法<br>3）已被污染的接口尽量去修改，若变更风险大，可用适配器模式进行转化处理<br>4）定制服务，为不同的用户定制不同的服务，了解业务背景，避免生搬硬套模式。</p>
+<p>开发中只能根据，经验和常识来判断接口粒度的大小。</p>
+<h3 id="依赖倒置原则（Dependence-Inversion-Principle-DIP）"><a href="#依赖倒置原则（Dependence-Inversion-Principle-DIP）" class="headerlink" title="依赖倒置原则（Dependence Inversion Principle DIP）"></a>依赖倒置原则（Dependence Inversion Principle DIP）</h3><p>定义：<br>1）高层模块不应该依赖低层模块<br>2）抽象不应该依赖细节<br>3）细节依赖抽象</p>
+<p>在Java中的表现为：面向接口编程 OOP<br>1）模块间的依赖通过抽象发生，实现类间不发生直接的依赖关系，其依赖关系通过接口或者抽象类产生；<br>2）接口或抽象类不依赖于实现类<br>3）实现类依赖于接口或者抽象类</p>
+<p>好处：<br>依赖倒置原则可以减少类之间的耦合性，提高系统的稳定性；降低并行开发引起的风险。<br>要并行开发就要解决模块间的依赖关系，依赖倒置原则正好解决这个问题。<br>在Java中，只要定义变量就必然要有类型，一个变量可以有两种类型，表面类型和实际类型，UserDao是表面类型，UserDaoImpl是实际类型。</p>
+<p>依赖的三种写法：<br>依赖是可以传递的，只要做到抽象依赖，即使是多层的依赖也没关系。<br>1）构造函数传递依赖对象<br>2）Setter方法传递依赖对象<br>3）接口方法中传入依赖对象</p>
+<p>最佳实践：<br>1）每个类尽量都有接口或者抽象类<br>2）变量的表面类型尽量是接口或者抽象类<br>3）不从具体类派生类<br>4）尽量不覆写基类的方法，只实现；</p>
+<p>倒置的概念就是所谓的抽象依赖。</p>
+<h3 id="分布式设计原则"><a href="#分布式设计原则" class="headerlink" title="分布式设计原则"></a>分布式设计原则</h3><p>系统设计<br>    系统设计基础<br>        性能、伸缩性、扩展性、可用性、安全性<br>    分布式<br>        分布式锁、分布式事务、CAP、BASE、Paxos、Raft<br>    集群<br>        负载均衡、Session 管理<br>    攻击技术<br>        XSS、CSRF、SQL 注入、DDoS<br>    缓存<br>        缓存特征、缓存位置、缓存问题、数据分布、一致性哈希、LRU、CDN<br>    消息队列<br>        消息处理模型、使用场景、可靠性</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/设计原则与设计模式/" rel="tag"># 设计原则与设计模式</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/706a57fa/" rel="next" title="难得一见的彩虹">
+                <i class="fa fa-chevron-left"></i> 难得一见的彩虹
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/b48e1d47/" rel="prev" title="黑云压城">
+                黑云压城 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="Mozss_莫斯">
+            
+              <p class="site-author-name" itemprop="name">Mozss_莫斯</p>
+              <p class="site-description motion-element" itemprop="description">我们只能越来越像我们自己。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">117</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/mozss" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:mozss@outlook.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                WebsiteLinks
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://tool.lu/software/" title="工具集合" target="_blank">工具集合</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://vimjc.com" title="Vim教程网" target="_blank">Vim教程网</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://sobooks.cc/" title="好多书" target="_blank">好多书</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://man.linuxde.net/" title="Linux命令大全" target="_blank">Linux命令大全</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#我自己对于设计模式的认知"><span class="nav-number">2.</span> <span class="nav-text">我自己对于设计模式的认知</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是设计模式？"><span class="nav-number">3.</span> <span class="nav-text">什么是设计模式？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设计原则和23种设计模式"><span class="nav-number">4.</span> <span class="nav-text">设计原则和23种设计模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6大设计原则概述"><span class="nav-number">5.</span> <span class="nav-text">6大设计原则概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#23种设计原则概述"><span class="nav-number">6.</span> <span class="nav-text">23种设计原则概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单一职责（Single-Responsibility-Principle-SRP）：单一职责指的是应该有且仅有一个原因引起类的变更。"><span class="nav-number">7.</span> <span class="nav-text">单一职责（Single Responsibility Principle SRP）：单一职责指的是应该有且仅有一个原因引起类的变更。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开闭原则"><span class="nav-number">8.</span> <span class="nav-text">开闭原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#里氏替换（Liskov-Substitution-Principle-LSP）"><span class="nav-number">9.</span> <span class="nav-text">里氏替换（Liskov Substitution Principle LSP）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迪米特法则（Least-Knowledge-Principle-LKP）也称为最少知识原则："><span class="nav-number">10.</span> <span class="nav-text">迪米特法则（Least Knowledge Principle LKP）也称为最少知识原则：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接口隔离（Interface-Segregation-Principle-ISP）"><span class="nav-number">11.</span> <span class="nav-text">接口隔离（Interface Segregation Principle ISP）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#依赖倒置原则（Dependence-Inversion-Principle-DIP）"><span class="nav-number">12.</span> <span class="nav-text">依赖倒置原则（Dependence Inversion Principle DIP）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式设计原则"><span class="nav-number">13.</span> <span class="nav-text">分布式设计原则</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">© <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mozss_莫斯</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+
+<script type="text/javascript" charset="utf-8" src="/js/lazyload-plugin/lazyload.intersectionObserver.min.js"></script></body></html>
