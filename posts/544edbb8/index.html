@@ -1,384 +1,1413 @@
-<!DOCTYPE html><html class="theme-next gemini use-motion" lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="theme-color" content="#222">
-
-
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="设计原则与设计模式,">
-
-
-
-
-
-
-
-
-
-
-<meta name="keywords" content="设计原则与设计模式">
-<meta property="og:type" content="article">
-<meta property="og:title" content="基本功之设计原则&设计模式（概要）：6原则&23模式">
-<meta property="og:url" content="http://yoursite.com/posts/544edbb8/index.html">
-<meta property="og:site_name" content="MOZSS">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://s2.ax1x.com/2019/08/30/mjLyFO.png">
-<meta property="og:updated_time" content="2019-08-30T14:41:50.534Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="基本功之设计原则&设计模式（概要）：6原则&23模式">
-<meta name="twitter:image" content="https://s2.ax1x.com/2019/08/30/mjLyFO.png">
-
-
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: 'Author'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
-
-
-
-  <link rel="canonical" href="http://yoursite.com/posts/544edbb8/">
-
-
-
-
-
-  <title>基本功之设计原则&设计模式（概要）：6原则&23模式 | MOZSS</title>
-  
-
-
-
-
-
-
-
-
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta custom-logo">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">MOZSS</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
-    </div>
-      
-        <p class="site-subtitle"></p>
-      
-  </div>
-
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
-  </div>
+<!DOCTYPE html><html lang="en"><head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+	
+	<!-- title -->
+	
+	<title>
+	
+		基本功之设计原则&设计模式（概要）：6原则&23模式 | 
+	 
+	MOZSS
+	</title>
+	
+	<!-- keywords,description -->
+	 
+		<meta name="description" content="我们只能越来越像我们自己。">
+	
+
+	<!-- favicon -->
+	
+	<link rel="shortcut icon" href="/favicon.ico">
+	
+
+
+	<!-- search -->
+	<script>
+		var searchEngine = "https://www.google.com/search?q=";
+		if(typeof searchEngine == "undefined" || searchEngine == null || searchEngine == ""){
+			searchEngine = "https://www.google.com/search?q=";
+		}
+		var homeHost = "github.com/mozss";
+		if(typeof homeHost == "undefined" || homeHost == null || homeHost == ""){
+			homeHost = window.location.host;
+		}
+	</script>
+
+
+	
+<link rel="stylesheet" href="/css/main.css">
+
+	
+<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.17.1/build/styles/darcula.min.css">
+
+
+	
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.17.1/build/highlight.min.js"></script>
+
+	
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+
+	
+<script src="https://cdn.jsdelivr.net/npm/jquery-pjax@2.0.1/jquery.pjax.min.js"></script>
+
+	
+<script src="/js/main.js"></script>
+
+	
+		
+<script src="https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min.js"></script>
+
+		
+<script src="https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js"></script>
+
+	
+	
+		<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+	<header id="header">
+    <a id="title" href="/" class="logo">MOZSS</a>
+
+	<ul id="menu">
+		<li class="menu-item">
+			<a href="/about" class="menu-item-link">ABOUT</a>
+		</li>
+		
+		<li class="menu-item">
+			<a href="https://github.com/mozss?tab=repositories" class="menu-item-link" target="_blank">
+				Repo
+			</a>
+		</li>
+		<li class="menu-item">
+			<a href="https://github.com/mozss" class="menu-item-link" target="_blank">
+				<i class="fa fa-github fa-2x"></i>
+			</a>
+		</li>
+	</ul>
+</header>
+
+	
+<div id="sidebar">
+	<button id="sidebar-toggle" class="toggle"><i class="fa fa-arrow-right " aria-hidden="true"></i></button>
+	
+	<div id="site-toc">
+		<input id="search-input" class="search-input" type="search" placeholder="按回车全站搜索">
+		<div id="tree">
+			
+
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										10大排序算法
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/posts/c6fe47ef/">
+										基本功之10大排序算法
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/c0e72531/">
+										基本功之10大排序算法（一）：选择排序
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/3aa53878/">
+										基本功之10大排序算法（七）：希尔排序
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/cb21edc7/">
+										基本功之10大排序算法（三）：插入排序
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/67c36b1e/">
+										基本功之10大排序算法（九）：桶排序
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/bdd6b8a8/">
+										基本功之10大排序算法（二）：冒泡排序
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/a64ad032/">
+										基本功之10大排序算法（五）：归并排序
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/95be4dc/">
+										基本功之10大排序算法（八）：计数排序
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/69169bf3/">
+										基本功之10大排序算法（六）：堆排序
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/c35f22f/">
+										基本功之10大排序算法（十）：基排序
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/ef8d7911/">
+										基本功之10大排序算法（四）：快速排序
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										23设计模式
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/posts/a000da26/">
+										基本功之设计原则-设计模式（一）：5种创建型之单例模式
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/4307b138/">
+										基本功之设计原则-设计模式（七）：11种行为型之模板模式
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/64f8841/">
+										基本功之设计原则-设计模式（三）：5种创建型之建造者模式
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/41398b4/">
+										基本功之设计原则-设计模式（九）：11种行为型之状态模式
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/b87e7028/">
+										基本功之设计原则-设计模式（二一）：7种结构型之外观模式
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/312a425d/">
+										基本功之设计原则-设计模式（二三）：7种结构型之代理模式
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/1d720e06/">
+										基本功之设计原则-设计模式（二二）：7种结构型之享元模式
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/b32dd59b/">
+										基本功之设计原则-设计模式（二十）：7种结构型之装饰模式
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/b65714a7/">
+										基本功之设计原则-设计模式（二）：5种创建型之工厂模式
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/91ba39e8/">
+										基本功之设计原则-设计模式（五）：5种创建型之抽象工厂模式
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/5470830e/">
+										基本功之设计原则-设计模式（八）：11种行为型之策略模式
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/8c680e6d/">
+										基本功之设计原则-设计模式（六）：11种行为型之访问者模式
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/7f47e90/">
+										基本功之设计原则-设计模式（十一）：11种行为型之备忘录模式
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/11491977/">
+										基本功之设计原则-设计模式（十七）：7种结构型之适配器模式
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/3e494f0/">
+										基本功之设计原则-设计模式（十三）：11种行为型之迭代器模式
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/6fe4b5ff/">
+										基本功之设计原则-设计模式（十九）：7种结构型之组合模式
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/69a34078/">
+										基本功之设计原则-设计模式（十二）：11种行为型之中介者模式
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/9ae71b8e/">
+										基本功之设计原则-设计模式（十五）：11种行为型之命令模式
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/ca3aa21c/">
+										基本功之设计原则-设计模式（十八）：7种结构型之桥接模式
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/5c7890d5/">
+										基本功之设计原则-设计模式（十六）：11种行为型之责任链模式
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/fdced3e5/">
+										基本功之设计原则-设计模式（十四）：11种行为型之解释器模式
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/9769d21f/">
+										基本功之设计原则-设计模式（十）：11种行为型之观察者模式
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/33422fb4/">
+										基本功之设计原则-设计模式（四）：5种创建型之原型模式
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file active">
+									<a href="/posts/544edbb8/">
+										基本功之设计原则-设计模式（概要）：6原则-23模式
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										bigdata
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/posts/b3349d42/">
+										Hadoop
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/19bacc63/">
+										OLAP
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/5cd2e029/">
+										Spark
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										devflows
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/posts/1bb92a39/">
+										IDEA使用问题汇总
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/b8cf4aa8/">
+										IDEA的高效使用
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/fb599632/">
+										Linux下安装Mysql
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/b8c926da/">
+										Linux命令之yum
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/513ac223/">
+										maven的安装和配置
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										gc
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/posts/79e53de4/">
+										垃圾回收GC-一-：垃圾回收算法
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/8ee16aba/">
+										垃圾回收GC-三-：GC日志分析
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/f198bc8e/">
+										垃圾回收GC-二-：垃圾收集器
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										git
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/posts/82de2974/">
+										基本功之Git的高效使用
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										java容器类
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/posts/5a746145/">
+										基本功之Java容器类-一-：Java-util-Arrays
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/f72406f4/">
+										基本功之Java容器类-七-：Java-util-LinkedHashMap
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/ba93fcdb/">
+										基本功之Java容器类-三-：Java-util-LinkedList
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/fa835a24/">
+										基本功之Java容器类-九-：容器类的使用相关
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/35c77a54/">
+										基本功之Java容器类-二-：Java-util-ArrayList
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/e2b6b443/">
+										基本功之Java容器类-五-：Java-util-HashSet
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/f0ee3604/">
+										基本功之Java容器类-八-：其他容器类
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/4accc084/">
+										基本功之Java容器类-六-：Java-util-LinkedHashSet
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/5326a00f/">
+										基本功之Java容器类-四-：Java-util-HashMap
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/bb9f0f16/">
+										基本功之Java源码-一-：Object类
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/50e64fc8/">
+										基本功之Java源码-三-：Integer类
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/50038871/">
+										基本功之Java源码-二-：String类
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										java新特性
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/posts/d628c295/">
+										Java新特性之Java10
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/a12ff203/">
+										Java新特性之Java11
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/88d7b512/">
+										Java新特性之Java8
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/ffd08584/">
+										Java新特性之Java9
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										jvm
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/posts/c7fe122d/">
+										JVM-一-：JVM参数和内存模型
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/16e5a472/">
+										JVM-二-：JVM性能调优工具使用
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										linux
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/posts/540e9659/">
+										基本功之Linux-一-：线程，进程
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/c732760b/">
+										基本功之Linux-三-：常用命令相关
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/cc71bb07/">
+										基本功之Linux-二-：进程调度算法
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										mybatis
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/posts/da3e1361/">
+										Mybatis
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										other
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/posts/848e71c8/">
+										假如给我三天光明
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/7506c30e/">
+										卡耐基系列之：《人性的弱点》
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/b0a1baf9/">
+										我的团长我的团精选台词
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/b48e1d47/">
+										披星戴月
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/b8045ef9/">
+										推荐系统
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/e601aa32/">
+										搜索引擎
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/6149f690/">
+										秋意渐浓
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/706a57fa/">
+										难得一见的彩虹
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/df649f10/">
+										黄油烙饼
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										regex
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/posts/cde295ad/">
+										基本功之正则表达式-一-：正则表达式规则
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/7491bf78/">
+										基本功之正则表达式-二-：常用正则表达式总结
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										springboot
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/posts/6f2612a2/">
+										SpringBoot
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/5e2b66cd/">
+										springboot-mybatis在集成oracle和mysql的区别
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										spring
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/posts/6c92115f/">
+										Spring
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										springcloud
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/posts/56e56bf1/">
+										SpringCloud基础篇（一）：微服务与SpringCloud
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/b5f30007/">
+										SpringCloud服务经常性挂掉
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										中间件
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/posts/9a7d5a13/">
+										Kafka
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/808a8a32/">
+										RabbitsMQ
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										多线程与高并发
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/posts/53da8e41/">
+										多线程及高并发（一）：概念篇
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/96b9c8e0/">
+										多线程及高并发（三）：java-util-concurrent
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/4daad293/">
+										多线程及高并发（二）：基础篇
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/753b3c/">
+										多线程及高并发（五）：高并发的相关模式和算法
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/5dcd98da/">
+										多线程及高并发（四）：锁优化
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										年度总结
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/posts/fa88ee57/">
+										2018年总结
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/154a8569/">
+										2019年总结
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/6153aaf4/">
+										关于2020年
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										数据结构
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/posts/50a44d2c/">
+										基本功之数据结构（一）：数组
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/e322b16c/">
+										基本功之数据结构（七）：堆
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/55f77e48/">
+										基本功之数据结构（三）：队列
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/f7b8851/">
+										基本功之数据结构（九）：图
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/3c10d139/">
+										基本功之数据结构（二）：链表
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/b2509142/">
+										基本功之数据结构（五）：二叉树
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/b0d2d4e2/">
+										基本功之数据结构（八）：哈希表
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/9ed02b85/">
+										基本功之数据结构（六）：红黑树
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/5cd264da/">
+										基本功之数据结构（十）：前，中，后缀表达式
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/b67e4697/">
+										基本功之数据结构（四）：栈
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/f31406b8/">
+										基本功之计算机网络（一）：计算机网络知识点
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										计算机网络
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/posts/2ccd4d5e/">
+										基本功之计算机网络（七）：HTTPS
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/a554dbfc/">
+										基本功之计算机网络（三）：三次，四次握手
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/300212ee/">
+										基本功之计算机网络（二）：OSI模型
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/447f831c/">
+										基本功之计算机网络（五）：HTTP原理
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/d195f61f/">
+										基本功之计算机网络（六）：HTTP1-0和HTTP2-0
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/posts/101abe1d/">
+										基本功之计算机网络（四）：TCP
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+		</div>
+	</div>
 </div>
 
-<nav class="site-nav">
-  
+	<!-- 引入正文 -->
+	<div id="content">
+		<h1 id="article-title">
 
-  
-    <ul id="menu" class="menu">
-      
-        
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            Home
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
-            
-            About
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
-            
-            Tags
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
-            
-            Categories
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            Archives
-          </a>
-        </li>
-      
-
-      
-    </ul>
-  
-
-  
-</nav>
-
-
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-
-  <div id="posts" class="posts-expand">
+	基本功之设计原则-设计模式（概要）：6原则-23模式
+</h1>
+<div class="article-meta">
+	
+	<span>Mozss</span>
+	<span>2018-07-07 11:03:40</span>
     
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/posts/544edbb8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mozss_莫斯">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MOZSS">
-    </span>
-
+		<div id="article-categories">
+            
+                
+                    <span>
+                        <i class="fa fa-folder" aria-hidden="true"></i>
+                        <a href="/categories/基本功/">基本功</a>
+						
+							>
+						
+                    </span>
+                
+            
+                
+                    <span>
+                        <i class="fa fa-folder" aria-hidden="true"></i>
+                        <a href="/categories/基本功/23设计模式/">23设计模式</a>
+						
+							>
+						
+                    </span>
+                
+            
+                
+                    <span>
+                        <i class="fa fa-folder" aria-hidden="true"></i>
+                        <a href="/categories/基本功/23设计模式/6原则-23模式概要/">6原则&23模式概要</a>
+						
+                    </span>
+                
+            
+		</div>
     
-      <header class="post-header">
+</div>
 
-        
-        
-          <h1 class="post-title" itemprop="name headline">基本功之设计原则&设计模式（概要）：6原则&23模式</h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-07T11:03:40+08:00">
-                2018-07-07
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/基本功/" itemprop="url" rel="index">
-                    <span itemprop="name">基本功</span>
-                  </a>
-                </span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/基本功/23设计模式/" itemprop="url" rel="index">
-                    <span itemprop="name">23设计模式</span>
-                  </a>
-                </span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/基本功/23设计模式/6原则-23模式概要/" itemprop="url" rel="index">
-                    <span itemprop="name">6原则&23模式概要</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <meta name="generator" content="Hexo 3.9.0"><p><a href="https://imgchr.com/i/mjLyFO" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/08/30/mjLyFO.png" alt="mjLyFO.png"></a></p>
+<div id="article-content">
+	<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/mjLyFO"><img src="https://s2.ax1x.com/2019/08/30/mjLyFO.png" alt="mjLyFO.png"></a></p>
 <a id="more"></a> 
 
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>本系列的文章为设计模式的学习笔记本，主要参考书籍为阎宏博士的《Java与模式》，从大学听到“设计模式”这个词之后的几年里，也之前
+陆陆续续看过一些大佬们写的设计模式相关的书籍。这些书的组织结构基本类似，从“什么是设计模式？”问题引入，然后是6大设计原则和23
+种设计模式的简单介绍，之后是这些设计模式也是应用案例。由于公司内部培训的原因，需要再次深入学习一下设计模式，然后我选择了阎宏
+博士的《Java与模式》一书进行拜读。</code></pre>
+<!--more--> 
 
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>本系列的文章为设计模式的学习笔记本，主要参考书籍为阎宏博士的《Java与模式》，从大学听到“设计模式”这个词之后的几年里，也之前陆陆
-续续看过一些大佬们写的设计模式相关的书籍。这些书的组织结构基本类似，从“什么是设计模式？”问题引入，然后是6大设计原则和23种设计模
-式的简单介绍，之后是这些设计模式也是应用案例。由于公司内部培训的原因，我师父“爽姐”抽空让我深入学习一下设计模式，公司有多本设计模式
-相关的书籍，大概翻了翻之后，我选择了阎宏博士的《Java与模式》一书进行拜读。</code></pre><h3 id="我自己对于设计模式的认知"><a href="#我自己对于设计模式的认知" class="headerlink" title="我自己对于设计模式的认知"></a>我自己对于设计模式的认知</h3><pre><code>书的序言中，朱天华博士提到“软件是人类心灵和智慧在虚拟空间中的投射。软件的性能就是人类能力的扩展，它的活动就是人类心智活动的反应。
-软件直接表达出设计者对于目标的理解，对用户的期待，以及对自己的定位。”
+<h3 id="我自己对于设计模式的认知"><a href="#我自己对于设计模式的认知" class="headerlink" title="我自己对于设计模式的认知"></a>我自己对于设计模式的认知</h3><pre><code>书的序言中，朱天华博士提到“软件是人类心灵和智慧在虚拟空间中的投射。软件的性能就是人类能力的扩展，它的活动就是人类心智活动的
+反应。软件直接表达出设计者对于目标的理解，对用户的期待，以及对自己的定位。”
 
-没有参加工作之前，在我的心里，软件是“自由的”，它是人类社会在另一个世界的体现。工作之后，我快速上后公司的业务和技术体系之后，开始
-拼命造轮子，时间就久了，造轮子也就成了忙碌的日常，繁重的开发任务让我再也不想在业余时间看一行代码。自己编写的代码不但没有长进，反而
-经常犯低级性错误，这让我很是头疼。我再次学习设计模式之后，我意识到是自己的编程能力到达了某一个节点，我必须提升自己的编程能力，让自己
-对编程这件事情再次变得积极。</code></pre><h3 id="什么是设计模式？"><a href="#什么是设计模式？" class="headerlink" title="什么是设计模式？"></a>什么是设计模式？</h3><pre><code>OOP编程下，一系列结构合理，易于复用，易于维护的解决方案。</code></pre><h3 id="设计原则和23种设计模式"><a href="#设计原则和23种设计模式" class="headerlink" title="设计原则和23种设计模式"></a>设计原则和23种设计模式</h3><h3 id="6大设计原则概述"><a href="#6大设计原则概述" class="headerlink" title="6大设计原则概述"></a>6大设计原则概述</h3><table>
+没有参加工作之前，在我的心里，软件是“自由的”，它是人类社会在另一个世界的体现。工作之后，我快速上后公司的业务和技术体系之后，
+开始拼命造轮子，时间就久了，造轮子也就成了忙碌的日常，繁重的开发任务让我再也不想在业余时间看一行代码。自己编写的代码不但没有
+长进，反而经常犯低级性错误，这让我很是头疼。我再次学习设计模式之后，我意识到是自己的编程能力到达了某一个节点，我必须提升自己
+的编程能力，让自己对编程这件事情再次变得积极。</code></pre>
+<h3 id="设计原则"><a href="#设计原则" class="headerlink" title="设计原则"></a>设计原则</h3><h4 id="6大设计原则概述"><a href="#6大设计原则概述" class="headerlink" title="6大设计原则概述"></a>6大设计原则概述</h4><table>
 <thead>
 <tr>
 <th align="center">设计原则名称</th>
@@ -407,462 +1436,164 @@
 </tr>
 </tbody></table>
 <p>这五个原则的首字母联合起来 Solid 稳定的<br>此外还有第六个原则：Law of Demeter(迪米特法则)不常用</p>
-<h3 id="23种设计原则概述"><a href="#23种设计原则概述" class="headerlink" title="23种设计原则概述"></a>23种设计原则概述</h3><p>面向对象的两个重要元素：类和接口。设计原则就是类，接口，类和接口协作的时候需要满足的原则。</p>
-<p>使用场景    描述<br>接口设计<br>隔离原则；单一原则<br>类的设计<br>1.类本身<br>要考虑类的职责是否单一（单一原则）；<br>2.继承关系的类<br>要注意子类是否改变父类的方法，目标是不要改变，子类应该只扩展父类的行为（里氏替换原则，开闭原则），这样才能把将来子类变化时产生的影响缩小到最小的范围；<br>顶层框架设计<br>（类和接口的协作）    1.接口之间<br>考虑相互协作，协作应该是接口之间发生关系，接口之间的调用（依赖倒置原则）；<br>2.类之间<br>当1个类需要和其他类发生调用关系时，可以考虑增加1个中间者来转发调用关系（迪米特法则，不常用），缩小类更变影响的范围。</p>
-<h3 id="单一职责（Single-Responsibility-Principle-SRP）：单一职责指的是应该有且仅有一个原因引起类的变更。"><a href="#单一职责（Single-Responsibility-Principle-SRP）：单一职责指的是应该有且仅有一个原因引起类的变更。" class="headerlink" title="单一职责（Single Responsibility Principle SRP）：单一职责指的是应该有且仅有一个原因引起类的变更。"></a>单一职责（Single Responsibility Principle SRP）：单一职责指的是应该有且仅有一个原因引起类的变更。</h3><p>解析：分清职责，接口一定要做到单一职责，方法也要做到，类尽量做到</p>
-<h3 id="开闭原则"><a href="#开闭原则" class="headerlink" title="开闭原则"></a>开闭原则</h3><p>定义<br>一个软件实体（项目或者软件产品中按照一定的逻辑规则划分的模块）如类、模块和函数应该对扩展开放，对修改关闭<br>解释<br>一个软件产品在开发周期内，肯定会有变化，我们的设计应该尽量适应这些变化，开闭原则则告诉我们尽量通过扩展软件实体的行为来实现变化，而不是修改已有的代码来完成变化。<br>重要性<br>其他几个原则都是开闭原则的具体形态；<br>可提高复用性；可提高可维护性<br>使用<br>抽象约束、元数据控制模块行为、制定项目章程、封装变化<br>封装变化有两层含义：<br>第一：将相同的变化封装到一个接口或抽象类中；<br>第二：将不同的变化封装到不同的接口或抽象类中。</p>
-<p>23种设计模式都是从各个不同的角度对变化进行封装的</p>
-<h3 id="里氏替换（Liskov-Substitution-Principle-LSP）"><a href="#里氏替换（Liskov-Substitution-Principle-LSP）" class="headerlink" title="里氏替换（Liskov Substitution Principle LSP）"></a>里氏替换（Liskov Substitution Principle LSP）</h3><p>定义：所有引用基类的地方必须能透明地使用其子类的对象，通俗的来讲就是父类能出现的地方子类就可以出现，但是反过来就不行了。子类可以扩展父类的功能，但不能改变父类原有的功能。</p>
-<p>定义包含四层意思：<br>1） 子类可以实现父的抽象方法，但不能覆写父类的非抽象方法。 父类中凡是已经实现好的方法（相对于抽象方法而言），实际上是在设定一系列的规范和契约，虽然它不强制要求所有的子类必须遵从这些契约，但是如果子类对这些非抽象方法任意修改，就会对整个继承体系造成破坏。<br>2） 子类中可以增加自己特有的方法。<br>3） 覆写或实现父类的方法时，输入参数可以被放大。（覆写指的覆写一个正常方法并重写，是实现指的是实现接口或者抽象方法）<br>4） 覆写或实现父类的方法时输出结果可以被缩小（若放大，还能用子类替换父类吗？）</p>
+<h4 id="6种设计原则概述"><a href="#6种设计原则概述" class="headerlink" title="6种设计原则概述"></a>6种设计原则概述</h4><p>面向对象的两个重要元素：类和接口。设计原则就是类，接口，类和接口协作的时候需要满足的原则。</p>
+<table>
+<thead>
+<tr>
+<th align="center">使用场景</th>
+<th align="left">内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">接口设计</td>
+<td align="left">隔离原则；单一原则</td>
+</tr>
+<tr>
+<td align="center">类本身</td>
+<td align="left">要考虑类的的职责是否单一（单一原则）</td>
+</tr>
+<tr>
+<td align="center">继承关系的类</td>
+<td align="left">要注意子类是否改变父类的方法，目标是不要改变，<br>子类应该只扩展父类的行为（里氏替换原则，开闭原则）<br>这样才能把将来子类变化时产生的影响缩小到最小的范围<br></td>
+</tr>
+<tr>
+<td align="center">顶层框架设计</td>
+<td align="left">1.接口之间:<br>  考虑相互协作，协作应该是接口之间发生关系，<br>接口之间的调用（依赖倒置原则）；<br> 2.类之间:<br> 当1个类需要和其他类发生调用关系时，可以考虑<br>增加1个中间者来转发调用关系（迪米特法则，不常用），<br>缩小类更变影响的范围。</td>
+</tr>
+</tbody></table>
+<h5 id="单一职责（Single-Responsibility-Principle-SRP）：单一职责指的是应该有且仅有一个原因引起类的变更。"><a href="#单一职责（Single-Responsibility-Principle-SRP）：单一职责指的是应该有且仅有一个原因引起类的变更。" class="headerlink" title="单一职责（Single Responsibility Principle SRP）：单一职责指的是应该有且仅有一个原因引起类的变更。"></a>单一职责（Single Responsibility Principle SRP）：单一职责指的是应该有且仅有一个原因引起类的变更。</h5><p>解析：分清职责，接口一定要做到单一职责，方法也要做到，类尽量做到</p>
+<h4 id="6大设计原则简单描述"><a href="#6大设计原则简单描述" class="headerlink" title="6大设计原则简单描述"></a>6大设计原则简单描述</h4><h5 id="开闭原则"><a href="#开闭原则" class="headerlink" title="开闭原则"></a>开闭原则</h5><ul>
+<li>定义：一个软件实体（项目或者软件产品中按照一定的逻辑规则划分的模块）如类、模块和函数应该对扩展开放，对修改关闭</li>
+<li>解释：一个软件产品在开发周期内，肯定会有变化，我们的设计应该尽量适应这些变化，开闭原则则告诉我们尽量通过扩展软件实体的行为来<br>实现变化，而不是修改已有的代码来完成变化。</li>
+<li>重要性：其他几个原则都是开闭原则的具体形态；可提高复用性；可提高可维护性,使用抽象约束、元数据控制模块行为、制定项目章程、封装变化</li>
+<li>封装变化有两层含义：<br><br> 第一：将相同的变化封装到一个接口或抽象类中；<br><br> 第二：将不同的变化封装到不同的接口或抽象类中。</li>
+</ul>
+<h5 id="里氏替换（Liskov-Substitution-Principle-LSP）"><a href="#里氏替换（Liskov-Substitution-Principle-LSP）" class="headerlink" title="里氏替换（Liskov Substitution Principle LSP）"></a>里氏替换（Liskov Substitution Principle LSP）</h5><p>定义：所有引用基类的地方必须能透明地使用其子类的对象，通俗的来讲就是父类能出现的地方子类就可以出现，但是反过来就不行了。子类可以<br>扩展父类的功能，但不能改变父类原有的功能。</p>
+<p>定义包含四层意思：<br>1） 子类可以实现父的抽象方法，但不能覆写父类的非抽象方法。 父类中凡是已经实现好的方法（相对于抽象方法而言），实际上是在设定一系<br>列的规范和契约，虽然它不强制要求所有的子类必须遵从这些契约，但是如果子类对这些非抽象方法任意修改，就会对整个继承体系造成破坏。<br><br>2） 子类中可以增加自己特有的方法。<br><br>3） 覆写或实现父类的方法时，输入参数可以被放大。（覆写指的覆写一个正常方法并重写，是实现指的是实现接口或者抽象方法）<br><br>4） 覆写或实现父类的方法时输出结果可以被缩小（若放大，还能用子类替换父类吗？）<br></p>
 <p>说明：</p>
 <ol>
-<li>为良好的继承定义了一个规范；</li>
-<li>在类中调用其他类时务必要使用父类或者接口，如果不能使用父类或者接口，则说明类的设计已经违背了LSP原则；</li>
-<li>我们在做系统设计时，经常会定义一个接口或者抽象类，然后编码实现，调用类则直接传入接口或者抽象类，不关心具体实现；</li>
-<li>如果子类不能完整地实现父类的方法，或者父类的某些方法在子类中已经发生“畸变”，则建议断开父子继承关系，采用依赖、聚集、组合等关系代替继承；</li>
-<li>在项目中采用里氏替换原则时，尽量避免子类的个性，一旦子类有个性这个子类和父类的关系就很难调和了。</li>
+<li>为良好的继承定义了一个规范；<br></li>
+<li>在类中调用其他类时务必要使用父类或者接口，如果不能使用父类或者接口，则说明类的设计已经违背了LSP原则；<br></li>
+<li>我们在做系统设计时，经常会定义一个接口或者抽象类，然后编码实现，调用类则直接传入接口或者抽象类，不关心具体实现；<br></li>
+<li>如果子类不能完整地实现父类的方法，或者父类的某些方法在子类中已经发生“畸变”，则建议断开父子继承关系，采用依赖、聚集、组合等关<br>系代替继承；<br></li>
+<li>在项目中采用里氏替换原则时，尽量避免子类的个性，一旦子类有个性这个子类和父类的关系就很难调和了。<br></li>
 </ol>
-<h3 id="迪米特法则（Least-Knowledge-Principle-LKP）也称为最少知识原则："><a href="#迪米特法则（Least-Knowledge-Principle-LKP）也称为最少知识原则：" class="headerlink" title="迪米特法则（Least Knowledge Principle LKP）也称为最少知识原则："></a>迪米特法则（Least Knowledge Principle LKP）也称为最少知识原则：</h3><p>描述：一个对象应该对其他对象有最少的了解，一个类只需要知道自己需要耦合或者调用类的public方法即可。一个类公开的public方法越多，修改时涉及的面也越大，变更的风险也越大。</p>
+<h5 id="迪米特法则（Least-Knowledge-Principle-LKP）也称为最少知识原则："><a href="#迪米特法则（Least-Knowledge-Principle-LKP）也称为最少知识原则：" class="headerlink" title="迪米特法则（Least Knowledge Principle LKP）也称为最少知识原则："></a>迪米特法则（Least Knowledge Principle LKP）也称为最少知识原则：</h5><p>描述：一个对象应该对其他对象有最少的了解，一个类只需要知道自己需要耦合或者调用类的public方法即可。一个类公开的public方法越多，<br>修改时涉及的面也越大，变更的风险也越大。</p>
 <p>核心观念：类间的解耦，弱耦合，但是也要衡量，既要让结构清晰，又要高内聚低耦合，我们在使用原则时，要反复衡量。</p>
 <p>解释：一个类只和朋友类交流，出现在成员变量、方法的输入输出参数中的类称为成员朋友类，而出现在方法体内部的类不属于朋友类。</p>
-<p>实践：在实际中如果遇到，一个方法放在本类中也可以，放在其他类中也合适，那么你可以坚持这样一个原则：如果一个方法放在本类中，既不增加类间关系，也 对本类不产生负面影响，那就放置在本类中。</p>
-<h3 id="接口隔离（Interface-Segregation-Principle-ISP）"><a href="#接口隔离（Interface-Segregation-Principle-ISP）" class="headerlink" title="接口隔离（Interface Segregation Principle ISP）"></a>接口隔离（Interface Segregation Principle ISP）</h3><p>定义：<br>把一个臃肿的接口变更为两个独立的接口所依赖的原则就是接口隔离原则（首先必须满足单一职责原则）；</p>
-<p>说明：<br>客户端不应该依赖它不需要的接口；类间的依赖关系应该建立在最小的接口上；</p>
+<p>实践：在实际中如果遇到，一个方法放在本类中也可以，放在其他类中也合适，那么你可以坚持这样一个原则：如果一个方法放在本类中，既不<br>增加类间关系，也 对本类不产生负面影响，那就放置在本类中。</p>
+<h5 id="接口隔离（Interface-Segregation-Principle-ISP）"><a href="#接口隔离（Interface-Segregation-Principle-ISP）" class="headerlink" title="接口隔离（Interface Segregation Principle ISP）"></a>接口隔离（Interface Segregation Principle ISP）</h5><ul>
+<li><p>定义：把一个臃肿的接口变更为两个独立的接口所依赖的原则就是接口隔离原则（首先必须满足单一职责原则）；</p>
+</li>
+<li><p>说明：客户端不应该依赖它不需要的接口；类间的依赖关系应该建立在最小的接口上；</p>
+</li>
+</ul>
 <p>原则：<br>1）一个接口只服务于一个子模块或业务逻辑，接口要高内聚<br>2）通过业务逻辑压缩接口中的public方法<br>3）已被污染的接口尽量去修改，若变更风险大，可用适配器模式进行转化处理<br>4）定制服务，为不同的用户定制不同的服务，了解业务背景，避免生搬硬套模式。</p>
 <p>开发中只能根据，经验和常识来判断接口粒度的大小。</p>
-<h3 id="依赖倒置原则（Dependence-Inversion-Principle-DIP）"><a href="#依赖倒置原则（Dependence-Inversion-Principle-DIP）" class="headerlink" title="依赖倒置原则（Dependence Inversion Principle DIP）"></a>依赖倒置原则（Dependence Inversion Principle DIP）</h3><p>定义：<br>1）高层模块不应该依赖低层模块<br>2）抽象不应该依赖细节<br>3）细节依赖抽象</p>
+<h5 id="依赖倒置原则（Dependence-Inversion-Principle-DIP）"><a href="#依赖倒置原则（Dependence-Inversion-Principle-DIP）" class="headerlink" title="依赖倒置原则（Dependence Inversion Principle DIP）"></a>依赖倒置原则（Dependence Inversion Principle DIP）</h5><p>定义：<br>1）高层模块不应该依赖低层模块<br>2）抽象不应该依赖细节<br>3）细节依赖抽象</p>
 <p>在Java中的表现为：面向接口编程 OOP<br>1）模块间的依赖通过抽象发生，实现类间不发生直接的依赖关系，其依赖关系通过接口或者抽象类产生；<br>2）接口或抽象类不依赖于实现类<br>3）实现类依赖于接口或者抽象类</p>
 <p>好处：<br>依赖倒置原则可以减少类之间的耦合性，提高系统的稳定性；降低并行开发引起的风险。<br>要并行开发就要解决模块间的依赖关系，依赖倒置原则正好解决这个问题。<br>在Java中，只要定义变量就必然要有类型，一个变量可以有两种类型，表面类型和实际类型，UserDao是表面类型，UserDaoImpl是实际类型。</p>
 <p>依赖的三种写法：<br>依赖是可以传递的，只要做到抽象依赖，即使是多层的依赖也没关系。<br>1）构造函数传递依赖对象<br>2）Setter方法传递依赖对象<br>3）接口方法中传入依赖对象</p>
-<p>最佳实践：<br>1）每个类尽量都有接口或者抽象类<br>2）变量的表面类型尽量是接口或者抽象类<br>3）不从具体类派生类<br>4）尽量不覆写基类的方法，只实现；</p>
-<p>倒置的概念就是所谓的抽象依赖。</p>
-<h3 id="分布式设计原则"><a href="#分布式设计原则" class="headerlink" title="分布式设计原则"></a>分布式设计原则</h3><p>系统设计<br>    系统设计基础<br>        性能、伸缩性、扩展性、可用性、安全性<br>    分布式<br>        分布式锁、分布式事务、CAP、BASE、Paxos、Raft<br>    集群<br>        负载均衡、Session 管理<br>    攻击技术<br>        XSS、CSRF、SQL 注入、DDoS<br>    缓存<br>        缓存特征、缓存位置、缓存问题、数据分布、一致性哈希、LRU、CDN<br>    消息队列<br>        消息处理模型、使用场景、可靠性</p>
+<p>最佳实践：<br>1）每个类尽量都有接口或者抽象类<br>2）变量的表面类型尽量是接口或者抽象类<br>3）不从具体类派生类<br>4）尽量不覆写基类的方法，只实现；<br>倒置的概念就是所谓的抽象依赖。</p>
+<h3 id="23设计模式"><a href="#23设计模式" class="headerlink" title="23设计模式"></a>23设计模式</h3><h4 id="设计模式的产生"><a href="#设计模式的产生" class="headerlink" title="设计模式的产生"></a>设计模式的产生</h4><p>1995 年，艾瑞克·伽马（ErichGamma）、理査德·海尔姆（Richard Helm）、拉尔夫·约翰森（Ralph Johnson）、<br>约翰·威利斯迪斯（John Vlissides）等 4 位作者合作出版了《设计模式：可复用面向对象软件的基础》<br>（Design Patterns: Elements of Reusable Object-Oriented Software）一书，在本教程中收录了 23 个设计模式，<br>这是设计模式领域里程碑的事件，导致了软件设计模式的突破。这 4 位作者在软件开发领域里也以他们的“四人组”（Gang of Four，GoF）匿名著称。</p>
+<p>软件设计模式（Software Design Pattern），又称设计模式，是一套被反复使用、多数人知晓的、经过分类编目的、代码设计经验的总结。<br>它描述了在软件设计过程中的一些不断重复发生的问题，以及该问题的解决方案。也就是说，它是解决特定问题的一系列套路，<br>是前辈们的代码设计经验的总结，具有一定的普遍性，可以反复使用。其目的是为了提高代码的可重用性、代码的可读性和代码的可靠性。</p>
+<h4 id="设计模式的意义"><a href="#设计模式的意义" class="headerlink" title="设计模式的意义"></a>设计模式的意义</h4><p>设计模式的本质是面向对象设计原则的实际运用，是对类的封装性、继承性和多态性以及类的关联关系和组合关系的充分理解。正确使用设计模式具有以下优点:</p>
+<ul>
+<li>可以提高程序员的思维能力、编程能力和设计能力。</li>
+<li>使程序设计更加标准化、代码编制更加工程化，使软件开发效率大大提高，从而缩短软件的开发周期。</li>
+<li>使设计的代码可重用性高、可读性强、可靠性高、灵活性好、可维护性强。</li>
+</ul>
+<p>当然，软件设计模式只是一个引导。在具体的软件幵发中，必须根据设计的应用系统的特点和要求来恰当选择。对于简单的程序开发，<br>苛能写一个简单的算法要比引入某种设计模式更加容易。但对大项目的开发或者框架设计，用设计模式来组织代码显然更好。 </p>
+<h4 id="软件设计模式的基本要素"><a href="#软件设计模式的基本要素" class="headerlink" title="软件设计模式的基本要素"></a>软件设计模式的基本要素</h4><p>软件设计模式使人们可以更加简单方便地复用成功的设计和体系结构，它通常包含以下几个基本要素：<br>模式名称、别名、动机、问题、解决方案、效果、结构、模式角色、合作关系、实现方法、适用性、<br>已知应用、例程、模式扩展和相关模式等，其中最关键的元素包括以下 4 个主要部分：</p>
+<ol>
+<li><p>模式名称：每一个模式都有自己的名字，通常用一两个词来描述，可以根据模式的问题、特点、解决方案、功能和效果来命名。<br>模式名称（PatternName）有助于我们理解和记忆该模式，也方便我们来讨论自己的设计。</p>
+</li>
+<li><p>问题：问题（Problem）描述了该模式的应用环境，即何时使用该模式。它解释了设计问题和问题存在的前因后果，以及必须满足的一系列先决条件。</p>
+</li>
+<li><p>解决方案：模式问题的解决方案（Solution）包括设计的组成成分、它们之间的相互关系及各自的职责和协作方式。因为模式就像一个模板，<br>可应用于多种不同场合，所以解决方案并不描述一个特定而具体的设计或实现，而是提供设计问题的抽象描述和怎样用一个具有一般意义的<br>元素组合（类或对象的 组合）来解决这个问题。</p>
+</li>
+<li><p>效果：描述了模式的应用效果以及使用该模式应该权衡的问题，即模式的优缺点。主要是对时间和空间的衡量，以及该模式对系统的灵活性、<br>扩充性、可移植性的影响，也考虑其实现问题。显式地列出这些效果（Consequence）对理解和评价这些模式有很大的帮助。</p>
+</li>
+</ol>
+<h3 id="设计模式分类"><a href="#设计模式分类" class="headerlink" title="设计模式分类"></a>设计模式分类</h3><p>说明：23种设计模式都是从各个不同的角度对变化进行封装的。这 23 种设计模式不是孤立存在的，很多模式之间存在一定的关联关系。</p>
+<h4 id="创建型"><a href="#创建型" class="headerlink" title="创建型"></a>创建型</h4><ul>
+<li>目的：描述类的创建，实现创建和使用的分离。<h5 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h5>某个类只能生成一个实例，该类提供了一个全局访问点供外部获取该实例，其拓展是有限多例模式。<h5 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h5>定义一个用于创建产品的接口，由子类决定生产什么产品。<h5 id="建造者模式"><a href="#建造者模式" class="headerlink" title="建造者模式"></a>建造者模式</h5>将一个复杂对象分解成多个相对简单的部分，然后根据不同需要分别创建它们，最后构建成该复杂对象。<h5 id="原型模式"><a href="#原型模式" class="headerlink" title="原型模式"></a>原型模式</h5>将一个对象作为原型，通过对其进行复制而克隆出多个和原型类似的新实例。<h5 id="抽象工厂"><a href="#抽象工厂" class="headerlink" title="抽象工厂"></a>抽象工厂</h5>提供一个创建产品族的接口，其每个子类可以生产一系列相关的产品。</li>
+</ul>
+<h4 id="行为型"><a href="#行为型" class="headerlink" title="行为型"></a>行为型</h4><ul>
+<li>目的：协调类或者对象来完成单个对象无法完成的任务，以及职责分配<h5 id="访问者模式"><a href="#访问者模式" class="headerlink" title="访问者模式"></a>访问者模式</h5>在不改变集合元素的前提下，为一个集合中的每个元素提供多种访问方式，即每个元素有多个访问者对象访问。<h5 id="模板模式"><a href="#模板模式" class="headerlink" title="模板模式"></a>模板模式</h5>定义一个操作中的算法骨架，而将算法的一些步骤延迟到子类中，使得子类可以不改变该算法结构的情况下重定义该算法的某些特定步骤。<h5 id="策略模式"><a href="#策略模式" class="headerlink" title="策略模式"></a>策略模式</h5>定义了一系列算法，并将每个算法封装起来，使它们可以相互替换，且算法的改变不会影响使用算法的客户。<h5 id="状态模式"><a href="#状态模式" class="headerlink" title="状态模式"></a>状态模式</h5>允许一个对象在其内部状态发生改变时改变其行为能力。<h5 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h5>多个对象间存在一对多关系，当一个对象发生改变时，把这种改变通知给其他多个对象，从而影响其他对象的行为。<h5 id="备忘录模式"><a href="#备忘录模式" class="headerlink" title="备忘录模式"></a>备忘录模式</h5>在不破坏封装性的前提下，获取并保存一个对象的内部状态，以便以后恢复它。<h5 id="中介者模式"><a href="#中介者模式" class="headerlink" title="中介者模式"></a>中介者模式</h5>定义一个中介对象来简化原有对象之间的交互关系，降低系统中对象间的耦合度，使原有对象之间不必相互了解。<h5 id="迭代器模式"><a href="#迭代器模式" class="headerlink" title="迭代器模式"></a>迭代器模式</h5>提供一种方法来顺序访问聚合对象中的一系列数据，而不暴露聚合对象的内部表示。<h5 id="解释器模式"><a href="#解释器模式" class="headerlink" title="解释器模式"></a>解释器模式</h5>提供如何定义语言的文法，以及对语言句子的解释方法，即解释器。<h5 id="命令模式"><a href="#命令模式" class="headerlink" title="命令模式"></a>命令模式</h5>一个请求封装为一个对象，使发出请求的责任和执行请求的责任分割开。<h5 id="责任链模式"><a href="#责任链模式" class="headerlink" title="责任链模式"></a>责任链模式</h5>把请求从链中的一个对象传到下一个对象，直到请求被响应为止。通过这种方式去除对象之间的耦合。</li>
+</ul>
+<h4 id="结构型"><a href="#结构型" class="headerlink" title="结构型"></a>结构型</h4><ul>
+<li>目的：按照某种布局结构来组织类和对象。<h5 id="适配器模式"><a href="#适配器模式" class="headerlink" title="适配器模式"></a>适配器模式</h5>将一个类的接口转换成客户希望的另外一个接口，使得原本由于接口不兼容而不能一起工作的那些类能一起工作。<h5 id="桥接模式"><a href="#桥接模式" class="headerlink" title="桥接模式"></a>桥接模式</h5>将抽象与实现分离，使它们可以独立变化。它是用组合关系代替继承关系来实现，从而降低了抽象和实现这两个可变维度的耦合度。<h5 id="组合模式"><a href="#组合模式" class="headerlink" title="组合模式"></a>组合模式</h5>将对象组合成树状层次结构，使用户对单个对象和组合对象具有一致的访问性。<h5 id="装饰模式"><a href="#装饰模式" class="headerlink" title="装饰模式"></a>装饰模式</h5>动态的给对象增加一些职责，即增加其额外的功能。<h5 id="外观模式"><a href="#外观模式" class="headerlink" title="外观模式"></a>外观模式</h5>为多个复杂的子系统提供一个一致的接口，使这些子系统更加容易被访问。<h5 id="享元模式"><a href="#享元模式" class="headerlink" title="享元模式"></a>享元模式</h5>运用共享技术来有效地支持大量细粒度对象的复用。<h5 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h5>为某对象提供一种代理以控制对该对象的访问。即客户端通过代理间接地访问该对象，从而限制、增强或修改该对象的一些特性。</li>
+</ul>
 
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/设计原则与设计模式/" rel="tag"># 设计原则与设计模式</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/posts/706a57fa/" rel="next" title="难得一见的彩虹">
-                <i class="fa fa-chevron-left"></i> 难得一见的彩虹
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/posts/b48e1d47/" rel="prev" title="黑云压城">
-                黑云压城 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
-  
-
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="Mozss_莫斯">
-            
-              <p class="site-author-name" itemprop="name">Mozss_莫斯</p>
-              <p class="site-description motion-element" itemprop="description">我们只能越来越像我们自己。</p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">117</span>
-                  <span class="site-state-item-name">posts</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">50</span>
-                  <span class="site-state-item-name">categories</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">25</span>
-                  <span class="site-state-item-name">tags</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-            <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/mozss" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="mailto:mozss@outlook.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
-            </div>
-          
-
-          
-          
-
-          
-          
-            <div class="links-of-blogroll motion-element links-of-blogroll-block">
-              <div class="links-of-blogroll-title">
-                <i class="fa  fa-fw fa-link"></i>
-                WebsiteLinks
-              </div>
-              <ul class="links-of-blogroll-list">
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://tool.lu/software/" title="工具集合" target="_blank">工具集合</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://vimjc.com" title="Vim教程网" target="_blank">Vim教程网</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://sobooks.cc/" title="好多书" target="_blank">好多书</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="http://man.linuxde.net/" title="Linux命令大全" target="_blank">Linux命令大全</a>
-                  </li>
-                
-              </ul>
-            </div>
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#我自己对于设计模式的认知"><span class="nav-number">2.</span> <span class="nav-text">我自己对于设计模式的认知</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是设计模式？"><span class="nav-number">3.</span> <span class="nav-text">什么是设计模式？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设计原则和23种设计模式"><span class="nav-number">4.</span> <span class="nav-text">设计原则和23种设计模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6大设计原则概述"><span class="nav-number">5.</span> <span class="nav-text">6大设计原则概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#23种设计原则概述"><span class="nav-number">6.</span> <span class="nav-text">23种设计原则概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单一职责（Single-Responsibility-Principle-SRP）：单一职责指的是应该有且仅有一个原因引起类的变更。"><span class="nav-number">7.</span> <span class="nav-text">单一职责（Single Responsibility Principle SRP）：单一职责指的是应该有且仅有一个原因引起类的变更。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开闭原则"><span class="nav-number">8.</span> <span class="nav-text">开闭原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#里氏替换（Liskov-Substitution-Principle-LSP）"><span class="nav-number">9.</span> <span class="nav-text">里氏替换（Liskov Substitution Principle LSP）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迪米特法则（Least-Knowledge-Principle-LKP）也称为最少知识原则："><span class="nav-number">10.</span> <span class="nav-text">迪米特法则（Least Knowledge Principle LKP）也称为最少知识原则：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接口隔离（Interface-Segregation-Principle-ISP）"><span class="nav-number">11.</span> <span class="nav-text">接口隔离（Interface Segregation Principle ISP）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#依赖倒置原则（Dependence-Inversion-Principle-DIP）"><span class="nav-number">12.</span> <span class="nav-text">依赖倒置原则（Dependence Inversion Principle DIP）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式设计原则"><span class="nav-number">13.</span> <span class="nav-text">分布式设计原则</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">© <span itemprop="copyrightYear">2019</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Mozss_莫斯</span>
-
-  
 </div>
 
 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
-
-
-
-
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
+    <div class="post-guide">
+        <div class="item left">
+            
+              <a href="/posts/b48e1d47/">
+                  <i class="fa fa-angle-left" aria-hidden="true"></i>
+                  披星戴月
+              </a>
+            
+        </div>
+        <div class="item right">
+            
+              <a href="/posts/706a57fa/">
+                难得一见的彩虹
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
+              </a>
+            
+        </div>
+    </div>
+
+
+
+	<div id="vcomments"></div>
+
+
+<script>
 	
+		// 评论
+		new Valine({
+			av: AV,
+			el: '#vcomments',
+			notify: false,
+			verify: false,
+			path: window.location.pathname,
+			appId: '',
+			appKey: '',
+			placeholder: '请输入评论',
+			avatar: 'retro',
+			recordIP: false
+		})
+	
+	
+</script>
+	</div>
+	<div id="footer">
+	<p>
+	©2018-<span id="footerYear"></span> 
+	<a href="/about">Mozss</a> 
+	
+		|
+		<span id="busuanzi_container_site_pv">
+			pv
+			<span id="busuanzi_value_site_pv"></span>
+		</span>
+		|
+		<span id="busuanzi_container_site_uv"> 
+			uv
+			<span id="busuanzi_value_site_uv"></span>
+		</span>
+	
+</p></div>
 
 
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-  
-
-  
-
-  
-
-  
-
-
+<script type="text/javascript"> 
+	document.getElementById('footerYear').innerHTML = new Date().getFullYear() + '';
+</script>
+	<button id="totop-toggle" class="toggle"><i class="fa fa-angle-double-up" aria-hidden="true"></i></button>
 
 <script type="text/javascript" charset="utf-8" src="/js/lazyload-plugin/lazyload.intersectionObserver.min.js"></script></body></html>
