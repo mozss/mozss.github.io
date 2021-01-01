@@ -1,814 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>基本功之10大排序算法概要和递归算法</title>
-    <url>/posts/c6fe47ef/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLPsI"><img src="https://s2.ax1x.com/2019/08/30/mjLPsI.png" alt="mjLPsI.png"></a></p>
-<ul>
-<li>说明：对10大排序算法进行概要总结；详细分析递归算法以及其应用案例。<a id="more"></a> 
-
-
-</li>
-</ul>
-<h3 id="10大排序算法"><a href="#10大排序算法" class="headerlink" title="10大排序算法"></a>10大排序算法</h3><p>关于10大排序算法，可以找到很多的总结，如下图：</p>
-<p><a href="https://imgchr.com/i/nSaFe0"><img src="https://s2.ax1x.com/2019/09/01/nSaFe0.png" alt="nSaFe0.png"></a><br>关于稳定性</p>
-<p>稳定的：冒泡、插入、归并和基数。</p>
-<p>不稳定的：选择、快速、希尔、堆（记忆：不选快希堆）。</p>
-<p>名词解释：</p>
-<ul>
-<li> n：数据规模 </li>
-<li> k：”桶”的个数 </li>
-<li> In-place：占用常数内存，不占用额外内存 </li>
-<li> Out-place：占用额外内存 </li>
-<li> 稳定性：排序后 2 个相等键值的顺序和排序之前它们的顺序相同</li>
-</ul>
-<p>10大排序算法时空复杂度让人很是头疼，不过最近网上看到了一则口诀（<a href="http://mashibing.com/?p=116%EF%BC%89%EF%BC%8C%E5%A4%A7%E5%AE%B6%E5%8F%AF%E4%BB%A5%E5%8F%82%E8%80%83%E4%B8%80%E4%B8%8B%E3%80%82">http://mashibing.com/?p=116），大家可以参考一下。</a></p>
-<p>然后对上表进行了调整合并：<br><a href="https://imgchr.com/i/nSaCyn"><img src="https://s2.ax1x.com/2019/09/01/nSaCyn.jpg" alt="nSaCyn.jpg"></a></p>
-<p><a href="https://imgchr.com/i/nSaPLq"><img src="https://s2.ax1x.com/2019/09/01/nSaPLq.jpg" alt="nSaPLq.jpg"></a></p>
-<h3 id="递归思想"><a href="#递归思想" class="headerlink" title="递归思想"></a>递归思想</h3><p>递归(Recursion)是指在函数的定义中使用函数自身的方法</p>
-<h5 id="递归解读"><a href="#递归解读" class="headerlink" title="递归解读"></a>递归解读</h5><p>我们可以递归分为“<strong>递</strong>”和“<strong>归</strong>”两个过程。<br></p>
-<ul>
-<li>递：递去，深入，分解。待解决的问题可以分解为规模较小的相同子问题。</li>
-<li>归：归来，回归，合并。</li>
-</ul>
-<p>我们先思考以下问题：<br><br>1.待求解的问题是否可以<strong>重复分解</strong>成小规模的问题？<br><br>2.我们“递去”到什么程度，然后“归来”呢，哪里是“最深”的地方呢？<br><br>3.在“最深处”，“递去”结束前，“归来”开始前，我们面对的是<strong>最小子问题</strong>，面对<strong>最小子问题</strong>我们的解决方式是什么？<br></p>
-<p>只要把以上三个问题的解决了，递归可以就轻松完成了。这也就是递归的三个要素：</p>
-<ul>
-<li>1.重复的逻辑</li>
-<li>2.递归的临界点</li>
-<li>3.临界点的最小子问题的处理</li>
-</ul>
-<p>前两个要素是确定的。第三个要素，可以提供两种解决思路：“递去”过程中解决;“归来”规程中解决。</p>
-<figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">recursion</span></span>{</span><br><span class="line"></span><br><span class="line">    <span class="comment">//在递去的过程中解决问题</span></span><br><span class="line">    <span class="function">function <span class="title">recursion_01</span><span class="params">(大规模)</span></span>{</span><br><span class="line">        <span class="keyword">if</span> (临界条件){      </span><br><span class="line">            end; </span><br><span class="line">        }<span class="keyword">else</span>{            </span><br><span class="line">            solve;                </span><br><span class="line">            recursion(小规模);  <span class="comment">// 递去</span></span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">//在归来的过程中解决问题</span></span><br><span class="line">    <span class="function">function <span class="title">recursion_02</span><span class="params">(大规模)</span></span>{</span><br><span class="line">        <span class="keyword">if</span> (临界条件){     </span><br><span class="line">            end; </span><br><span class="line">        }<span class="keyword">else</span>{          </span><br><span class="line">            recursion(小规模);   <span class="comment">// 递去              </span></span><br><span class="line">            solve;     </span><br><span class="line">        }</span><br><span class="line">     }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-<h5 id="递归转为非递归"><a href="#递归转为非递归" class="headerlink" title="递归转为非递归"></a>递归转为非递归</h5><ul>
-<li>1.用变量来保存中间结果</li>
-<li>2.递归调用变为循环</li>
-</ul>
-<h5 id="递归应用"><a href="#递归应用" class="headerlink" title="递归应用"></a>递归应用</h5><h6 id="汉诺塔问题"><a href="#汉诺塔问题" class="headerlink" title="汉诺塔问题"></a>汉诺塔问题</h6><h6 id="阶乘问题"><a href="#阶乘问题" class="headerlink" title="阶乘问题"></a>阶乘问题</h6><h6 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h6><h6 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h6><h6 id="杨辉三角问题"><a href="#杨辉三角问题" class="headerlink" title="杨辉三角问题"></a>杨辉三角问题</h6><h6 id="字符串回文问题"><a href="#字符串回文问题" class="headerlink" title="字符串回文问题"></a>字符串回文问题</h6><h6 id="数深度问题"><a href="#数深度问题" class="headerlink" title="数深度问题"></a>数深度问题</h6><h3 id="时空复杂度"><a href="#时空复杂度" class="headerlink" title="时空复杂度"></a>时空复杂度</h3></body></html>]]></content>
-      <categories>
-        <category>基本功</category>
-        <category>10大排序算法</category>
-      </categories>
-      <tags>
-        <tag>排序算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基本功之10大排序算法（一）：选择排序</title>
-    <url>/posts/c0e72531/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLSRH"><img src="https://s2.ax1x.com/2019/08/30/mjLSRH.png" alt="mjLSRH.png"></a></p>
-<ul>
-<li>选择排序：每次从待排序列中选择最小的元素，放置在序列的开始位置。<a id="more"></a> 
-
-</li>
-</ul>
-<h3 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h3><ul>
-<li>不稳定</li>
-<li>时间复杂度：O(n<sup>2</sup>)</li>
-<li>空间复杂度：O(1)</li>
-</ul>
-<h3 id="简要思路"><a href="#简要思路" class="headerlink" title="简要思路"></a>简要思路</h3><ul>
-<li>找最小：在待排序列中找到最小的元素；</li>
-<li>交换元素：最小元素是待排序的第一个元素，无操作；最小元素不是带一个，将于第一个元素交换；</li>
-<li>完成前两步，待排序列为N-1，重复上述操作，直到排序结束。<br><a href="https://imgchr.com/i/npF1Dx"><img src="https://s2.ax1x.com/2019/09/01/npF1Dx.png" alt="npF1Dx.png"></a></li>
-</ul>
-<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><h5 id="方式一：数组（不稳定）"><a href="#方式一：数组（不稳定）" class="headerlink" title="方式一：数组（不稳定）"></a>方式一：数组（不稳定）</h5><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChoiceSort</span> </span>{</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] sort(<span class="keyword">int</span>[] array){</span><br><span class="line">        <span class="comment">//总共要经过N-1轮比较</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i < array.length-<span class="number">1</span> ; i++){ </span><br><span class="line">            <span class="keyword">int</span> min = i;</span><br><span class="line">            <span class="comment">//每轮需要比较的次数</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = i+<span class="number">1</span> ; j < array.length ; j++){</span><br><span class="line">                <span class="keyword">if</span>(array[j]<array[min]){</span><br><span class="line">                    min = j;<span class="comment">//记录目前能找到的最小值元素的下标</span></span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">            <span class="comment">//将找到的最小值和i位置所在的值进行交换</span></span><br><span class="line">            <span class="keyword">if</span>(i != min){</span><br><span class="line">                <span class="keyword">int</span> temp = array[i];</span><br><span class="line">                array[i] = array[min];</span><br><span class="line">                array[min] = temp;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> array;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-<h5 id="方式二：链表（稳定）"><a href="#方式二：链表（稳定）" class="headerlink" title="方式二：链表（稳定）"></a>方式二：链表（稳定）</h5><h3 id="性能分析"><a href="#性能分析" class="headerlink" title="性能分析"></a>性能分析</h3><h3 id="算法应用"><a href="#算法应用" class="headerlink" title="算法应用"></a>算法应用</h3></body></html>]]></content>
-      <categories>
-        <category>基本功</category>
-        <category>10大排序算法</category>
-      </categories>
-      <tags>
-        <tag>排序算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基本功之10大排序算法（七）：希尔排序</title>
-    <url>/posts/3aa53878/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLQLq"><img src="https://s2.ax1x.com/2019/08/30/mjLQLq.png" alt="mjLQLq.png"></a></p>
-<ul>
-<li>希尔排序：“缩小增量”的<strong>插入排序</strong>。<a id="more"></a> 
-
-</li>
-</ul>
-<h4 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h4><ul>
-<li>？稳定</li>
-<li>时间复杂度：</li>
-<li>空间复杂度：</li>
-</ul>
-<h3 id="希尔排序解读"><a href="#希尔排序解读" class="headerlink" title="希尔排序解读"></a>希尔排序解读</h3><h5 id="产生原因"><a href="#产生原因" class="headerlink" title="产生原因"></a>产生原因</h5><p>希尔算法是直接插入算法的改进，详细说明见《基本功之10大排序算法（三）：插入排序》</p>
-<h5 id="算法图解"><a href="#算法图解" class="headerlink" title="算法图解"></a>算法图解</h5><h5 id="算法关键点"><a href="#算法关键点" class="headerlink" title="算法关键点"></a>算法关键点</h5><p>显然关键点在于间隔的选取，间隔选取的方式有哪些？</p>
-<ul>
-<li>间隔为N/2:“希尔”本人的建议；</li>
-<li>常用间隔序列：3h+1<br>这里对各种间隔的优缺点和比较略过。</li>
-</ul>
-<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><h5 id="方式一：数组（不稳定）"><a href="#方式一：数组（不稳定）" class="headerlink" title="方式一：数组（不稳定）"></a>方式一：数组（不稳定）</h5><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></tbody></table></figure>
-<h5 id="方式二：链表（稳定）"><a href="#方式二：链表（稳定）" class="headerlink" title="方式二：链表（稳定）"></a>方式二：链表（稳定）</h5><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></tbody></table></figure>
-<h3 id="性能分析"><a href="#性能分析" class="headerlink" title="性能分析"></a>性能分析</h3><h3 id="算法应用"><a href="#算法应用" class="headerlink" title="算法应用"></a>算法应用</h3><h3 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h3><h5 id="方式一：数组（不稳定）-1"><a href="#方式一：数组（不稳定）-1" class="headerlink" title="方式一：数组（不稳定）"></a>方式一：数组（不稳定）</h5><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></tbody></table></figure>
-<h5 id="方式二：链表（稳定）-1"><a href="#方式二：链表（稳定）-1" class="headerlink" title="方式二：链表（稳定）"></a>方式二：链表（稳定）</h5><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></tbody></table></figure>
-<h3 id="性能分析-1"><a href="#性能分析-1" class="headerlink" title="性能分析"></a>性能分析</h3><h3 id="算法应用-1"><a href="#算法应用-1" class="headerlink" title="算法应用"></a>算法应用</h3></body></html>]]></content>
-      <categories>
-        <category>基本功</category>
-        <category>10大排序算法</category>
-      </categories>
-      <tags>
-        <tag>排序算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基本功之10大排序算法（三）：插入排序</title>
-    <url>/posts/cb21edc7/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjqjIO"><img src="https://s2.ax1x.com/2019/08/30/mjqjIO.png" alt="mjqjIO.png"></a></p>
-<ul>
-<li>插入排序：每次将待排序元素插入已排好序的有序序列中。<a id="more"></a> 
-
-
-</li>
-</ul>
-<h4 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h4><ul>
-<li>？稳定</li>
-<li>时间复杂度：</li>
-<li>空间复杂度：</li>
-</ul>
-<h3 id="算法解读"><a href="#算法解读" class="headerlink" title="算法解读"></a>算法解读</h3><h5 id="简要思路"><a href="#简要思路" class="headerlink" title="简要思路"></a>简要思路</h5><p>常见的插入算法有哪些？ 直接插入，二分插入，链表插入，希尔排序</p>
-<h5 id="直接插入缺点"><a href="#直接插入缺点" class="headerlink" title="直接插入缺点"></a>直接插入缺点</h5><h5 id="改进-希尔排序"><a href="#改进-希尔排序" class="headerlink" title="改进:希尔排序"></a>改进:希尔排序</h5><h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><h5 id="方式一：数组（不稳定）"><a href="#方式一：数组（不稳定）" class="headerlink" title="方式一：数组（不稳定）"></a>方式一：数组（不稳定）</h5><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></tbody></table></figure>
-<h5 id="方式二：链表（稳定）"><a href="#方式二：链表（稳定）" class="headerlink" title="方式二：链表（稳定）"></a>方式二：链表（稳定）</h5><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></tbody></table></figure>
-<h3 id="性能分析"><a href="#性能分析" class="headerlink" title="性能分析"></a>性能分析</h3><h3 id="算法应用"><a href="#算法应用" class="headerlink" title="算法应用"></a>算法应用</h3></body></html>]]></content>
-      <categories>
-        <category>基本功</category>
-        <category>10大排序算法</category>
-      </categories>
-      <tags>
-        <tag>排序算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基本功之10大排序算法（二）：冒泡排序</title>
-    <url>/posts/bdd6b8a8/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjqXdK"><img src="https://s2.ax1x.com/2019/08/30/mjqXdK.png" alt="mjqXdK.png"></a></p>
-<ul>
-<li>冒泡排序：比较相邻的两个元素。<a id="more"></a> 
-
-
-</li>
-</ul>
-<h4 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h4><ul>
-<li>？稳定</li>
-<li>时间复杂度：</li>
-<li>空间复杂度：</li>
-</ul>
-<h3 id="简要思路"><a href="#简要思路" class="headerlink" title="简要思路"></a>简要思路</h3><ul>
-<li>比较并交换：从首元素开始，相邻元素比较，较小的元素置于前边</li>
-<li>从首到尾：逐个进行“比较并交换”的过程，直到最后一个元素被比较，一趟冒泡的过程结束，最大的元素置于最尾端</li>
-<li>重复以上步骤：待排序列变为N-1，需要比较N-1轮</li>
-</ul>
-<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><h5 id="方式一："><a href="#方式一：" class="headerlink" title="方式一："></a>方式一：</h5><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BubbleSort</span> </span>{</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] sort(<span class="keyword">int</span>[] array){</span><br><span class="line">        <span class="comment">//这里for循环表示总共需要比较多少轮</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span> ; i < array.length; i++){</span><br><span class="line">            <span class="comment">//设定一个标记，若为true，则表示此次循环没有进行交换，也就是待排序列已经有序，排序已经完成。</span></span><br><span class="line">            <span class="keyword">boolean</span> flag = <span class="keyword">true</span>;</span><br><span class="line">            <span class="comment">//这里for循环表示每轮比较参与的元素下标</span></span><br><span class="line">            <span class="comment">//对当前无序区间array[0......length-i]进行排序</span></span><br><span class="line">            <span class="comment">//j的范围很关键，这个范围是在逐步缩小的,因为每轮比较都会将最大的放在右边</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span> ; j < array.length-i ; j++){</span><br><span class="line">                <span class="keyword">if</span>(array[j]>array[j+<span class="number">1</span>]){</span><br><span class="line">                    <span class="keyword">int</span> temp = array[j];</span><br><span class="line">                    array[j] = array[j+<span class="number">1</span>];</span><br><span class="line">                    array[j+<span class="number">1</span>] = temp;</span><br><span class="line">                    flag = <span class="keyword">false</span>;</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span>(flag){</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> array; </span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-<h5 id="方式二：链表（稳定）"><a href="#方式二：链表（稳定）" class="headerlink" title="方式二：链表（稳定）"></a>方式二：链表（稳定）</h5><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></tbody></table></figure>
-<h3 id="性能分析"><a href="#性能分析" class="headerlink" title="性能分析"></a>性能分析</h3><h3 id="算法应用"><a href="#算法应用" class="headerlink" title="算法应用"></a>算法应用</h3></body></html>]]></content>
-      <categories>
-        <category>基本功</category>
-        <category>10大排序算法</category>
-      </categories>
-      <tags>
-        <tag>排序算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基本功之10大排序算法（九）：桶排序</title>
-    <url>/posts/67c36b1e/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjqzJe"><img src="https://s2.ax1x.com/2019/08/30/mjqzJe.png" alt="mjqzJe.png"></a></p>
-<ul>
-<li>桶排序：利用函数映射关系的排序方式，非比较型排序。<a id="more"></a> 
-
-</li>
-</ul>
-<h4 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h4><ul>
-<li>？稳定</li>
-<li>时间复杂度：</li>
-<li>空间复杂度：</li>
-</ul>
-<h3 id="简要思路"><a href="#简要思路" class="headerlink" title="简要思路"></a>简要思路</h3><h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><h5 id="方式一：数组（不稳定）"><a href="#方式一：数组（不稳定）" class="headerlink" title="方式一：数组（不稳定）"></a>方式一：数组（不稳定）</h5><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></tbody></table></figure>
-<h5 id="方式二：链表（稳定）"><a href="#方式二：链表（稳定）" class="headerlink" title="方式二：链表（稳定）"></a>方式二：链表（稳定）</h5><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></tbody></table></figure>
-<h3 id="性能分析"><a href="#性能分析" class="headerlink" title="性能分析"></a>性能分析</h3><h3 id="算法应用"><a href="#算法应用" class="headerlink" title="算法应用"></a>算法应用</h3></body></html>]]></content>
-      <categories>
-        <category>基本功</category>
-        <category>10大排序算法</category>
-      </categories>
-      <tags>
-        <tag>排序算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基本功之10大排序算法（五）：归并排序</title>
-    <url>/posts/a64ad032/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjqOZ6"><img src="https://s2.ax1x.com/2019/08/30/mjqOZ6.png" alt="mjqOZ6.png"></a></p>
-<ul>
-<li>归并排序：层层递<strong>归</strong>，层层合<strong>并</strong>，将已有的子序列合并，得到完全有序的序列。<a id="more"></a> 
-
-</li>
-</ul>
-<h4 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h4><ul>
-<li>？稳定</li>
-<li>时间复杂度：</li>
-<li>空间复杂度：</li>
-</ul>
-<h3 id="算法解读"><a href="#算法解读" class="headerlink" title="算法解读"></a>算法解读</h3><h5 id="简单图解"><a href="#简单图解" class="headerlink" title="简单图解"></a>简单图解</h5><h5 id="算法思路"><a href="#算法思路" class="headerlink" title="算法思路"></a>算法思路</h5><p>（1）待排序列S,通过一次排序后要产生这样的结果：将S<strong>切分</strong>为S1和S2，并且 S1集合 < S2集合；<br><br>（2）同理，将S1和S2进行操作（1）；<br><br>（3）随着排序的深入（递归的深入），序列S整体逐渐取向于有序。<br></p>
-<ul>
-<li>总结：将S的排序问题，<strong>分解</strong>为若干个子序列的排序问题，<strong>递归</strong>求解子序列问题，最后<strong>组合</strong>子问题的解答。<h5 id="算法解决的关键点"><a href="#算法解决的关键点" class="headerlink" title="算法解决的关键点"></a>算法解决的关键点</h5></li>
-</ul>
-<p>1.递<strong>归</strong>：<br></p>
-<ul>
-<li>重复的逻辑：不断拆分待排序列</li>
-<li>递归的临界点：直到分为单个元素</li>
-<li>子问题的处理：合并</li>
-</ul>
-<p>2.合<strong>并</strong>：<br></p>
-<ul>
-<li>两个单个元素（最小元素）直接比较大小进行合并；</li>
-<li>两个有序的子序列就行合并，见下方简图（以两个元素为例）：</li>
-</ul>
-<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><h5 id="方式一：数组（不稳定）"><a href="#方式一：数组（不稳定）" class="headerlink" title="方式一：数组（不稳定）"></a>方式一：数组（不稳定）</h5><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></tbody></table></figure>
-<h5 id="方式二：链表（稳定）"><a href="#方式二：链表（稳定）" class="headerlink" title="方式二：链表（稳定）"></a>方式二：链表（稳定）</h5><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></tbody></table></figure>
-<h3 id="性能分析"><a href="#性能分析" class="headerlink" title="性能分析"></a>性能分析</h3><h3 id="算法应用"><a href="#算法应用" class="headerlink" title="算法应用"></a>算法应用</h3></body></html>]]></content>
-      <categories>
-        <category>基本功</category>
-        <category>10大排序算法</category>
-      </categories>
-      <tags>
-        <tag>排序算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基本功之10大排序算法（八）：计数排序</title>
-    <url>/posts/95be4dc/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLpzd"><img src="https://s2.ax1x.com/2019/08/30/mjLpzd.png" alt="mjLpzd.png"></a></p>
-<ul>
-<li>计数排序：针对整数的牺牲空间换时间的非比较型排序，利用数组下表来快速统计序列。<a id="more"></a> 
-
-</li>
-</ul>
-<h4 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h4><ul>
-<li>？稳定</li>
-<li>时间复杂度：</li>
-<li>空间复杂度：</li>
-</ul>
-<h3 id="简要思路"><a href="#简要思路" class="headerlink" title="简要思路"></a>简要思路</h3><h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><h5 id="方式一：数组（不稳定）"><a href="#方式一：数组（不稳定）" class="headerlink" title="方式一：数组（不稳定）"></a>方式一：数组（不稳定）</h5><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></tbody></table></figure>
-<h5 id="方式二：链表（稳定）"><a href="#方式二：链表（稳定）" class="headerlink" title="方式二：链表（稳定）"></a>方式二：链表（稳定）</h5><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></tbody></table></figure>
-<h3 id="性能分析"><a href="#性能分析" class="headerlink" title="性能分析"></a>性能分析</h3><h3 id="算法应用"><a href="#算法应用" class="headerlink" title="算法应用"></a>算法应用</h3></body></html>]]></content>
-      <categories>
-        <category>基本功</category>
-        <category>10大排序算法</category>
-      </categories>
-      <tags>
-        <tag>排序算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基本功之10大排序算法（十）：基排序</title>
-    <url>/posts/c35f22f/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLCQA"><img src="https://s2.ax1x.com/2019/08/30/mjLCQA.png" alt="mjLCQA.png"></a></p>
-<ul>
-<li>基数排序：将整数按“位数”分割，然后按照“低位”到“高位”进行排序。<a id="more"></a> 
-
-</li>
-</ul>
-<h4 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h4><ul>
-<li>？稳定</li>
-<li>时间复杂度：</li>
-<li>空间复杂度：</li>
-</ul>
-<h3 id="简要思路"><a href="#简要思路" class="headerlink" title="简要思路"></a>简要思路</h3><h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><h5 id="方式一：数组（不稳定）"><a href="#方式一：数组（不稳定）" class="headerlink" title="方式一：数组（不稳定）"></a>方式一：数组（不稳定）</h5><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></tbody></table></figure>
-<h5 id="方式二：链表（稳定）"><a href="#方式二：链表（稳定）" class="headerlink" title="方式二：链表（稳定）"></a>方式二：链表（稳定）</h5><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></tbody></table></figure>
-<h3 id="性能分析"><a href="#性能分析" class="headerlink" title="性能分析"></a>性能分析</h3><h3 id="算法应用"><a href="#算法应用" class="headerlink" title="算法应用"></a>算法应用</h3></body></html>]]></content>
-      <categories>
-        <category>基本功</category>
-        <category>10大排序算法</category>
-      </categories>
-      <tags>
-        <tag>排序算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基本功之10大排序算法（六）：堆排序</title>
-    <url>/posts/69169bf3/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLrTK"><img src="https://s2.ax1x.com/2019/08/30/mjLrTK.png" alt="mjLrTK.png"></a></p>
-<ul>
-<li>堆排序：利用堆实现的一种选择排序。移除根节点的元素，并重新构建堆的递归运算。<a id="more"></a> 
-
-</li>
-</ul>
-<h3 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h3><ul>
-<li>？稳定</li>
-<li>时间复杂度：</li>
-<li>空间复杂度：</li>
-</ul>
-<h3 id="认识堆"><a href="#认识堆" class="headerlink" title="认识堆"></a>认识堆</h3><h5 id="堆的特点"><a href="#堆的特点" class="headerlink" title="堆的特点"></a>堆的特点</h5><ul>
-<li>堆是完全二叉树</li>
-<li>大顶堆：每个父节点的值 <strong>大于等于</strong> 其左右孩子的值</li>
-<li>小顶堆：每个父节点的值 <strong>小于等于</strong> 其左右孩子的值</li>
-</ul>
-<p>可见，堆顶为最大或者最小元素。</p>
-<h5 id="堆的定义"><a href="#堆的定义" class="headerlink" title="堆的定义"></a>堆的定义</h5><p>定义：<br>-大顶堆：arr[i] >= arr[2i+1] && arr[i] >= arr[2i+2]<br>-小顶堆：arr[i] <= arr[2i+1] && arr[i] <= arr[2i+2] </p>
-<h3 id="堆排序解读"><a href="#堆排序解读" class="headerlink" title="堆排序解读"></a>堆排序解读</h3><h5 id="算法简图"><a href="#算法简图" class="headerlink" title="算法简图"></a>算法简图</h5><h5 id="堆排序步骤"><a href="#堆排序步骤" class="headerlink" title="堆排序步骤"></a>堆排序步骤</h5><ul>
-<li><strong>（1）构建：</strong>构建初始堆</li>
-<li><strong>（2）交换：</strong>构建完毕后，堆顶元素与末尾元素交换</li>
-<li><strong>（3）重建：</strong>交换完毕后，除去此刻的堆尾元素，n-1个元素重复（1）（2）（3）步骤<h5 id="堆排序思路"><a href="#堆排序思路" class="headerlink" title="堆排序思路"></a>堆排序思路</h5>主要利用堆顶元素为序列的最大值（最小值）的特性，反复进行建堆，逐个找到次大值（次小值），然后构成有序序列的递归运算。<h5 id="实现步骤"><a href="#实现步骤" class="headerlink" title="实现步骤"></a>实现步骤</h5></li>
-<li>1.无序序列构造为堆</li>
-<li>2.堆的调整</li>
-<li>3.交换元素<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3></li>
-</ul>
-<h5 id="方式一：数组（不稳定）"><a href="#方式一：数组（不稳定）" class="headerlink" title="方式一：数组（不稳定）"></a>方式一：数组（不稳定）</h5><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></tbody></table></figure>
-<h5 id="方式二：链表（稳定）"><a href="#方式二：链表（稳定）" class="headerlink" title="方式二：链表（稳定）"></a>方式二：链表（稳定）</h5><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></tbody></table></figure>
-<h3 id="性能分析"><a href="#性能分析" class="headerlink" title="性能分析"></a>性能分析</h3><h3 id="算法应用"><a href="#算法应用" class="headerlink" title="算法应用"></a>算法应用</h3></body></html>]]></content>
-      <categories>
-        <category>基本功</category>
-        <category>10大排序算法</category>
-      </categories>
-      <tags>
-        <tag>排序算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基本功之10大排序算法（四）：快速排序</title>
-    <url>/posts/ef8d7911/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjqxiD"><img src="https://s2.ax1x.com/2019/08/30/mjqxiD.png" alt="mjqxiD.png"></a></p>
-<ul>
-<li>快速排序（快排）：减少比较次数的冒泡排序。通过分治（递归实现）达到减少比较次数。<a id="more"></a> 
-
-</li>
-</ul>
-<h4 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h4><ul>
-<li>？稳定</li>
-<li>时间复杂度：</li>
-<li>空间复杂度：</li>
-</ul>
-<h3 id="算法解读"><a href="#算法解读" class="headerlink" title="算法解读"></a>算法解读</h3><h5 id="算法思路"><a href="#算法思路" class="headerlink" title="算法思路"></a>算法思路</h5><p>（1）待排序列S,通过一次排序后要产生这样的结果：将S<strong>切分</strong>为S1和S2，并且 S1集合 < S2集合；<br><br>（2）同理，将S1和S2进行操作（1）；<br><br>（3）随着排序的深入（递归的深入），序列S整体逐渐取向于有序。<br></p>
-<ul>
-<li>总结：将S的排序问题，<strong>分解</strong>为若干个子序列的排序问题，<strong>递归</strong>求解子序列问题，最后<strong>组合</strong>子问题的解答。<h5 id="算法解决的关键点"><a href="#算法解决的关键点" class="headerlink" title="算法解决的关键点"></a>算法解决的关键点</h5>主要难点在于（1）中<strong>切分</strong>的解决方式。这里首先思考下面问题：<br></li>
-</ul>
-<p>1.将序列分成两拨，到底哪个数字是这两拨序列的边界呢？<br><br>2.我们确定好边界之后，又如何<strong>快速</strong>将序列分为左右两拨呢？难道是第一趟找比边界小的元素，第二趟再找比边界大的元素吗？<br></p>
-<p>因此解决<strong>划分</strong>的三个关键点为：“基准元素”，“左游标”，“右游标”。</p>
-<ul>
-<li>基准元素：以它为判断标准来界定大小值；一般，我们可以将序列的<strong>第一个元素</strong>作为基准元素。</li>
-<li>左游标：找比基准小的元素；遇到<strong>不小于基准</strong>的值停下。</li>
-<li>右游标：找比基准大的元素；遇到<strong>不大于基准</strong>的值停下。<br></li>
-</ul>
-<p>游标如何发挥作用？</p>
-<ul>
-<li>（1）移动：右游标先移动，遇到<strong>不小于基准</strong>的值停下。然后，左游标开始移动，遇到<strong>不大于基准</strong>的值停下。</li>
-<li>（2）交换：左右游标停止后，交换游标指向的元素值，完成第一次交换。</li>
-<li>（3）：继续（1）（2）操作，直到左右游标相遇。然后，“基准值”和“左右游标相遇停止时的元素值”进行交换，完成一轮操作。<h5 id="算法图解"><a href="#算法图解" class="headerlink" title="算法图解"></a>算法图解</h5></li>
-</ul>
-<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><h5 id="方式一：数组（不稳定）"><a href="#方式一：数组（不稳定）" class="headerlink" title="方式一：数组（不稳定）"></a>方式一：数组（不稳定）</h5><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></tbody></table></figure>
-<h5 id="方式二：链表（稳定）"><a href="#方式二：链表（稳定）" class="headerlink" title="方式二：链表（稳定）"></a>方式二：链表（稳定）</h5><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></tbody></table></figure>
-<h3 id="性能分析"><a href="#性能分析" class="headerlink" title="性能分析"></a>性能分析</h3><h3 id="算法应用"><a href="#算法应用" class="headerlink" title="算法应用"></a>算法应用</h3></body></html>]]></content>
-      <categories>
-        <category>基本功</category>
-        <category>10大排序算法</category>
-      </categories>
-      <tags>
-        <tag>排序算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基本功之设计原则&amp;设计模式（七）：11种行为型之模板模式</title>
-    <url>/posts/4307b138/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLmWQ"><img src="https://s2.ax1x.com/2019/08/30/mjLmWQ.png" alt="mjLmWQ.png"></a></p>
-<a id="more"></a> 
-</body></html>]]></content>
-      <categories>
-        <category>基本功</category>
-        <category>23设计模式</category>
-        <category>11行为性</category>
-      </categories>
-      <tags>
-        <tag>设计原则与设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基本功之设计原则&amp;设计模式（一）：5种创建型之单例模式</title>
-    <url>/posts/a000da26/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLkeP"><img src="https://s2.ax1x.com/2019/08/30/mjLkeP.png" alt="mjLkeP.png"></a></p>
-<ul>
-<li>单例模式（属创建型模式）：确保某个类（我们成为单例类）可以 <strong>自动</strong> 向 <strong>整个系统</strong> 提供 <strong>唯一</strong> 的实例。<a id="more"></a> 
-
-</li>
-</ul>
-<p>###引进<br>#####常见例子</p>
-<p>-系统资源管理器（Windows中我的电脑，回收站）；<br><br>-属性管理器（属性文件properties）：将系统需要配置的一些常量和系统工作环境相关的信息配置在属性文件中。</p>
-<p>###何时使用<br><strong>有单一实例化的需求。</strong><br><br>很多时候，我们没有意识到系统其实并没有单一实例化的需求。但是，我们主观的认为我们可以套用单例模式去解决一些问题。<br>拿“全局变量”来说，很多时候，我们会去创建单例类去存放“全局变量”。但是一个设计得当的系统中不应该出现“全局变量”，<br>这些变量应该放到它们所描述的实体对应的类中。我们将这些变量从所描述的类中抽出来，放到一个单例类中，反而会产生高<br>耦合的问题。</p>
-<p>###UML结构</p>
-<p>###几种形式<br>#####1.饿汉式<br>#####2.懒汉式<br>#####3.登记式</p>
-<p>###典型应用<br>#####Java属性类<br>#####Java中的Runtime对象</p>
-<p>###优缺点</p>
-</body></html>]]></content>
-      <categories>
-        <category>基本功</category>
-        <category>23设计模式</category>
-        <category>5创建型</category>
-      </categories>
-      <tags>
-        <tag>设计原则与设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基本功之设计原则&amp;设计模式（三）：5种创建型之建造者模式</title>
-    <url>/posts/64f8841/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLAdf"><img src="https://s2.ax1x.com/2019/08/30/mjLAdf.png" alt="mjLAdf.png"></a></p>
-<a id="more"></a> 
-</body></html>]]></content>
-      <categories>
-        <category>基本功</category>
-        <category>23设计模式</category>
-        <category>5创建型</category>
-      </categories>
-      <tags>
-        <tag>设计原则与设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基本功之设计原则&amp;设计模式（九）：11种行为型之状态模式</title>
-    <url>/posts/41398b4/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLKQs"><img src="https://s2.ax1x.com/2019/08/30/mjLKQs.png" alt="mjLKQs.png"></a></p>
-<a id="more"></a> 
-</body></html>]]></content>
-      <categories>
-        <category>基本功</category>
-        <category>23设计模式</category>
-        <category>11行为性</category>
-      </categories>
-      <tags>
-        <tag>设计原则与设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基本功之设计原则&amp;设计模式（二一）：7种结构型之外观模式</title>
-    <url>/posts/b87e7028/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLdyR"><img src="https://s2.ax1x.com/2019/08/30/mjLdyR.png" alt="mjLdyR.png"></a></p>
-<a id="more"></a> 
-</body></html>]]></content>
-      <categories>
-        <category>基本功</category>
-        <category>23设计模式</category>
-        <category>7结构型</category>
-      </categories>
-      <tags>
-        <tag>设计原则与设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基本功之设计原则&amp;设计模式（二三）：7种结构型之代理模式</title>
-    <url>/posts/312a425d/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLDw6"><img src="https://s2.ax1x.com/2019/08/30/mjLDw6.png" alt="mjLDw6.png"></a></p>
-<a id="more"></a> 
-</body></html>]]></content>
-      <categories>
-        <category>基本功</category>
-        <category>23设计模式</category>
-        <category>7结构型</category>
-      </categories>
-      <tags>
-        <tag>设计原则与设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基本功之设计原则&amp;设计模式（二二）：7种结构型之享元模式</title>
-    <url>/posts/1d720e06/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLwO1"><img src="https://s2.ax1x.com/2019/08/30/mjLwO1.png" alt="mjLwO1.png"></a></p>
-<a id="more"></a> 
-</body></html>]]></content>
-      <categories>
-        <category>基本功</category>
-        <category>23设计模式</category>
-        <category>7结构型</category>
-      </categories>
-      <tags>
-        <tag>设计原则与设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基本功之设计原则&amp;设计模式（二十）：7种结构型之装饰模式</title>
-    <url>/posts/b32dd59b/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLal9"><img src="https://s2.ax1x.com/2019/08/30/mjLal9.png" alt="mjLal9.png"></a></p>
-<a id="more"></a> 
-</body></html>]]></content>
-      <categories>
-        <category>基本功</category>
-        <category>23设计模式</category>
-        <category>7结构型</category>
-      </categories>
-      <tags>
-        <tag>设计原则与设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基本功之设计原则&amp;设计模式（二）：5种创建型之工厂模式</title>
-    <url>/posts/b65714a7/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLiLt"><img src="https://s2.ax1x.com/2019/08/30/mjLiLt.png" alt="mjLiLt.png"></a></p>
-<ul>
-<li><p>工厂模式（属创建型）：定义一个创建产品对象的<strong>接口</strong>，将创建工作推迟到子类中。<br>工厂模式就是把具体使用new操作符的细节隐藏起来（不是不使用new）。</p>
-<a id="more"></a>
-<p>##前言<br>首先说一下工厂模式的三种形式，免得大家一脸懵。</p>
-</li>
-<li><p>简单工厂（SimpleFactory）：</p>
-</li>
-<li><p>工厂方法（FactoryMethod）：</p>
-</li>
-<li><p>抽象工厂（AbstractFactory）：</p>
-</li>
-</ul>
-<p>本讲只详细解读前两种，第三种抽象工厂在（五）中进行详细讲解。</p>
-<p>##一、简单工厂</p>
-<p>###简单工厂的引进<br>#####简单工厂的常见例子</p>
-<p>###简单工厂的UML结构</p>
-<p>###简单工厂的几种形态<br>#####1.<br>#####2.<br>#####3.</p>
-<p>###简单工厂的典型应用</p>
-<p>###简单工厂的优缺点</p>
-<p>##二、工厂方法<br>###简单工厂的引进<br>#####简单工厂的常见例子</p>
-<p>###简单工厂的UML结构</p>
-<p>###简单工厂的几种形态<br>#####1.<br>#####2.<br>#####3.</p>
-<p>###简单工厂的典型应用</p>
-<p>###简单工厂的优缺点</p>
-</body></html>]]></content>
-      <categories>
-        <category>基本功</category>
-        <category>23设计模式</category>
-        <category>5创建型</category>
-      </categories>
-      <tags>
-        <tag>设计原则与设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基本功之设计原则&amp;设计模式（五）：5种创建型之抽象工厂模式</title>
-    <url>/posts/91ba39e8/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLZFS"><img src="https://s2.ax1x.com/2019/08/30/mjLZFS.png" alt="mjLZFS.png"></a></p>
-<a id="more"></a> 
-</body></html>]]></content>
-      <categories>
-        <category>基本功</category>
-        <category>23设计模式</category>
-        <category>5创建型</category>
-      </categories>
-      <tags>
-        <tag>设计原则与设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基本功之设计原则&amp;设计模式（八）：11种行为型之策略模式</title>
-    <url>/posts/5470830e/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLnzj"><img src="https://s2.ax1x.com/2019/08/30/mjLnzj.png" alt="mjLnzj.png"></a></p>
-<a id="more"></a> 
-
-</body></html>]]></content>
-      <categories>
-        <category>基本功</category>
-        <category>23设计模式</category>
-        <category>11行为性</category>
-      </categories>
-      <tags>
-        <tag>设计原则与设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基本功之设计原则&amp;设计模式（六）：11种行为型之访问者模式</title>
-    <url>/posts/8c680e6d/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLeJg"><img src="https://s2.ax1x.com/2019/08/30/mjLeJg.png" alt="mjLeJg.png"></a></p>
-<a id="more"></a> 
-</body></html>]]></content>
-      <categories>
-        <category>基本功</category>
-        <category>23设计模式</category>
-        <category>11行为性</category>
-      </categories>
-      <tags>
-        <tag>设计原则与设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基本功之设计原则&amp;设计模式（十一）：11种行为型之备忘录模式</title>
-    <url>/posts/7f47e90/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjL1e0"><img src="https://s2.ax1x.com/2019/08/30/mjL1e0.png" alt="mjL1e0.png"></a></p>
-<a id="more"></a> 
-
-</body></html>]]></content>
-      <categories>
-        <category>基本功</category>
-        <category>23设计模式</category>
-        <category>11行为性</category>
-      </categories>
-      <tags>
-        <tag>设计原则与设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基本功之设计原则&amp;设计模式（十七）：7种结构型之适配器模式</title>
-    <url>/posts/11491977/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLYYF"><img src="https://s2.ax1x.com/2019/08/30/mjLYYF.png" alt="mjLYYF.png"></a></p>
-<a id="more"></a> 
-</body></html>]]></content>
-      <categories>
-        <category>基本功</category>
-        <category>23设计模式</category>
-        <category>7结构型</category>
-      </categories>
-      <tags>
-        <tag>设计原则与设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基本功之设计原则&amp;设计模式（十三）：11种行为型之迭代器模式</title>
-    <url>/posts/3e494f0/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjL8oT"><img src="https://s2.ax1x.com/2019/08/30/mjL8oT.png" alt="mjL8oT.png"></a></p>
-<a id="more"></a> 
-</body></html>]]></content>
-      <categories>
-        <category>基本功</category>
-        <category>23设计模式</category>
-        <category>11行为性</category>
-      </categories>
-      <tags>
-        <tag>设计原则与设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基本功之设计原则&amp;设计模式（十九）：7种结构型之组合模式</title>
-    <url>/posts/6fe4b5ff/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLwO1"><img src="https://s2.ax1x.com/2019/08/30/mjLwO1.png" alt="mjLwO1.png"></a></p>
-<a id="more"></a> 
-</body></html>]]></content>
-      <categories>
-        <category>基本功</category>
-        <category>23设计模式</category>
-        <category>7结构型</category>
-      </categories>
-      <tags>
-        <tag>设计原则与设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基本功之设计原则&amp;设计模式（十二）：11种行为型之中介者模式</title>
-    <url>/posts/69a34078/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjL3wV"><img src="https://s2.ax1x.com/2019/08/30/mjL3wV.png" alt="mjL3wV.png"></a></p>
-<a id="more"></a> 
-</body></html>]]></content>
-      <categories>
-        <category>基本功</category>
-        <category>23设计模式</category>
-        <category>11行为性</category>
-      </categories>
-      <tags>
-        <tag>设计原则与设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基本功之设计原则&amp;设计模式（十五）：11种行为型之命令模式</title>
-    <url>/posts/9ae71b8e/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjL2SH"><img src="https://s2.ax1x.com/2019/08/30/mjL2SH.png" alt="mjL2SH.png"></a></p>
-<a id="more"></a> 
-</body></html>]]></content>
-      <categories>
-        <category>基本功</category>
-        <category>23设计模式</category>
-        <category>11行为性</category>
-      </categories>
-      <tags>
-        <tag>设计原则与设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基本功之设计原则&amp;设计模式（十八）：7种结构型之桥接模式</title>
-    <url>/posts/ca3aa21c/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLUSJ"><img src="https://s2.ax1x.com/2019/08/30/mjLUSJ.png" alt="mjLUSJ.png"></a></p>
-<a id="more"></a> 
-</body></html>]]></content>
-      <categories>
-        <category>基本功</category>
-        <category>23设计模式</category>
-        <category>7结构型</category>
-      </categories>
-      <tags>
-        <tag>设计原则与设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基本功之设计原则&amp;设计模式（十六）：11种行为型之责任链模式</title>
-    <url>/posts/5c7890d5/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLtW4"><img src="https://s2.ax1x.com/2019/08/30/mjLtW4.png" alt="mjLtW4.png"></a></p>
-<a id="more"></a> 
-<ul>
-<li>责任链设计模式就是将请求从链的一个对象传到下一个对象，直到请求被响应。通过这种方式去除对象之间的耦合。</li>
-</ul>
-<p>###引进<br>#####生活举例<br><img src="https://s2.ax1x.com/2019/10/26/K0Osrn.png" alt="K0Osrn.png"><br>#####UML结构图<br><img src="https://s2.ax1x.com/2019/10/26/K0O25T.png" alt="K0O25T.png"><br>#####模式涉及到的角色<br>######抽象处理者（Handler）:<br>定义一个处理请求的接口。如果需要，接口可以定义出一个方法，以设定和返回对下家的引用。这个角色通常由一个java抽象类或者Java接口实现。<br>######具体处理者（ConcreteHandler）:<br>具体处理者接到请求之后，可以选择将请求处理掉，或者将请求传给下家。由于具体处理者持有对下家的引用，因此，如果需要，具体处理者可以访问<br>下家。<br>#####纯的与不纯的责任链模式<br>######纯的：<br>要求一个具体的处理者对象只能在两个行为中选择一个。一是承担责任，二是把责任推给下家。不允许出现某一个具体的处理者承担了一部分责任后又<br>把责任向下传递的情况。在一个纯的责任链模式里面，一个请求必须被某一个处理者对象所接收。</p>
-<p>纯的责任链模式实际的例子很难找到，一般看到的例子均是不纯的责任链模式的实现。如果坚持责任链的不纯便不是责任链模式，那么责任链模式便不会<br>有太大的意义。<br>######不纯：<br>在一个不纯的责任链模式中，一个请求可以最终不被任何接收端对象所接收。</p>
-<p>###Demo实现<br>#####击鼓传花例子<br>#####例子二：</p>
-<p>###应用<br>#####对象的树结构<br>#####事件处理机制(事件上浮机制Event Bubbling)</p>
-<p>###开源框架中使用情况<br>#####框架一<br>#####框架二</p>
-<p>###优缺点<br>#####优点</p>
-<ul>
-<li>优点一：</li>
-<li>优点二：</li>
-<li>优点三：<br>#####缺点</li>
-<li>缺点一：</li>
-<li>缺点二：</li>
-<li>缺点三：</li>
-</ul>
-<p>###与其他模式的区别与联系<br>#####合成模式<br><img src="https://s2.ax1x.com/2019/10/26/KB3HmQ.png" alt="KB3HmQ.png"><br>#####命令模式<br><img src="https://s2.ax1x.com/2019/10/26/KB8i79.png" alt="KB8i79.png"><br>#####模板模式<br><img src="https://s2.ax1x.com/2019/10/26/KB8e1K.png" alt="KB8e1K.png"></p>
-<p>###总结</p>
-</body></html>]]></content>
-      <categories>
-        <category>基本功</category>
-        <category>23设计模式</category>
-        <category>11行为性</category>
-      </categories>
-      <tags>
-        <tag>设计原则与设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基本功之设计原则&amp;设计模式（十四）：11种行为型之解释器模式</title>
-    <url>/posts/fdced3e5/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLJFU"><img src="https://s2.ax1x.com/2019/08/30/mjLJFU.png" alt="mjLJFU.png"></a></p>
-<a id="more"></a> 
-</body></html>]]></content>
-      <categories>
-        <category>基本功</category>
-        <category>23设计模式</category>
-        <category>11行为性</category>
-      </categories>
-      <tags>
-        <tag>设计原则与设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基本功之设计原则&amp;设计模式（十）：11种行为型之观察者模式</title>
-    <url>/posts/9769d21f/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLMyn"><img src="https://s2.ax1x.com/2019/08/30/mjLMyn.png" alt="mjLMyn.png"></a></p>
-<a id="more"></a> 
-
-</body></html>]]></content>
-      <categories>
-        <category>基本功</category>
-        <category>23设计模式</category>
-        <category>11行为性</category>
-      </categories>
-      <tags>
-        <tag>设计原则与设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基本功之设计原则&amp;设计模式（四）：5种创建型之原型模式</title>
-    <url>/posts/33422fb4/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLEo8"><img src="https://s2.ax1x.com/2019/08/30/mjLEo8.png" alt="mjLEo8.png"></a></p>
-<a id="more"></a> 
-
-</body></html>]]></content>
-      <categories>
-        <category>基本功</category>
-        <category>23设计模式</category>
-        <category>5创建型</category>
-      </categories>
-      <tags>
-        <tag>设计原则与设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hadoop</title>
-    <url>/posts/b3349d42/</url>
-    <content><![CDATA[<html><head></head><body></body></html>]]></content>
-      <categories>
-        <category>大数据与数据仓库</category>
-        <category>Hadoop</category>
-      </categories>
-      <tags>
-        <tag>Hadoop</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>OLAP</title>
-    <url>/posts/19bacc63/</url>
-    <content><![CDATA[<html><head></head><body></body></html>]]></content>
-      <categories>
-        <category>大数据与数据仓库</category>
-        <category>数据仓库</category>
-      </categories>
-      <tags>
-        <tag>OLAP</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Spark</title>
-    <url>/posts/5cd2e029/</url>
-    <content><![CDATA[<html><head></head><body></body></html>]]></content>
-      <categories>
-        <category>大数据与数据仓库</category>
-        <category>Spark</category>
-      </categories>
-      <tags>
-        <tag>Spark</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>IDEA使用问题汇总</title>
     <url>/posts/1bb92a39/</url>
     <content><![CDATA[<html><head></head><body><ul>
@@ -938,328 +130,1020 @@
       </tags>
   </entry>
   <entry>
-    <title>垃圾回收GC(一)：垃圾回收算法</title>
-    <url>/posts/79e53de4/</url>
-    <content><![CDATA[<html><head></head><body></body></html>]]></content>
-      <categories>
-        <category>Java相关</category>
-        <category>JVM和GC</category>
-        <category>GC</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>垃圾回收GC(三)：GC日志分析</title>
-    <url>/posts/8ee16aba/</url>
-    <content><![CDATA[<html><head></head><body></body></html>]]></content>
-      <categories>
-        <category>Java相关</category>
-        <category>JVM和GC</category>
-        <category>GC</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>垃圾回收GC(二)：垃圾收集器</title>
-    <url>/posts/f198bc8e/</url>
-    <content><![CDATA[<html><head></head><body></body></html>]]></content>
-      <categories>
-        <category>Java相关</category>
-        <category>JVM和GC</category>
-        <category>GC</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基本功之Git的高效使用</title>
-    <url>/posts/82de2974/</url>
+    <title>基本功之数据结构（二）：链表</title>
+    <url>/posts/3c10d139/</url>
     <content><![CDATA[<html><head></head><body></body></html>]]></content>
       <categories>
         <category>基本功</category>
-        <category>奇淫巧技</category>
-        <category>git</category>
+        <category>数据结构</category>
       </categories>
       <tags>
-        <tag>git&amp;github</tag>
+        <tag>数据结构</tag>
       </tags>
   </entry>
   <entry>
-    <title>基本功之Java容器类(一)：Java.util.Arrays</title>
-    <url>/posts/5a746145/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLXXn"><img src="https://s2.ax1x.com/2019/08/30/mjLXXn.png" alt="mjLXXn.png"></a></p>
-<a id="more"></a> 
-</body></html>]]></content>
+    <title>基本功之数据结构（五）：二叉树</title>
+    <url>/posts/b2509142/</url>
+    <content><![CDATA[<html><head></head><body></body></html>]]></content>
       <categories>
         <category>基本功</category>
-        <category>Java基础</category>
-        <category>容器类</category>
+        <category>数据结构</category>
       </categories>
       <tags>
-        <tag>源码</tag>
+        <tag>数据结构</tag>
       </tags>
   </entry>
   <entry>
-    <title>基本功之Java容器类(七)：Java.util.LinkedHashMap</title>
-    <url>/posts/f72406f4/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjL4mt"><img src="https://s2.ax1x.com/2019/08/30/mjL4mt.png" alt="mjL4mt.png"></a></p>
-<a id="more"></a> 
-</body></html>]]></content>
+    <title>基本功之数据结构（四）：栈</title>
+    <url>/posts/b67e4697/</url>
+    <content><![CDATA[<html><head></head><body></body></html>]]></content>
       <categories>
         <category>基本功</category>
-        <category>Java基础</category>
-        <category>容器类</category>
+        <category>数据结构</category>
       </categories>
       <tags>
-        <tag>源码</tag>
+        <tag>数据结构</tag>
       </tags>
   </entry>
   <entry>
-    <title>基本功之Java容器类(三)：Java.util.LinkedList</title>
-    <url>/posts/ba93fcdb/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLLlj"><img src="https://s2.ax1x.com/2019/08/30/mjLLlj.png" alt="mjLLlj.png"></a></p>
-<a id="more"></a> 
-</body></html>]]></content>
+    <title>基本功之数据结构（三）：队列</title>
+    <url>/posts/55f77e48/</url>
+    <content><![CDATA[<html><head></head><body></body></html>]]></content>
       <categories>
         <category>基本功</category>
-        <category>Java基础</category>
-        <category>容器类</category>
+        <category>数据结构</category>
       </categories>
       <tags>
-        <tag>源码</tag>
+        <tag>数据结构</tag>
       </tags>
   </entry>
   <entry>
-    <title>基本功之Java容器类(九)：容器类的使用相关</title>
-    <url>/posts/fa835a24/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLRld"><img src="https://s2.ax1x.com/2019/08/30/mjLRld.png" alt="mjLRld.png"></a></p>
-<a id="more"></a> 
-</body></html>]]></content>
+    <title>基本功之数据结构（七）：堆</title>
+    <url>/posts/e322b16c/</url>
+    <content><![CDATA[<html><head></head><body></body></html>]]></content>
       <categories>
         <category>基本功</category>
-        <category>Java基础</category>
-        <category>容器类</category>
+        <category>数据结构</category>
       </categories>
       <tags>
-        <tag>源码</tag>
+        <tag>数据结构</tag>
       </tags>
   </entry>
   <entry>
-    <title>基本功之Java容器类(二)：Java.util.ArrayList</title>
-    <url>/posts/35c77a54/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLO6s"><img src="https://s2.ax1x.com/2019/08/30/mjLO6s.png" alt="mjLO6s.png"></a></p>
-<a id="more"></a> 
-</body></html>]]></content>
+    <title>基本功之数据结构（一）：数组</title>
+    <url>/posts/50a44d2c/</url>
+    <content><![CDATA[<html><head></head><body></body></html>]]></content>
       <categories>
         <category>基本功</category>
-        <category>Java基础</category>
-        <category>容器类</category>
+        <category>数据结构</category>
       </categories>
       <tags>
-        <tag>源码</tag>
+        <tag>数据结构</tag>
       </tags>
   </entry>
   <entry>
-    <title>基本功之Java容器类(五)：Java.util.HashSet</title>
-    <url>/posts/e2b6b443/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLHfg"><img src="https://s2.ax1x.com/2019/08/30/mjLHfg.png" alt="mjLHfg.png"></a></p>
-<a id="more"></a> 
-</body></html>]]></content>
+    <title>基本功之数据结构（六）：红黑树</title>
+    <url>/posts/9ed02b85/</url>
+    <content><![CDATA[<html><head></head><body></body></html>]]></content>
       <categories>
         <category>基本功</category>
-        <category>Java基础</category>
-        <category>容器类</category>
+        <category>数据结构</category>
       </categories>
       <tags>
-        <tag>源码</tag>
+        <tag>数据结构</tag>
       </tags>
   </entry>
   <entry>
-    <title>基本功之Java容器类(八)：其他容器类</title>
-    <url>/posts/f0ee3604/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLcfe"><img src="https://s2.ax1x.com/2019/08/30/mjLcfe.png" alt="mjLcfe.png"></a></p>
-<a id="more"></a> 
-</body></html>]]></content>
+    <title>基本功之数据结构（八）：哈希表</title>
+    <url>/posts/b0d2d4e2/</url>
+    <content><![CDATA[<html><head></head><body></body></html>]]></content>
       <categories>
         <category>基本功</category>
-        <category>Java基础</category>
-        <category>容器类</category>
+        <category>数据结构</category>
       </categories>
       <tags>
-        <tag>源码</tag>
+        <tag>数据结构</tag>
       </tags>
   </entry>
   <entry>
-    <title>基本功之Java容器类(六)：Java.util.LinkedHashSet</title>
-    <url>/posts/4accc084/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjL6YD"><img src="https://s2.ax1x.com/2019/08/30/mjL6YD.png" alt="mjL6YD.png"></a></p>
-<a id="more"></a> 
-</body></html>]]></content>
+    <title>基本功之数据结构（十）：前，中，后缀表达式</title>
+    <url>/posts/5cd264da/</url>
+    <content><![CDATA[<html><head></head><body></body></html>]]></content>
       <categories>
         <category>基本功</category>
-        <category>Java基础</category>
-        <category>容器类</category>
+        <category>数据结构</category>
       </categories>
       <tags>
-        <tag>源码</tag>
+        <tag>数据结构</tag>
       </tags>
   </entry>
   <entry>
-    <title>基本功之Java容器类(四)：Java.util.HashMap</title>
-    <url>/posts/5326a00f/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLqpQ"><img src="https://s2.ax1x.com/2019/08/30/mjLqpQ.png" alt="mjLqpQ.png"></a></p>
-<a id="more"></a> 
-</body></html>]]></content>
+    <title>基本功之数据结构（九）：图</title>
+    <url>/posts/f7b8851/</url>
+    <content><![CDATA[<html><head></head><body></body></html>]]></content>
       <categories>
         <category>基本功</category>
-        <category>Java基础</category>
-        <category>容器类</category>
+        <category>数据结构</category>
       </categories>
       <tags>
-        <tag>源码</tag>
+        <tag>数据结构</tag>
       </tags>
   </entry>
   <entry>
-    <title>基本功之Java源码(一)：Object类</title>
-    <url>/posts/bb9f0f16/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLW6A"><img src="https://s2.ax1x.com/2019/08/30/mjLW6A.png" alt="mjLW6A.png"></a></p>
-<a id="more"></a> 
+    <title>基本功之10大排序算法（一）：选择排序</title>
+    <url>/posts/c0e72531/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLSRH"><img src="https://s2.ax1x.com/2019/08/30/mjLSRH.png" alt="mjLSRH.png"></a></p>
+<ul>
+<li>选择排序：每次从待排序列中选择最小的元素，放置在序列的开始位置。<a id="more"></a> 
 
-</body></html>]]></content>
+</li>
+</ul>
+<h3 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h3><ul>
+<li>不稳定</li>
+<li>时间复杂度：O(n<sup>2</sup>)</li>
+<li>空间复杂度：O(1)</li>
+</ul>
+<h3 id="简要思路"><a href="#简要思路" class="headerlink" title="简要思路"></a>简要思路</h3><ul>
+<li>找最小：在待排序列中找到最小的元素；</li>
+<li>交换元素：最小元素是待排序的第一个元素，无操作；最小元素不是带一个，将于第一个元素交换；</li>
+<li>完成前两步，待排序列为N-1，重复上述操作，直到排序结束。<br><a href="https://imgchr.com/i/npF1Dx"><img src="https://s2.ax1x.com/2019/09/01/npF1Dx.png" alt="npF1Dx.png"></a></li>
+</ul>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><h5 id="方式一：数组（不稳定）"><a href="#方式一：数组（不稳定）" class="headerlink" title="方式一：数组（不稳定）"></a>方式一：数组（不稳定）</h5><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChoiceSort</span> </span>{</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] sort(<span class="keyword">int</span>[] array){</span><br><span class="line">        <span class="comment">//总共要经过N-1轮比较</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i < array.length-<span class="number">1</span> ; i++){ </span><br><span class="line">            <span class="keyword">int</span> min = i;</span><br><span class="line">            <span class="comment">//每轮需要比较的次数</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = i+<span class="number">1</span> ; j < array.length ; j++){</span><br><span class="line">                <span class="keyword">if</span>(array[j]<array[min]){</span><br><span class="line">                    min = j;<span class="comment">//记录目前能找到的最小值元素的下标</span></span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">            <span class="comment">//将找到的最小值和i位置所在的值进行交换</span></span><br><span class="line">            <span class="keyword">if</span>(i != min){</span><br><span class="line">                <span class="keyword">int</span> temp = array[i];</span><br><span class="line">                array[i] = array[min];</span><br><span class="line">                array[min] = temp;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> array;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h5 id="方式二：链表（稳定）"><a href="#方式二：链表（稳定）" class="headerlink" title="方式二：链表（稳定）"></a>方式二：链表（稳定）</h5><h3 id="性能分析"><a href="#性能分析" class="headerlink" title="性能分析"></a>性能分析</h3><h3 id="算法应用"><a href="#算法应用" class="headerlink" title="算法应用"></a>算法应用</h3></body></html>]]></content>
       <categories>
         <category>基本功</category>
-        <category>Java基础</category>
-        <category>源码</category>
+        <category>10大排序算法</category>
       </categories>
       <tags>
-        <tag>源码</tag>
+        <tag>排序算法</tag>
       </tags>
   </entry>
   <entry>
-    <title>基本功之Java源码(三)：Integer类</title>
-    <url>/posts/50e64fc8/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjL7tS"><img src="https://s2.ax1x.com/2019/08/30/mjL7tS.png" alt="mjL7tS.png"></a></p>
-<a id="more"></a> 
-</body></html>]]></content>
-      <categories>
-        <category>基本功</category>
-        <category>Java基础</category>
-        <category>源码</category>
-      </categories>
-      <tags>
-        <tag>源码</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基本功之Java源码(二)：String类</title>
-    <url>/posts/50038871/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLfOI"><img src="https://s2.ax1x.com/2019/08/30/mjLfOI.png" alt="mjLfOI.png"></a></p>
-<a id="more"></a> 
+    <title>基本功之10大排序算法概要和递归算法</title>
+    <url>/posts/c6fe47ef/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLPsI"><img src="https://s2.ax1x.com/2019/08/30/mjLPsI.png" alt="mjLPsI.png"></a></p>
+<ul>
+<li>说明：对10大排序算法进行概要总结；详细分析递归算法以及其应用案例。<a id="more"></a> 
 
-</body></html>]]></content>
+
+</li>
+</ul>
+<h3 id="10大排序算法"><a href="#10大排序算法" class="headerlink" title="10大排序算法"></a>10大排序算法</h3><p>关于10大排序算法，可以找到很多的总结，如下图：</p>
+<p><a href="https://imgchr.com/i/nSaFe0"><img src="https://s2.ax1x.com/2019/09/01/nSaFe0.png" alt="nSaFe0.png"></a><br>关于稳定性</p>
+<p>稳定的：冒泡、插入、归并和基数。</p>
+<p>不稳定的：选择、快速、希尔、堆（记忆：不选快希堆）。</p>
+<p>名词解释：</p>
+<ul>
+<li> n：数据规模 </li>
+<li> k：”桶”的个数 </li>
+<li> In-place：占用常数内存，不占用额外内存 </li>
+<li> Out-place：占用额外内存 </li>
+<li> 稳定性：排序后 2 个相等键值的顺序和排序之前它们的顺序相同</li>
+</ul>
+<p>10大排序算法时空复杂度让人很是头疼，不过最近网上看到了一则口诀（<a href="http://mashibing.com/?p=116%EF%BC%89%EF%BC%8C%E5%A4%A7%E5%AE%B6%E5%8F%AF%E4%BB%A5%E5%8F%82%E8%80%83%E4%B8%80%E4%B8%8B%E3%80%82">http://mashibing.com/?p=116），大家可以参考一下。</a></p>
+<p>然后对上表进行了调整合并：<br><a href="https://imgchr.com/i/nSaCyn"><img src="https://s2.ax1x.com/2019/09/01/nSaCyn.jpg" alt="nSaCyn.jpg"></a></p>
+<p><a href="https://imgchr.com/i/nSaPLq"><img src="https://s2.ax1x.com/2019/09/01/nSaPLq.jpg" alt="nSaPLq.jpg"></a></p>
+<h3 id="递归思想"><a href="#递归思想" class="headerlink" title="递归思想"></a>递归思想</h3><p>递归(Recursion)是指在函数的定义中使用函数自身的方法</p>
+<h5 id="递归解读"><a href="#递归解读" class="headerlink" title="递归解读"></a>递归解读</h5><p>我们可以递归分为“<strong>递</strong>”和“<strong>归</strong>”两个过程。<br></p>
+<ul>
+<li>递：递去，深入，分解。待解决的问题可以分解为规模较小的相同子问题。</li>
+<li>归：归来，回归，合并。</li>
+</ul>
+<p>我们先思考以下问题：<br><br>1.待求解的问题是否可以<strong>重复分解</strong>成小规模的问题？<br><br>2.我们“递去”到什么程度，然后“归来”呢，哪里是“最深”的地方呢？<br><br>3.在“最深处”，“递去”结束前，“归来”开始前，我们面对的是<strong>最小子问题</strong>，面对<strong>最小子问题</strong>我们的解决方式是什么？<br></p>
+<p>只要把以上三个问题的解决了，递归可以就轻松完成了。这也就是递归的三个要素：</p>
+<ul>
+<li>1.重复的逻辑</li>
+<li>2.递归的临界点</li>
+<li>3.临界点的最小子问题的处理</li>
+</ul>
+<p>前两个要素是确定的。第三个要素，可以提供两种解决思路：“递去”过程中解决;“归来”规程中解决。</p>
+<figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">recursion</span></span>{</span><br><span class="line"></span><br><span class="line">    <span class="comment">//在递去的过程中解决问题</span></span><br><span class="line">    <span class="function">function <span class="title">recursion_01</span><span class="params">(大规模)</span></span>{</span><br><span class="line">        <span class="keyword">if</span> (临界条件){      </span><br><span class="line">            end; </span><br><span class="line">        }<span class="keyword">else</span>{            </span><br><span class="line">            solve;                </span><br><span class="line">            recursion(小规模);  <span class="comment">// 递去</span></span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">//在归来的过程中解决问题</span></span><br><span class="line">    <span class="function">function <span class="title">recursion_02</span><span class="params">(大规模)</span></span>{</span><br><span class="line">        <span class="keyword">if</span> (临界条件){     </span><br><span class="line">            end; </span><br><span class="line">        }<span class="keyword">else</span>{          </span><br><span class="line">            recursion(小规模);   <span class="comment">// 递去              </span></span><br><span class="line">            solve;     </span><br><span class="line">        }</span><br><span class="line">     }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h5 id="递归转为非递归"><a href="#递归转为非递归" class="headerlink" title="递归转为非递归"></a>递归转为非递归</h5><ul>
+<li>1.用变量来保存中间结果</li>
+<li>2.递归调用变为循环</li>
+</ul>
+<h5 id="递归应用"><a href="#递归应用" class="headerlink" title="递归应用"></a>递归应用</h5><h6 id="汉诺塔问题"><a href="#汉诺塔问题" class="headerlink" title="汉诺塔问题"></a>汉诺塔问题</h6><h6 id="阶乘问题"><a href="#阶乘问题" class="headerlink" title="阶乘问题"></a>阶乘问题</h6><h6 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h6><h6 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h6><h6 id="杨辉三角问题"><a href="#杨辉三角问题" class="headerlink" title="杨辉三角问题"></a>杨辉三角问题</h6><h6 id="字符串回文问题"><a href="#字符串回文问题" class="headerlink" title="字符串回文问题"></a>字符串回文问题</h6><h6 id="数深度问题"><a href="#数深度问题" class="headerlink" title="数深度问题"></a>数深度问题</h6><h3 id="时空复杂度"><a href="#时空复杂度" class="headerlink" title="时空复杂度"></a>时空复杂度</h3></body></html>]]></content>
       <categories>
         <category>基本功</category>
-        <category>Java基础</category>
-        <category>源码</category>
+        <category>10大排序算法</category>
       </categories>
       <tags>
-        <tag>源码</tag>
+        <tag>排序算法</tag>
       </tags>
   </entry>
   <entry>
-    <title>Java新特性之Java10</title>
-    <url>/posts/d628c295/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLITf"><img src="https://s2.ax1x.com/2019/08/30/mjLITf.png" alt="mjLITf.png"></a></p>
-<a id="more"></a> 
-</body></html>]]></content>
+    <title>基本功之10大排序算法（二）：冒泡排序</title>
+    <url>/posts/bdd6b8a8/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjqXdK"><img src="https://s2.ax1x.com/2019/08/30/mjqXdK.png" alt="mjqXdK.png"></a></p>
+<ul>
+<li>冒泡排序：比较相邻的两个元素。<a id="more"></a> 
+
+
+</li>
+</ul>
+<h4 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h4><ul>
+<li>？稳定</li>
+<li>时间复杂度：</li>
+<li>空间复杂度：</li>
+</ul>
+<h3 id="简要思路"><a href="#简要思路" class="headerlink" title="简要思路"></a>简要思路</h3><ul>
+<li>比较并交换：从首元素开始，相邻元素比较，较小的元素置于前边</li>
+<li>从首到尾：逐个进行“比较并交换”的过程，直到最后一个元素被比较，一趟冒泡的过程结束，最大的元素置于最尾端</li>
+<li>重复以上步骤：待排序列变为N-1，需要比较N-1轮</li>
+</ul>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><h5 id="方式一："><a href="#方式一：" class="headerlink" title="方式一："></a>方式一：</h5><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BubbleSort</span> </span>{</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] sort(<span class="keyword">int</span>[] array){</span><br><span class="line">        <span class="comment">//这里for循环表示总共需要比较多少轮</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span> ; i < array.length; i++){</span><br><span class="line">            <span class="comment">//设定一个标记，若为true，则表示此次循环没有进行交换，也就是待排序列已经有序，排序已经完成。</span></span><br><span class="line">            <span class="keyword">boolean</span> flag = <span class="keyword">true</span>;</span><br><span class="line">            <span class="comment">//这里for循环表示每轮比较参与的元素下标</span></span><br><span class="line">            <span class="comment">//对当前无序区间array[0......length-i]进行排序</span></span><br><span class="line">            <span class="comment">//j的范围很关键，这个范围是在逐步缩小的,因为每轮比较都会将最大的放在右边</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span> ; j < array.length-i ; j++){</span><br><span class="line">                <span class="keyword">if</span>(array[j]>array[j+<span class="number">1</span>]){</span><br><span class="line">                    <span class="keyword">int</span> temp = array[j];</span><br><span class="line">                    array[j] = array[j+<span class="number">1</span>];</span><br><span class="line">                    array[j+<span class="number">1</span>] = temp;</span><br><span class="line">                    flag = <span class="keyword">false</span>;</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span>(flag){</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> array; </span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h5 id="方式二：链表（稳定）"><a href="#方式二：链表（稳定）" class="headerlink" title="方式二：链表（稳定）"></a>方式二：链表（稳定）</h5><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="性能分析"><a href="#性能分析" class="headerlink" title="性能分析"></a>性能分析</h3><h3 id="算法应用"><a href="#算法应用" class="headerlink" title="算法应用"></a>算法应用</h3></body></html>]]></content>
       <categories>
         <category>基本功</category>
-        <category>Java基础</category>
-        <category>新特性</category>
+        <category>10大排序算法</category>
       </categories>
       <tags>
-        <tag>Java</tag>
+        <tag>排序算法</tag>
       </tags>
   </entry>
   <entry>
-    <title>Java新特性之Java11</title>
-    <url>/posts/a12ff203/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLvmq"><img src="https://s2.ax1x.com/2019/08/30/mjLvmq.png" alt="mjLvmq.png"></a></p>
+    <title>基本功之10大排序算法（四）：快速排序</title>
+    <url>/posts/ef8d7911/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjqxiD"><img src="https://s2.ax1x.com/2019/08/30/mjqxiD.png" alt="mjqxiD.png"></a></p>
+<ul>
+<li>快速排序（快排）：减少比较次数的冒泡排序。通过分治（递归实现）达到减少比较次数。<a id="more"></a> 
+
+</li>
+</ul>
+<h4 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h4><ul>
+<li>？稳定</li>
+<li>时间复杂度：</li>
+<li>空间复杂度：</li>
+</ul>
+<h3 id="算法解读"><a href="#算法解读" class="headerlink" title="算法解读"></a>算法解读</h3><h5 id="算法思路"><a href="#算法思路" class="headerlink" title="算法思路"></a>算法思路</h5><p>（1）待排序列S,通过一次排序后要产生这样的结果：将S<strong>切分</strong>为S1和S2，并且 S1集合 < S2集合；<br><br>（2）同理，将S1和S2进行操作（1）；<br><br>（3）随着排序的深入（递归的深入），序列S整体逐渐取向于有序。<br></p>
+<ul>
+<li>总结：将S的排序问题，<strong>分解</strong>为若干个子序列的排序问题，<strong>递归</strong>求解子序列问题，最后<strong>组合</strong>子问题的解答。<h5 id="算法解决的关键点"><a href="#算法解决的关键点" class="headerlink" title="算法解决的关键点"></a>算法解决的关键点</h5>主要难点在于（1）中<strong>切分</strong>的解决方式。这里首先思考下面问题：<br></li>
+</ul>
+<p>1.将序列分成两拨，到底哪个数字是这两拨序列的边界呢？<br><br>2.我们确定好边界之后，又如何<strong>快速</strong>将序列分为左右两拨呢？难道是第一趟找比边界小的元素，第二趟再找比边界大的元素吗？<br></p>
+<p>因此解决<strong>划分</strong>的三个关键点为：“基准元素”，“左游标”，“右游标”。</p>
+<ul>
+<li>基准元素：以它为判断标准来界定大小值；一般，我们可以将序列的<strong>第一个元素</strong>作为基准元素。</li>
+<li>左游标：找比基准小的元素；遇到<strong>不小于基准</strong>的值停下。</li>
+<li>右游标：找比基准大的元素；遇到<strong>不大于基准</strong>的值停下。<br></li>
+</ul>
+<p>游标如何发挥作用？</p>
+<ul>
+<li>（1）移动：右游标先移动，遇到<strong>不小于基准</strong>的值停下。然后，左游标开始移动，遇到<strong>不大于基准</strong>的值停下。</li>
+<li>（2）交换：左右游标停止后，交换游标指向的元素值，完成第一次交换。</li>
+<li>（3）：继续（1）（2）操作，直到左右游标相遇。然后，“基准值”和“左右游标相遇停止时的元素值”进行交换，完成一轮操作。<h5 id="算法图解"><a href="#算法图解" class="headerlink" title="算法图解"></a>算法图解</h5></li>
+</ul>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><h5 id="方式一：数组（不稳定）"><a href="#方式一：数组（不稳定）" class="headerlink" title="方式一：数组（不稳定）"></a>方式一：数组（不稳定）</h5><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+<h5 id="方式二：链表（稳定）"><a href="#方式二：链表（稳定）" class="headerlink" title="方式二：链表（稳定）"></a>方式二：链表（稳定）</h5><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="性能分析"><a href="#性能分析" class="headerlink" title="性能分析"></a>性能分析</h3><h3 id="算法应用"><a href="#算法应用" class="headerlink" title="算法应用"></a>算法应用</h3></body></html>]]></content>
+      <categories>
+        <category>基本功</category>
+        <category>10大排序算法</category>
+      </categories>
+      <tags>
+        <tag>排序算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基本功之10大排序算法（三）：插入排序</title>
+    <url>/posts/cb21edc7/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjqjIO"><img src="https://s2.ax1x.com/2019/08/30/mjqjIO.png" alt="mjqjIO.png"></a></p>
+<ul>
+<li>插入排序：每次将待排序元素插入已排好序的有序序列中。<a id="more"></a> 
+
+
+</li>
+</ul>
+<h4 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h4><ul>
+<li>？稳定</li>
+<li>时间复杂度：</li>
+<li>空间复杂度：</li>
+</ul>
+<h3 id="算法解读"><a href="#算法解读" class="headerlink" title="算法解读"></a>算法解读</h3><h5 id="简要思路"><a href="#简要思路" class="headerlink" title="简要思路"></a>简要思路</h5><p>常见的插入算法有哪些？ 直接插入，二分插入，链表插入，希尔排序</p>
+<h5 id="直接插入缺点"><a href="#直接插入缺点" class="headerlink" title="直接插入缺点"></a>直接插入缺点</h5><h5 id="改进-希尔排序"><a href="#改进-希尔排序" class="headerlink" title="改进:希尔排序"></a>改进:希尔排序</h5><h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><h5 id="方式一：数组（不稳定）"><a href="#方式一：数组（不稳定）" class="headerlink" title="方式一：数组（不稳定）"></a>方式一：数组（不稳定）</h5><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+<h5 id="方式二：链表（稳定）"><a href="#方式二：链表（稳定）" class="headerlink" title="方式二：链表（稳定）"></a>方式二：链表（稳定）</h5><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="性能分析"><a href="#性能分析" class="headerlink" title="性能分析"></a>性能分析</h3><h3 id="算法应用"><a href="#算法应用" class="headerlink" title="算法应用"></a>算法应用</h3></body></html>]]></content>
+      <categories>
+        <category>基本功</category>
+        <category>10大排序算法</category>
+      </categories>
+      <tags>
+        <tag>排序算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基本功之10大排序算法（五）：归并排序</title>
+    <url>/posts/a64ad032/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjqOZ6"><img src="https://s2.ax1x.com/2019/08/30/mjqOZ6.png" alt="mjqOZ6.png"></a></p>
+<ul>
+<li>归并排序：层层递<strong>归</strong>，层层合<strong>并</strong>，将已有的子序列合并，得到完全有序的序列。<a id="more"></a> 
+
+</li>
+</ul>
+<h4 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h4><ul>
+<li>？稳定</li>
+<li>时间复杂度：</li>
+<li>空间复杂度：</li>
+</ul>
+<h3 id="算法解读"><a href="#算法解读" class="headerlink" title="算法解读"></a>算法解读</h3><h5 id="简单图解"><a href="#简单图解" class="headerlink" title="简单图解"></a>简单图解</h5><h5 id="算法思路"><a href="#算法思路" class="headerlink" title="算法思路"></a>算法思路</h5><p>（1）待排序列S,通过一次排序后要产生这样的结果：将S<strong>切分</strong>为S1和S2，并且 S1集合 < S2集合；<br><br>（2）同理，将S1和S2进行操作（1）；<br><br>（3）随着排序的深入（递归的深入），序列S整体逐渐取向于有序。<br></p>
+<ul>
+<li>总结：将S的排序问题，<strong>分解</strong>为若干个子序列的排序问题，<strong>递归</strong>求解子序列问题，最后<strong>组合</strong>子问题的解答。<h5 id="算法解决的关键点"><a href="#算法解决的关键点" class="headerlink" title="算法解决的关键点"></a>算法解决的关键点</h5></li>
+</ul>
+<p>1.递<strong>归</strong>：<br></p>
+<ul>
+<li>重复的逻辑：不断拆分待排序列</li>
+<li>递归的临界点：直到分为单个元素</li>
+<li>子问题的处理：合并</li>
+</ul>
+<p>2.合<strong>并</strong>：<br></p>
+<ul>
+<li>两个单个元素（最小元素）直接比较大小进行合并；</li>
+<li>两个有序的子序列就行合并，见下方简图（以两个元素为例）：</li>
+</ul>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><h5 id="方式一：数组（不稳定）"><a href="#方式一：数组（不稳定）" class="headerlink" title="方式一：数组（不稳定）"></a>方式一：数组（不稳定）</h5><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+<h5 id="方式二：链表（稳定）"><a href="#方式二：链表（稳定）" class="headerlink" title="方式二：链表（稳定）"></a>方式二：链表（稳定）</h5><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="性能分析"><a href="#性能分析" class="headerlink" title="性能分析"></a>性能分析</h3><h3 id="算法应用"><a href="#算法应用" class="headerlink" title="算法应用"></a>算法应用</h3></body></html>]]></content>
+      <categories>
+        <category>基本功</category>
+        <category>10大排序算法</category>
+      </categories>
+      <tags>
+        <tag>排序算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基本功之10大排序算法（六）：堆排序</title>
+    <url>/posts/69169bf3/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLrTK"><img src="https://s2.ax1x.com/2019/08/30/mjLrTK.png" alt="mjLrTK.png"></a></p>
+<ul>
+<li>堆排序：利用堆实现的一种选择排序。移除根节点的元素，并重新构建堆的递归运算。<a id="more"></a> 
+
+</li>
+</ul>
+<h3 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h3><ul>
+<li>？稳定</li>
+<li>时间复杂度：</li>
+<li>空间复杂度：</li>
+</ul>
+<h3 id="认识堆"><a href="#认识堆" class="headerlink" title="认识堆"></a>认识堆</h3><h5 id="堆的特点"><a href="#堆的特点" class="headerlink" title="堆的特点"></a>堆的特点</h5><ul>
+<li>堆是完全二叉树</li>
+<li>大顶堆：每个父节点的值 <strong>大于等于</strong> 其左右孩子的值</li>
+<li>小顶堆：每个父节点的值 <strong>小于等于</strong> 其左右孩子的值</li>
+</ul>
+<p>可见，堆顶为最大或者最小元素。</p>
+<h5 id="堆的定义"><a href="#堆的定义" class="headerlink" title="堆的定义"></a>堆的定义</h5><p>定义：<br>-大顶堆：arr[i] >= arr[2i+1] && arr[i] >= arr[2i+2]<br>-小顶堆：arr[i] <= arr[2i+1] && arr[i] <= arr[2i+2] </p>
+<h3 id="堆排序解读"><a href="#堆排序解读" class="headerlink" title="堆排序解读"></a>堆排序解读</h3><h5 id="算法简图"><a href="#算法简图" class="headerlink" title="算法简图"></a>算法简图</h5><h5 id="堆排序步骤"><a href="#堆排序步骤" class="headerlink" title="堆排序步骤"></a>堆排序步骤</h5><ul>
+<li><strong>（1）构建：</strong>构建初始堆</li>
+<li><strong>（2）交换：</strong>构建完毕后，堆顶元素与末尾元素交换</li>
+<li><strong>（3）重建：</strong>交换完毕后，除去此刻的堆尾元素，n-1个元素重复（1）（2）（3）步骤<h5 id="堆排序思路"><a href="#堆排序思路" class="headerlink" title="堆排序思路"></a>堆排序思路</h5>主要利用堆顶元素为序列的最大值（最小值）的特性，反复进行建堆，逐个找到次大值（次小值），然后构成有序序列的递归运算。<h5 id="实现步骤"><a href="#实现步骤" class="headerlink" title="实现步骤"></a>实现步骤</h5></li>
+<li>1.无序序列构造为堆</li>
+<li>2.堆的调整</li>
+<li>3.交换元素<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3></li>
+</ul>
+<h5 id="方式一：数组（不稳定）"><a href="#方式一：数组（不稳定）" class="headerlink" title="方式一：数组（不稳定）"></a>方式一：数组（不稳定）</h5><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+<h5 id="方式二：链表（稳定）"><a href="#方式二：链表（稳定）" class="headerlink" title="方式二：链表（稳定）"></a>方式二：链表（稳定）</h5><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="性能分析"><a href="#性能分析" class="headerlink" title="性能分析"></a>性能分析</h3><h3 id="算法应用"><a href="#算法应用" class="headerlink" title="算法应用"></a>算法应用</h3></body></html>]]></content>
+      <categories>
+        <category>基本功</category>
+        <category>10大排序算法</category>
+      </categories>
+      <tags>
+        <tag>排序算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基本功之10大排序算法（七）：希尔排序</title>
+    <url>/posts/3aa53878/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLQLq"><img src="https://s2.ax1x.com/2019/08/30/mjLQLq.png" alt="mjLQLq.png"></a></p>
+<ul>
+<li>希尔排序：“缩小增量”的<strong>插入排序</strong>。<a id="more"></a> 
+
+</li>
+</ul>
+<h4 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h4><ul>
+<li>？稳定</li>
+<li>时间复杂度：</li>
+<li>空间复杂度：</li>
+</ul>
+<h3 id="希尔排序解读"><a href="#希尔排序解读" class="headerlink" title="希尔排序解读"></a>希尔排序解读</h3><h5 id="产生原因"><a href="#产生原因" class="headerlink" title="产生原因"></a>产生原因</h5><p>希尔算法是直接插入算法的改进，详细说明见《基本功之10大排序算法（三）：插入排序》</p>
+<h5 id="算法图解"><a href="#算法图解" class="headerlink" title="算法图解"></a>算法图解</h5><h5 id="算法关键点"><a href="#算法关键点" class="headerlink" title="算法关键点"></a>算法关键点</h5><p>显然关键点在于间隔的选取，间隔选取的方式有哪些？</p>
+<ul>
+<li>间隔为N/2:“希尔”本人的建议；</li>
+<li>常用间隔序列：3h+1<br>这里对各种间隔的优缺点和比较略过。</li>
+</ul>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><h5 id="方式一：数组（不稳定）"><a href="#方式一：数组（不稳定）" class="headerlink" title="方式一：数组（不稳定）"></a>方式一：数组（不稳定）</h5><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+<h5 id="方式二：链表（稳定）"><a href="#方式二：链表（稳定）" class="headerlink" title="方式二：链表（稳定）"></a>方式二：链表（稳定）</h5><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="性能分析"><a href="#性能分析" class="headerlink" title="性能分析"></a>性能分析</h3><h3 id="算法应用"><a href="#算法应用" class="headerlink" title="算法应用"></a>算法应用</h3><h3 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h3><h5 id="方式一：数组（不稳定）-1"><a href="#方式一：数组（不稳定）-1" class="headerlink" title="方式一：数组（不稳定）"></a>方式一：数组（不稳定）</h5><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+<h5 id="方式二：链表（稳定）-1"><a href="#方式二：链表（稳定）-1" class="headerlink" title="方式二：链表（稳定）"></a>方式二：链表（稳定）</h5><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="性能分析-1"><a href="#性能分析-1" class="headerlink" title="性能分析"></a>性能分析</h3><h3 id="算法应用-1"><a href="#算法应用-1" class="headerlink" title="算法应用"></a>算法应用</h3></body></html>]]></content>
+      <categories>
+        <category>基本功</category>
+        <category>10大排序算法</category>
+      </categories>
+      <tags>
+        <tag>排序算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基本功之10大排序算法（九）：桶排序</title>
+    <url>/posts/67c36b1e/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjqzJe"><img src="https://s2.ax1x.com/2019/08/30/mjqzJe.png" alt="mjqzJe.png"></a></p>
+<ul>
+<li>桶排序：利用函数映射关系的排序方式，非比较型排序。<a id="more"></a> 
+
+</li>
+</ul>
+<h4 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h4><ul>
+<li>？稳定</li>
+<li>时间复杂度：</li>
+<li>空间复杂度：</li>
+</ul>
+<h3 id="简要思路"><a href="#简要思路" class="headerlink" title="简要思路"></a>简要思路</h3><h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><h5 id="方式一：数组（不稳定）"><a href="#方式一：数组（不稳定）" class="headerlink" title="方式一：数组（不稳定）"></a>方式一：数组（不稳定）</h5><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+<h5 id="方式二：链表（稳定）"><a href="#方式二：链表（稳定）" class="headerlink" title="方式二：链表（稳定）"></a>方式二：链表（稳定）</h5><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="性能分析"><a href="#性能分析" class="headerlink" title="性能分析"></a>性能分析</h3><h3 id="算法应用"><a href="#算法应用" class="headerlink" title="算法应用"></a>算法应用</h3></body></html>]]></content>
+      <categories>
+        <category>基本功</category>
+        <category>10大排序算法</category>
+      </categories>
+      <tags>
+        <tag>排序算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基本功之10大排序算法（八）：计数排序</title>
+    <url>/posts/95be4dc/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLpzd"><img src="https://s2.ax1x.com/2019/08/30/mjLpzd.png" alt="mjLpzd.png"></a></p>
+<ul>
+<li>计数排序：针对整数的牺牲空间换时间的非比较型排序，利用数组下表来快速统计序列。<a id="more"></a> 
+
+</li>
+</ul>
+<h4 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h4><ul>
+<li>？稳定</li>
+<li>时间复杂度：</li>
+<li>空间复杂度：</li>
+</ul>
+<h3 id="简要思路"><a href="#简要思路" class="headerlink" title="简要思路"></a>简要思路</h3><h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><h5 id="方式一：数组（不稳定）"><a href="#方式一：数组（不稳定）" class="headerlink" title="方式一：数组（不稳定）"></a>方式一：数组（不稳定）</h5><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+<h5 id="方式二：链表（稳定）"><a href="#方式二：链表（稳定）" class="headerlink" title="方式二：链表（稳定）"></a>方式二：链表（稳定）</h5><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="性能分析"><a href="#性能分析" class="headerlink" title="性能分析"></a>性能分析</h3><h3 id="算法应用"><a href="#算法应用" class="headerlink" title="算法应用"></a>算法应用</h3></body></html>]]></content>
+      <categories>
+        <category>基本功</category>
+        <category>10大排序算法</category>
+      </categories>
+      <tags>
+        <tag>排序算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基本功之10大排序算法（十）：基排序</title>
+    <url>/posts/c35f22f/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLCQA"><img src="https://s2.ax1x.com/2019/08/30/mjLCQA.png" alt="mjLCQA.png"></a></p>
+<ul>
+<li>基数排序：将整数按“位数”分割，然后按照“低位”到“高位”进行排序。<a id="more"></a> 
+
+</li>
+</ul>
+<h4 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h4><ul>
+<li>？稳定</li>
+<li>时间复杂度：</li>
+<li>空间复杂度：</li>
+</ul>
+<h3 id="简要思路"><a href="#简要思路" class="headerlink" title="简要思路"></a>简要思路</h3><h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><h5 id="方式一：数组（不稳定）"><a href="#方式一：数组（不稳定）" class="headerlink" title="方式一：数组（不稳定）"></a>方式一：数组（不稳定）</h5><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+<h5 id="方式二：链表（稳定）"><a href="#方式二：链表（稳定）" class="headerlink" title="方式二：链表（稳定）"></a>方式二：链表（稳定）</h5><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="性能分析"><a href="#性能分析" class="headerlink" title="性能分析"></a>性能分析</h3><h3 id="算法应用"><a href="#算法应用" class="headerlink" title="算法应用"></a>算法应用</h3></body></html>]]></content>
+      <categories>
+        <category>基本功</category>
+        <category>10大排序算法</category>
+      </categories>
+      <tags>
+        <tag>排序算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基本功之计算机网络（一）：计算机网络知识点</title>
+    <url>/posts/f31406b8/</url>
+    <content><![CDATA[<html><head></head><body></body></html>]]></content>
+      <categories>
+        <category>基本功</category>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>计算机网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基本功之计算机网络（三）：三次，四次握手</title>
+    <url>/posts/a554dbfc/</url>
+    <content><![CDATA[<html><head></head><body></body></html>]]></content>
+      <categories>
+        <category>基本功</category>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>计算机网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基本功之计算机网络（二）：OSI模型</title>
+    <url>/posts/300212ee/</url>
+    <content><![CDATA[<html><head></head><body></body></html>]]></content>
+      <categories>
+        <category>基本功</category>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>计算机网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基本功之计算机网络（四）：TCP</title>
+    <url>/posts/101abe1d/</url>
+    <content><![CDATA[<html><head></head><body></body></html>]]></content>
+      <categories>
+        <category>基本功</category>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>计算机网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基本功之计算机网络（五）：HTTP原理</title>
+    <url>/posts/447f831c/</url>
+    <content><![CDATA[<html><head></head><body></body></html>]]></content>
+      <categories>
+        <category>基本功</category>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>计算机网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基本功之计算机网络（六）：HTTP1.0和HTTP2.0</title>
+    <url>/posts/d195f61f/</url>
+    <content><![CDATA[<html><head></head><body></body></html>]]></content>
+      <categories>
+        <category>基本功</category>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>计算机网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基本功之计算机网络（七）：HTTPS</title>
+    <url>/posts/2ccd4d5e/</url>
+    <content><![CDATA[<html><head></head><body></body></html>]]></content>
+      <categories>
+        <category>基本功</category>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>计算机网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基本功之设计原则&amp;设计模式（一）：5种创建型之单例模式</title>
+    <url>/posts/a000da26/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLkeP"><img src="https://s2.ax1x.com/2019/08/30/mjLkeP.png" alt="mjLkeP.png"></a></p>
+<ul>
+<li>单例模式（属创建型模式）：确保某个类（我们成为单例类）可以 <strong>自动</strong> 向 <strong>整个系统</strong> 提供 <strong>唯一</strong> 的实例。<a id="more"></a> 
+
+</li>
+</ul>
+<p>###引进<br>#####常见例子</p>
+<p>-系统资源管理器（Windows中我的电脑，回收站）；<br><br>-属性管理器（属性文件properties）：将系统需要配置的一些常量和系统工作环境相关的信息配置在属性文件中。</p>
+<p>###何时使用<br><strong>有单一实例化的需求。</strong><br><br>很多时候，我们没有意识到系统其实并没有单一实例化的需求。但是，我们主观的认为我们可以套用单例模式去解决一些问题。<br>拿“全局变量”来说，很多时候，我们会去创建单例类去存放“全局变量”。但是一个设计得当的系统中不应该出现“全局变量”，<br>这些变量应该放到它们所描述的实体对应的类中。我们将这些变量从所描述的类中抽出来，放到一个单例类中，反而会产生高<br>耦合的问题。</p>
+<p>###UML结构</p>
+<p>###几种形式<br>#####1.饿汉式<br>#####2.懒汉式<br>#####3.登记式</p>
+<p>###典型应用<br>#####Java属性类<br>#####Java中的Runtime对象</p>
+<p>###优缺点</p>
+</body></html>]]></content>
+      <categories>
+        <category>基本功</category>
+        <category>23设计模式</category>
+        <category>5创建型</category>
+      </categories>
+      <tags>
+        <tag>设计原则与设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基本功之设计原则&amp;设计模式（二）：5种创建型之工厂模式</title>
+    <url>/posts/b65714a7/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLiLt"><img src="https://s2.ax1x.com/2019/08/30/mjLiLt.png" alt="mjLiLt.png"></a></p>
+<ul>
+<li><p>工厂模式（属创建型）：定义一个创建产品对象的<strong>接口</strong>，将创建工作推迟到子类中。<br>工厂模式就是把具体使用new操作符的细节隐藏起来（不是不使用new）。</p>
 <a id="more"></a>
+<p>##前言<br>首先说一下工厂模式的三种形式，免得大家一脸懵。</p>
+</li>
+<li><p>简单工厂（SimpleFactory）：</p>
+</li>
+<li><p>工厂方法（FactoryMethod）：</p>
+</li>
+<li><p>抽象工厂（AbstractFactory）：</p>
+</li>
+</ul>
+<p>本讲只详细解读前两种，第三种抽象工厂在（五）中进行详细讲解。</p>
+<p>##一、简单工厂</p>
+<p>###简单工厂的引进<br>#####简单工厂的常见例子</p>
+<p>###简单工厂的UML结构</p>
+<p>###简单工厂的几种形态<br>#####1.<br>#####2.<br>#####3.</p>
+<p>###简单工厂的典型应用</p>
+<p>###简单工厂的优缺点</p>
+<p>##二、工厂方法<br>###简单工厂的引进<br>#####简单工厂的常见例子</p>
+<p>###简单工厂的UML结构</p>
+<p>###简单工厂的几种形态<br>#####1.<br>#####2.<br>#####3.</p>
+<p>###简单工厂的典型应用</p>
+<p>###简单工厂的优缺点</p>
 </body></html>]]></content>
       <categories>
         <category>基本功</category>
-        <category>Java基础</category>
-        <category>新特性</category>
+        <category>23设计模式</category>
+        <category>5创建型</category>
       </categories>
       <tags>
-        <tag>Java</tag>
+        <tag>设计原则与设计模式</tag>
       </tags>
   </entry>
   <entry>
-    <title>Java新特性之Java8</title>
-    <url>/posts/88d7b512/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjL50P"><img src="https://s2.ax1x.com/2019/08/30/mjL50P.png" alt="mjL50P.png"></a></p>
+    <title>基本功之设计原则&amp;设计模式（三）：5种创建型之建造者模式</title>
+    <url>/posts/64f8841/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLAdf"><img src="https://s2.ax1x.com/2019/08/30/mjLAdf.png" alt="mjLAdf.png"></a></p>
 <a id="more"></a> 
 </body></html>]]></content>
       <categories>
         <category>基本功</category>
-        <category>Java基础</category>
-        <category>新特性</category>
+        <category>23设计模式</category>
+        <category>5创建型</category>
       </categories>
       <tags>
-        <tag>Java</tag>
+        <tag>设计原则与设计模式</tag>
       </tags>
   </entry>
   <entry>
-    <title>Java新特性之Java9</title>
-    <url>/posts/ffd08584/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLTk8"><img src="https://s2.ax1x.com/2019/08/30/mjLTk8.png" alt="mjLTk8.png"></a></p>
+    <title>基本功之设计原则&amp;设计模式（四）：5种创建型之原型模式</title>
+    <url>/posts/33422fb4/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLEo8"><img src="https://s2.ax1x.com/2019/08/30/mjLEo8.png" alt="mjLEo8.png"></a></p>
+<a id="more"></a> 
+
+</body></html>]]></content>
+      <categories>
+        <category>基本功</category>
+        <category>23设计模式</category>
+        <category>5创建型</category>
+      </categories>
+      <tags>
+        <tag>设计原则与设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基本功之设计原则&amp;设计模式（六）：11种行为型之访问者模式</title>
+    <url>/posts/8c680e6d/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLeJg"><img src="https://s2.ax1x.com/2019/08/30/mjLeJg.png" alt="mjLeJg.png"></a></p>
 <a id="more"></a> 
 </body></html>]]></content>
       <categories>
         <category>基本功</category>
-        <category>Java基础</category>
-        <category>新特性</category>
+        <category>23设计模式</category>
+        <category>11行为性</category>
       </categories>
       <tags>
-        <tag>Java</tag>
+        <tag>设计原则与设计模式</tag>
       </tags>
   </entry>
   <entry>
-    <title>JVM(一)：JVM参数和内存模型</title>
-    <url>/posts/c7fe122d/</url>
+    <title>基本功之设计原则&amp;设计模式（五）：5种创建型之抽象工厂模式</title>
+    <url>/posts/91ba39e8/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLZFS"><img src="https://s2.ax1x.com/2019/08/30/mjLZFS.png" alt="mjLZFS.png"></a></p>
+<a id="more"></a> 
+</body></html>]]></content>
+      <categories>
+        <category>基本功</category>
+        <category>23设计模式</category>
+        <category>5创建型</category>
+      </categories>
+      <tags>
+        <tag>设计原则与设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基本功之设计原则&amp;设计模式（八）：11种行为型之策略模式</title>
+    <url>/posts/5470830e/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLnzj"><img src="https://s2.ax1x.com/2019/08/30/mjLnzj.png" alt="mjLnzj.png"></a></p>
+<a id="more"></a> 
+
+</body></html>]]></content>
+      <categories>
+        <category>基本功</category>
+        <category>23设计模式</category>
+        <category>11行为性</category>
+      </categories>
+      <tags>
+        <tag>设计原则与设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基本功之设计原则&amp;设计模式（七）：11种行为型之模板模式</title>
+    <url>/posts/4307b138/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLmWQ"><img src="https://s2.ax1x.com/2019/08/30/mjLmWQ.png" alt="mjLmWQ.png"></a></p>
+<a id="more"></a> 
+</body></html>]]></content>
+      <categories>
+        <category>基本功</category>
+        <category>23设计模式</category>
+        <category>11行为性</category>
+      </categories>
+      <tags>
+        <tag>设计原则与设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基本功之设计原则&amp;设计模式（九）：11种行为型之状态模式</title>
+    <url>/posts/41398b4/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLKQs"><img src="https://s2.ax1x.com/2019/08/30/mjLKQs.png" alt="mjLKQs.png"></a></p>
+<a id="more"></a> 
+</body></html>]]></content>
+      <categories>
+        <category>基本功</category>
+        <category>23设计模式</category>
+        <category>11行为性</category>
+      </categories>
+      <tags>
+        <tag>设计原则与设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基本功之设计原则&amp;设计模式（十）：11种行为型之观察者模式</title>
+    <url>/posts/9769d21f/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLMyn"><img src="https://s2.ax1x.com/2019/08/30/mjLMyn.png" alt="mjLMyn.png"></a></p>
+<a id="more"></a> 
+
+</body></html>]]></content>
+      <categories>
+        <category>基本功</category>
+        <category>23设计模式</category>
+        <category>11行为性</category>
+      </categories>
+      <tags>
+        <tag>设计原则与设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基本功之设计原则&amp;设计模式（十一）：11种行为型之备忘录模式</title>
+    <url>/posts/7f47e90/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjL1e0"><img src="https://s2.ax1x.com/2019/08/30/mjL1e0.png" alt="mjL1e0.png"></a></p>
+<a id="more"></a> 
+
+</body></html>]]></content>
+      <categories>
+        <category>基本功</category>
+        <category>23设计模式</category>
+        <category>11行为性</category>
+      </categories>
+      <tags>
+        <tag>设计原则与设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基本功之设计原则&amp;设计模式（十二）：11种行为型之中介者模式</title>
+    <url>/posts/69a34078/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjL3wV"><img src="https://s2.ax1x.com/2019/08/30/mjL3wV.png" alt="mjL3wV.png"></a></p>
+<a id="more"></a> 
+</body></html>]]></content>
+      <categories>
+        <category>基本功</category>
+        <category>23设计模式</category>
+        <category>11行为性</category>
+      </categories>
+      <tags>
+        <tag>设计原则与设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基本功之设计原则&amp;设计模式（十三）：11种行为型之迭代器模式</title>
+    <url>/posts/3e494f0/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjL8oT"><img src="https://s2.ax1x.com/2019/08/30/mjL8oT.png" alt="mjL8oT.png"></a></p>
+<a id="more"></a> 
+</body></html>]]></content>
+      <categories>
+        <category>基本功</category>
+        <category>23设计模式</category>
+        <category>11行为性</category>
+      </categories>
+      <tags>
+        <tag>设计原则与设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基本功之设计原则&amp;设计模式（十四）：11种行为型之解释器模式</title>
+    <url>/posts/fdced3e5/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLJFU"><img src="https://s2.ax1x.com/2019/08/30/mjLJFU.png" alt="mjLJFU.png"></a></p>
+<a id="more"></a> 
+</body></html>]]></content>
+      <categories>
+        <category>基本功</category>
+        <category>23设计模式</category>
+        <category>11行为性</category>
+      </categories>
+      <tags>
+        <tag>设计原则与设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基本功之设计原则&amp;设计模式（十五）：11种行为型之命令模式</title>
+    <url>/posts/9ae71b8e/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjL2SH"><img src="https://s2.ax1x.com/2019/08/30/mjL2SH.png" alt="mjL2SH.png"></a></p>
+<a id="more"></a> 
+</body></html>]]></content>
+      <categories>
+        <category>基本功</category>
+        <category>23设计模式</category>
+        <category>11行为性</category>
+      </categories>
+      <tags>
+        <tag>设计原则与设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基本功之设计原则&amp;设计模式（十六）：11种行为型之责任链模式</title>
+    <url>/posts/5c7890d5/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLtW4"><img src="https://s2.ax1x.com/2019/08/30/mjLtW4.png" alt="mjLtW4.png"></a></p>
+<a id="more"></a> 
+<ul>
+<li>责任链设计模式就是将请求从链的一个对象传到下一个对象，直到请求被响应。通过这种方式去除对象之间的耦合。</li>
+</ul>
+<p>###引进<br>#####生活举例<br><img src="https://s2.ax1x.com/2019/10/26/K0Osrn.png" alt="K0Osrn.png"><br>#####UML结构图<br><img src="https://s2.ax1x.com/2019/10/26/K0O25T.png" alt="K0O25T.png"><br>#####模式涉及到的角色<br>######抽象处理者（Handler）:<br>定义一个处理请求的接口。如果需要，接口可以定义出一个方法，以设定和返回对下家的引用。这个角色通常由一个java抽象类或者Java接口实现。<br>######具体处理者（ConcreteHandler）:<br>具体处理者接到请求之后，可以选择将请求处理掉，或者将请求传给下家。由于具体处理者持有对下家的引用，因此，如果需要，具体处理者可以访问<br>下家。<br>#####纯的与不纯的责任链模式<br>######纯的：<br>要求一个具体的处理者对象只能在两个行为中选择一个。一是承担责任，二是把责任推给下家。不允许出现某一个具体的处理者承担了一部分责任后又<br>把责任向下传递的情况。在一个纯的责任链模式里面，一个请求必须被某一个处理者对象所接收。</p>
+<p>纯的责任链模式实际的例子很难找到，一般看到的例子均是不纯的责任链模式的实现。如果坚持责任链的不纯便不是责任链模式，那么责任链模式便不会<br>有太大的意义。<br>######不纯：<br>在一个不纯的责任链模式中，一个请求可以最终不被任何接收端对象所接收。</p>
+<p>###Demo实现<br>#####击鼓传花例子<br>#####例子二：</p>
+<p>###应用<br>#####对象的树结构<br>#####事件处理机制(事件上浮机制Event Bubbling)</p>
+<p>###开源框架中使用情况<br>#####框架一<br>#####框架二</p>
+<p>###优缺点<br>#####优点</p>
+<ul>
+<li>优点一：</li>
+<li>优点二：</li>
+<li>优点三：<br>#####缺点</li>
+<li>缺点一：</li>
+<li>缺点二：</li>
+<li>缺点三：</li>
+</ul>
+<p>###与其他模式的区别与联系<br>#####合成模式<br><img src="https://s2.ax1x.com/2019/10/26/KB3HmQ.png" alt="KB3HmQ.png"><br>#####命令模式<br><img src="https://s2.ax1x.com/2019/10/26/KB8i79.png" alt="KB8i79.png"><br>#####模板模式<br><img src="https://s2.ax1x.com/2019/10/26/KB8e1K.png" alt="KB8e1K.png"></p>
+<p>###总结</p>
+</body></html>]]></content>
+      <categories>
+        <category>基本功</category>
+        <category>23设计模式</category>
+        <category>11行为性</category>
+      </categories>
+      <tags>
+        <tag>设计原则与设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基本功之设计原则&amp;设计模式（十九）：7种结构型之组合模式</title>
+    <url>/posts/6fe4b5ff/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLwO1"><img src="https://s2.ax1x.com/2019/08/30/mjLwO1.png" alt="mjLwO1.png"></a></p>
+<a id="more"></a> 
+</body></html>]]></content>
+      <categories>
+        <category>基本功</category>
+        <category>23设计模式</category>
+        <category>7结构型</category>
+      </categories>
+      <tags>
+        <tag>设计原则与设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基本功之设计原则&amp;设计模式（十八）：7种结构型之桥接模式</title>
+    <url>/posts/ca3aa21c/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLUSJ"><img src="https://s2.ax1x.com/2019/08/30/mjLUSJ.png" alt="mjLUSJ.png"></a></p>
+<a id="more"></a> 
+</body></html>]]></content>
+      <categories>
+        <category>基本功</category>
+        <category>23设计模式</category>
+        <category>7结构型</category>
+      </categories>
+      <tags>
+        <tag>设计原则与设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基本功之设计原则&amp;设计模式（十七）：7种结构型之适配器模式</title>
+    <url>/posts/11491977/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLYYF"><img src="https://s2.ax1x.com/2019/08/30/mjLYYF.png" alt="mjLYYF.png"></a></p>
+<a id="more"></a> 
+</body></html>]]></content>
+      <categories>
+        <category>基本功</category>
+        <category>23设计模式</category>
+        <category>7结构型</category>
+      </categories>
+      <tags>
+        <tag>设计原则与设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基本功之设计原则&amp;设计模式（二一）：7种结构型之外观模式</title>
+    <url>/posts/b87e7028/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLdyR"><img src="https://s2.ax1x.com/2019/08/30/mjLdyR.png" alt="mjLdyR.png"></a></p>
+<a id="more"></a> 
+</body></html>]]></content>
+      <categories>
+        <category>基本功</category>
+        <category>23设计模式</category>
+        <category>7结构型</category>
+      </categories>
+      <tags>
+        <tag>设计原则与设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基本功之设计原则&amp;设计模式（二十）：7种结构型之装饰模式</title>
+    <url>/posts/b32dd59b/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLal9"><img src="https://s2.ax1x.com/2019/08/30/mjLal9.png" alt="mjLal9.png"></a></p>
+<a id="more"></a> 
+</body></html>]]></content>
+      <categories>
+        <category>基本功</category>
+        <category>23设计模式</category>
+        <category>7结构型</category>
+      </categories>
+      <tags>
+        <tag>设计原则与设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基本功之设计原则&amp;设计模式（二三）：7种结构型之代理模式</title>
+    <url>/posts/312a425d/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLDw6"><img src="https://s2.ax1x.com/2019/08/30/mjLDw6.png" alt="mjLDw6.png"></a></p>
+<a id="more"></a> 
+</body></html>]]></content>
+      <categories>
+        <category>基本功</category>
+        <category>23设计模式</category>
+        <category>7结构型</category>
+      </categories>
+      <tags>
+        <tag>设计原则与设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hadoop</title>
+    <url>/posts/b3349d42/</url>
     <content><![CDATA[<html><head></head><body></body></html>]]></content>
       <categories>
-        <category>Java相关</category>
-        <category>JVM和GC</category>
-        <category>JVM</category>
+        <category>大数据与数据仓库</category>
+        <category>Hadoop</category>
       </categories>
       <tags>
-        <tag>Java</tag>
+        <tag>Hadoop</tag>
       </tags>
   </entry>
   <entry>
-    <title>JVM(二)：JVM性能调优工具使用</title>
-    <url>/posts/16e5a472/</url>
+    <title>基本功之设计原则&amp;设计模式（二二）：7种结构型之享元模式</title>
+    <url>/posts/1d720e06/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLwO1"><img src="https://s2.ax1x.com/2019/08/30/mjLwO1.png" alt="mjLwO1.png"></a></p>
+<a id="more"></a> 
+</body></html>]]></content>
+      <categories>
+        <category>基本功</category>
+        <category>23设计模式</category>
+        <category>7结构型</category>
+      </categories>
+      <tags>
+        <tag>设计原则与设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>OLAP</title>
+    <url>/posts/19bacc63/</url>
     <content><![CDATA[<html><head></head><body></body></html>]]></content>
       <categories>
-        <category>Java相关</category>
-        <category>JVM和GC</category>
-        <category>JVM</category>
+        <category>大数据与数据仓库</category>
+        <category>数据仓库</category>
       </categories>
       <tags>
-        <tag>Java</tag>
+        <tag>OLAP</tag>
       </tags>
   </entry>
   <entry>
-    <title>基本功之Linux(一)：线程，进程</title>
-    <url>/posts/540e9659/</url>
+    <title>Spark</title>
+    <url>/posts/5cd2e029/</url>
+    <content><![CDATA[<html><head></head><body></body></html>]]></content>
+      <categories>
+        <category>大数据与数据仓库</category>
+        <category>Spark</category>
+      </categories>
+      <tags>
+        <tag>Spark</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基本功之Linux(三)：常用命令相关</title>
+    <url>/posts/c732760b/</url>
     <content><![CDATA[<html><head></head><body></body></html>]]></content>
       <categories>
         <category>基本功</category>
@@ -1270,8 +1154,8 @@
       </tags>
   </entry>
   <entry>
-    <title>基本功之Linux(三)：常用命令相关</title>
-    <url>/posts/c732760b/</url>
+    <title>基本功之Linux(一)：线程，进程</title>
+    <url>/posts/540e9659/</url>
     <content><![CDATA[<html><head></head><body></body></html>]]></content>
       <categories>
         <category>基本功</category>
@@ -1334,220 +1218,16 @@ I/O中断
       </tags>
   </entry>
   <entry>
-    <title>Mybatis</title>
-    <url>/posts/da3e1361/</url>
+    <title>基本功之Git的高效使用</title>
+    <url>/posts/82de2974/</url>
     <content><![CDATA[<html><head></head><body></body></html>]]></content>
       <categories>
-        <category>JavaEE框架</category>
-        <category>Mybatis</category>
+        <category>基本功</category>
+        <category>奇淫巧技</category>
+        <category>git</category>
       </categories>
       <tags>
-        <tag>Mybatis</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>假如给我三天光明</title>
-    <url>/posts/848e71c8/</url>
-    <content><![CDATA[<html><head></head><body><p>All of us have read thrilling stories in which the  hero had only a limited and specified time to live. Sometimes it was as  long as a year, sometimes as short as 24 hours. But always we were  interested in discovering just how the doomed hero chose to spend his  last days or his last hours. I speak, of course, of free men who have a  choice, not condemned criminals whose sphere of activities is strictly  delimited.</p>
-<p>我们都读过震撼人心的故事，故事中的主人公只能再活一段很有限的时光，有时长达一年，有时却短至一日。但我们总是想要知道，注定要离世人的会选择如何度过自己最后的时光。当然，我说的是那些有选择权利的自由人，而不是那些活动范围受到严格限定的死囚。</p>
-<p>​    </p>
-<p>Such stories set us thinking, wondering what  we should do under similar circumstances. What events, what experiences,  what associations should we crowd into those last hours as mortal  beings, what regrets?</p>
-<p>这样的故事让我们思考，在类似的处境下，我们该做些什么?作为终有一死的人，在临终前的几个小时内我们应该做什么事，经历些什么或做哪些联想?回忆往昔，什么使我们开心快乐?什么又使我们悔恨不已?</p>
-<p>The same lethargy, I am afraid, characterizes  the use of all our faculties and senses. Only the deaf appreciate  hearing, only the blind realize the manifold blessings that lie in  sight. Particularly does this observation apply to those who have lost  sight and hearing in adult life. But those who have never suffered  impaimp3ent of sight or hearing seldom make the fullest use of these  blessed faculties. Their eyes and ears take in all sights and sounds  hazily, without concentration and with little appreciation. It is the  same old story of not being grateful for what we have until we lose it,  of not being conscious of health until we are ill.</p>
-<p>我担心同样的冷漠也存在于我们对自己官能和意识的运用上。只有聋子才理解听力的重要，只有盲人才明白视觉的可贵，这尤其适用于那些成年后才失去视力或听力之苦的人很少充分利用这些宝贵的能力。他们的眼睛和耳朵模糊地感受着周围的景物与声音，心不在焉，也无所感激。这正好我们只有在失去后才懂得珍惜一样，我们只有在生病后才意识到健康的可贵。</p>
-<p>I have often thought it would be a blessing  if each human being were stricken blind and deaf for a few days at some  time during his early adult life. Darkness would make him more  appreciative of sight; silence would teach him the joys of sound.</p>
-<p>我经常想，如果每个人在年轻的时候都有几天失时失聪，也不失为一件幸事。黑暗将使他更加感激光明，寂静将告诉他声音的美妙。</p>
-</body></html>]]></content>
-      <categories>
-        <category>且活且珍惜</category>
-        <category>多读书</category>
-      </categories>
-      <tags>
-        <tag>文字摘要</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>我的团长我的团精选台词</title>
-    <url>/posts/b0a1baf9/</url>
-    <content><![CDATA[<html><head></head><body><p>1、如果你们只剩下一条裤衩，为什么不用这条裤衩干死小日本！</p>
-<p>2、们留下的这些尸体，够这些苍蝇生养一百七八十代王朝的。</p>
-<p>3、阿弥陀佛，远征军万岁，祖国昌盛，民族万岁！</p>
-<p>4、上敬战死的英灵，下敬涂炭的生灵，中间这个，敬给人世间的良心。</p>
-<p>5、你骗我们有了不该有的希望，我们现在明知道不该有还在想，我们想胜利。明知道死我们还在想胜利，明知道输我们还在想胜利。</p>
-<p>6、拉上后面折了腿的，赶上前面臭不要脸的。</p>
-<p>7、他是个好人，他放个屁，我都跟他**后面吸。</p>
-<p>8、团长，打一炮好伐啦！</p>
-<p>9、岂曰无衣，与子同袍。</p>
-<p>10、瘪犊子玩意儿！</p>
-<p>11、妈的，当团长真好啊，杀个营长跟杀个鸡似的。</p>
-<p>12、我用不存在的手指用不存在的枪，守卫着你们高贵的肯定存在的机场。</p>
-<p>13、走了，走了，死的都已经死了，活着的贱人，我带你们回家。</p>
-<p>14、日本娃，我知道我说话你听不懂，用手捂着这，等你的医生来吧。</p>
-<p>15、中华要灭亡，湖南人先死绝！</p>
-<p>16、连命都不要，就要安逸！</p>
-<p>17、削他！削他！上这儿装犊子来了！</p>
-<p>18、跟你们一伙还不如跟耗子认亲戚！</p>
-<p>19、东四省以后要他妈姓日了，你他妈就给我开不开！</p>
-<p>20、有中国人没有？我是东北的李连胜，是和你们一起来的。给我来一枪，给我一个干脆的！</p>
-<p>21、你可是没有不信，实话说，你连不信都不信。</p>
-<p>22、我羞愧的想到，我终于成了一个知道廉耻的虚伪老爷们。</p>
-<p>23、有奶就是娘，我有奶，我就是娘！</p>
-<p>24、打了四年仗，我开始认一个奇怪的理，战场是仁慈的，非生即死，人间世则残酷，它为你准备的东西叫作没数。</p>
-<p>25、爷爷们，爷爷们，求求你们了，看看你们周围，有倒下的、摔倒的，装死的，拉一把吧。</p>
-<p>26、你快点儿吧，国难当头！打完你，我们还要去打小东洋呢！</p>
-<p>27、永远不要在人前调侃你的理想，你为它付出的是生命。</p>
-<p>28、哎呀，老天爷啊。东北的猪肉炖粉条子不是这么做的！</p>
-<p>29、回家不积极，脑子有问题。</p>
-<p>30、杜绝热情和永不言信，是我这种人为落拓人生掘就的散兵坑。</p>
-<p>31、传下去，左手边向左冲，右手边向右冲。</p>
-<p>32、我们是被抢走了躯体的小偷，偷溜回来，看十秒钟栖居了一生一世的躯体。</p>
-<p>33、初从文，三年不中。后习武，校场发一矢，中鼓吏，逐之出。遂学医，有所成。自撰一良方，服之，卒。</p>
-</body></html>]]></content>
-      <tags>
-        <tag>文字摘要</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>黑云压城</title>
-    <url>/posts/b48e1d47/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjjiLR"><img src="https://s2.ax1x.com/2019/08/30/mjjiLR.jpg" alt="mjjiLR.jpg"></a></p>
-<a id="more"></a> 
-
-<p>盛夏的天气总让人难以捉摸，尤其是北京的天气。可能你在西二旗晴空万里，而我在大兴亦庄享受着狂风暴雨。今天的天气也是诡异的很，临近日落，突然黑云压城。</p>
-</body></html>]]></content>
-      <categories>
-        <category>且活且珍惜</category>
-        <category>日常杂记</category>
-      </categories>
-      <tags>
-        <tag>日常杂记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>推荐系统</title>
-    <url>/posts/b8045ef9/</url>
-    <content><![CDATA[<html><head></head><body></body></html>]]></content>
-      <categories>
-        <category>兴趣研究</category>
-        <category>推荐系统</category>
-      </categories>
-      <tags>
-        <tag>推荐系统</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>搜索引擎</title>
-    <url>/posts/e601aa32/</url>
-    <content><![CDATA[<html><head></head><body></body></html>]]></content>
-      <categories>
-        <category>兴趣研究</category>
-        <category>搜索引擎</category>
-      </categories>
-      <tags>
-        <tag>搜索引擎</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>秋意渐浓</title>
-    <url>/posts/6149f690/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjjpz4"><img src="https://s2.ax1x.com/2019/08/30/mjjpz4.jpg" alt="mjjpz4.jpg"></a></p>
-<a id="more"></a> 
-
-<p>早早去公司改bug，争取周六日不加班。</p>
-</body></html>]]></content>
-      <categories>
-        <category>且活且珍惜</category>
-        <category>日常杂记</category>
-      </categories>
-      <tags>
-        <tag>日常杂记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>难得一见的彩虹</title>
-    <url>/posts/706a57fa/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjXzJU"><img src="https://s2.ax1x.com/2019/08/30/mjXzJU.jpg" alt="mjXzJU.jpg"></a></p>
-<a id="more"></a> 
-
-<p>在餐厅吃个晚饭的时间，就够下一场雷阵雨了。雨后的彩虹只有一点，但我确实很久没有见过彩虹了。拍个照，继续加班改Bug。</p>
-</body></html>]]></content>
-      <categories>
-        <category>且活且珍惜</category>
-        <category>日常杂记</category>
-      </categories>
-      <tags>
-        <tag>日常杂记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>黄油烙饼</title>
-    <url>/posts/df649f10/</url>
-    <content><![CDATA[<html><head></head><body><ul>
-<li>作者：汪曾祺</li>
-</ul>
-<p>萧胜跟着爸爸到口外去。</p>
-<p>萧胜满七岁，进八岁了。他这些年一直跟着奶奶过。他爸爸的工作一直不固定。一会儿修水库啦，一会儿大炼钢铁啦。他妈也是调来调去。奶奶一个人在家乡，说是冷清得很。他三岁那年，就被送回老家来了。他在家乡吃了好些萝卜白菜，小米面饼子，玉米面饼子，长高了。</p>
-<p>奶奶不怎么管他。奶奶有事。她老是找出一些零碎料子给他接衣裳，接褂子，接裤子，接棉袄，接棉裤。他的衣服都是接成一道一道的，一道青，一道蓝。倒是挺干净的。奶奶还给他做鞋。自己打袼褙，剪样子，纳底子，自己绱。奶奶老是说：“你的脚上有牙，有嘴？”“你的脚是铁打的！”再就是给他做吃的。小米面饼子，玉米面饼子，萝卜白菜——炒鸡蛋，熬小鱼。他整天在外面玩。奶奶把饭做得了，就在门口嚷：“胜儿！回来吃饭咧——！”</p>
-<p>后来办了食堂。奶奶把家里的两口锅交上去，从食堂里打饭回来吃。真不赖！白面馒头，大烙饼，卤虾酱炒豆腐、闷茄子，猪头肉！食堂的大师傅穿着白衣服，戴着白帽子，在蒸笼的白蒙蒙的热气中晃来晃去，拿铲子敲着锅边，还大声嚷叫。人也胖了，猪也肥了。真不赖！</p>
-<p>后来就不行了。还是小米面饼子，玉米面饼子。</p>
-<p>后来小米面饼子里有糠，玉米面饼子里有玉米核磨出的碴子，拉嗓子。人也瘦了，猪也瘦了。往年，撵个猪可费劲哪。，一伸手就把猪后腿攥住了。挺大一个克郎，一挤它，咕咚就倒了。掺假的饼子不好吃，可是萧胜还是吃得挺香。他饿。</p>
-<p>奶奶吃得不香。她从食堂打回饭来，掰半块饼子，嚼半天。其余的，都归了萧胜。</p>
-<p>奶奶的身体原来就不好。她有个气喘的病。每年冬天都犯。白天还好，晚上难熬。萧胜躺在坑上，听奶奶喝喽喝喽地喘。睡醒了，还听她喝喽喝喽。他想，奶奶喝喽了一夜。可是奶奶还是喝喽着起来了，喝喽着给他到食堂去打早饭，打掺了假的小米饼子，玉米饼子。</p>
-<p>爸爸冬天回来看过奶奶。他每年回来，都是冬天。爸爸带回来半麻袋土豆，一串口蘑，还有两瓶黄油。爸爸说，土豆是他分的；口蘑是他自己采，自己晾的；黄油是“走后门”搞来的。爸爸说，黄油是牛奶炼的，很“营养”，叫奶奶抹饼子吃。土豆，奶奶借锅来蒸了，煮了，放在灶火里烤了，给萧胜吃了。口蘑过年时打了一次卤。黄油，奶奶叫爸爸拿回去：“你们吃吧。这么贵重的东西！”爸爸一定要给奶奶留下。奶奶把黄油留下了，可是一直没有吃。奶奶把两瓶黄油放在躺柜上，时不时地拿抹布擦擦。黄油是个啥东西？牛奶炼的？隔着玻璃，看得见它的颜色是嫩黄嫩黄的。小三家生了小四，他看见小三他妈给小四用松花粉扑痱子。黄油的颜色就像松花粉。油汪汪的，很好看。奶奶，这是能吃的。萧胜不想吃。他没有吃过，不馋。</p>
-<p>奶奶的身体越来越不好。她从前从食堂打回饼子，能一气走到家。不行了，走到歪脖柳树那儿就得歇一会。奶奶跟上了年纪的爷爷、奶奶们说：“只怕是过得了冬，过不得春呀。”萧胜知道这不是好话。这是一句骂牲口的话。“嗳！看你这乏样儿！过得了冬过不得春！”果然，春天不好过。村里的老头老太太接二连三的死了。镇上有个木业生产合作社，原来打家具、修犁耙，都停了，改了打棺材。村外添了好些新坟，好些白幡。奶奶不行了，她浑身都肿。用手指按一按，老大一个坑，半天不起来。她求人写信叫儿子回来。</p>
-<p>爸爸赶回来，奶奶已经咽了气了。</p>
-<p>爸爸求木业社把奶奶屋里的躺柜改成一口棺材，把奶奶埋了。晚上，坐在奶奶的炕上流了一夜眼泪。<br>萧胜一生第一次经验什么是“死”。他知道“死”就是“没有”了。他没有奶奶了。他躺在枕头上，枕头上还有奶奶的头发的气味。他哭了。</p>
-<p>奶奶给他做了两双鞋。做得了，说：“来试试！”——“等会儿！”吱溜，他跑了。萧胜醒来，光着脚把两双鞋都试了试。一双正合脚，一双大一些。他的赤脚接触了搪底布，感觉到奶奶纳的底线，他叫了一声“奶奶！”又哭了一气。<br>爸爸拜望了村里的长辈，把家里的东西收拾收拾，把一些能应用的锅碗瓢盆都装在一个大网篮里。把奶奶给萧胜做的两双鞋也装在网篮里。把两瓶动都没有动过的黄油也装在网篮里。锁了门，就带着萧胜上路了。</p>
-<p>萧胜跟爸爸不熟。他跟奶奶过惯了。他起先不说话。他想家，想奶奶，想那棵歪脖柳树，想小三家的一对大白鹅，想蜻蜓，想蝈蝈，想挂大扁飞起来格格地响，露出绿色硬翅膀低下的桃红色的翅膜……后来跟爸爸熟了。他是爸爸呀！他们坐了汽车，坐火车，后来又坐汽车。爸爸很好。爸爸老是引他说话，告诉他许多口外的事。他的话越来越多，问这问那。他对“口外”产生了很浓厚的兴趣。</p>
-<p>他问爸爸啥叫“口外”。爸爸说“口外”就是张家口以外，又叫“坝上”。“为啥叫坝上？”他以为“坝”是一个水坝。爸爸说到了就知道了。</p>
-<p>敢情“坝”是一溜大山。山顶齐齐的，倒像个坝。可是真大！汽车一个劲地往上爬。汽车爬得很累，好像气都喘不过来，不停地哼哼。上了大山，嘿，一片大平地！真是平呀！又平又大。像是擀过的一样。怎么可以这样平呢！汽车一上坝，就撒开欢了。它不哼哼了，“刷——”一直往前开。一上了坝，气候忽然变了。坝下是夏天，一上坝就像秋天。忽然，就凉了。坝上坝下，刀切的一样。真平呀！远远有几个小山包，圆圆的。一棵树也没有。他的家乡有很多树。榆树，柳树，槐树。这是个什么地方！不长一棵树！就是一大片大平地，碧绿的，长满了草。有地。这地块真大。从这个小山包一匹布似的一直扯到了那个小山包。地块究竟有多大？爸爸告诉他：有一个农民牵了一头母牛去犁地，犁了一趟，回来时候母牛带回来一个新下的小牛犊，已经三岁了！</p>
-<p>汽车到了一个叫沽源的县城，这是他们的最后一站。一辆牛车来接他们。这车的样子真可笑，车轱辘是两个木头饼子，还不怎么圆，骨碌碌，骨碌碌，往前滚。他仰面躺在牛车上，上面是一个很大的蓝天。牛车真慢，还没有他走得快。他有时下来掐两朵野花，走一截，又爬上车。</p>
-<p>这地方的庄稼跟口里也不一样。没有高粱，也没有老玉米，种莜麦，胡麻。莜麦干净得很，好像用水洗过，梳过。胡麻打着把小蓝伞，秀秀气气，不像是庄稼，倒像是种着看的花。</p>
-<p>喝，这一大片马兰！马兰他们家乡也有，可没有这里的高大。长齐大人的腰那么高，开着巴掌大的蓝蝴蝶一样的花。一眼望不到边。这一大片马兰！他这辈子也忘不了。他像是在一个梦里。</p>
-<p>牛车走着走着。爸爸说：到了！他坐起来一看，一大片马铃薯，都开着花，粉的、浅紫蓝的、白的，一眼望不到边，像是下了一场大雪。花雪随风摇摆着，他有点晕。不远有一排房子，土墙、玻璃窗。这就是爸爸工作的“马铃薯研究站”。土豆——山药蛋——马铃薯。马铃薯是学名，爸说的。</p>
-<p>从房子里跑出来一个人。“妈妈——！”他一眼就认出来了！妈妈跑上来，把他一把抱了起来。</p>
-<p>萧胜就要住在这里了，跟他的爸爸、妈妈住在一起了。</p>
-<p>奶奶要是一起来，多好。</p>
-<p>萧胜的爸爸是学农业的，这几年老是干别的。奶奶问他：“为什么总是把你调来调去的？”爸说：“我好欺负。”马铃薯研究站别人都不愿来，嫌远。爸愿意。妈是学画画的，前几年老画两个娃娃拉不动的大萝卜啦，上面张个帆可以当做小船的豆荚啦。她也愿意跟爸爸一起来，画“马铃薯图谱”。</p>
-<p>妈给他们端来饭。真正的玉米面饼子，两大碗粥。妈说这粥是草籽熬的。有点像小米，比小米小。绿盈盈的，挺稠，挺香。还有一大盘鲫鱼，好大。爸说别处的鲫鱼很少有过一斤的，这儿“淖”里的鲫鱼有一斤二两的，鲫鱼吃草籽，长得肥。草籽熟了，风把草籽刮到淖里，鱼就吃草籽。萧胜吃得很饱。</p>
-<p>爸说把萧胜接来有三个原因。一是奶奶死了，老家没有人了。二是萧胜该上学了，暑假后就到不远的一个完小去报名。三是这里吃得好一些。口外地广人稀，总好办一些。这里的自留地一个人有五亩！随便刨一块地就能种点东西。爸爸和妈妈就在“研究站”旁边开了一块地，种了山药，南瓜。山药开花了，南瓜长了骨朵了。用不了多久，就能吃了。</p>
-<p>马铃薯研究站很清静，一共没有几个人。就是爸爸、妈妈，还有几个工人。工人都有家。站里就是萧胜一家。这地方，真安静。成天听不到声音，除了风吹莜麦穗子，沙沙地像下小雨；有时有小燕吱喳地叫。</p>
-<p>爸爸每天戴个草帽下地跟工人一起去干活，锄山药。有时查资料，看书。妈一早起来到地里掐一大把山药花，一大把叶子，回来插在瓶子里，聚精会神地对着它看，一笔一笔地画。画的花和真的花一样！萧胜每天跟妈一同下地去，回来鞋和裤脚沾得都是露水。奶奶做的两双新鞋还没有上脚，妈把鞋和两瓶黄油都锁在柜子里。</p>
-<p>白天没有事，他就到处去玩，去瞎跑。这地方大得很，没遮没挡，跑多远，一回头还能看到研究站的那排房子，迷不了路。他到草地里去看牛、看马、看羊。</p>
-<p>他有时也去莳弄莳弄他家的南瓜、山药地。锄一锄，从机井里打半桶水浇浇。这不是为了玩。萧胜是等着要吃它们。他们家不起火，在大队食堂打饭，食堂里的饭越来越不好。草籽粥没有了，玉米面饼子也没有了。吃红高粱饼子，喝甜菜叶子做的汤。再下去大概还要坏。萧胜有点饿怕了。</p>
-<p>他学会了采蘑菇。起先是妈妈带着他采了两回，后来，他自己也会了。下了雨，太阳一晒，空气潮乎乎的，闷闷的，蘑菇就出来了。蘑菇这玩意很怪，都长在“蘑菇圈”里。你低下头，侧着眼睛一看，草地上远远的有一圈草，颜色特别深，黑绿黑绿的，隐隐约约看到几个白点，那就是蘑菇圈。的溜圆。蘑菇就长在这一圈深颜色的草里。圈里面没有，圈外面也没有。蘑菇圈是固定的。长还长。哪里有蘑菇圈，老乡们都知道。</p>
-<p>有一个蘑菇圈发了疯。它不停地长蘑菇，呼呼地长，三天三夜一个劲地长，好像是有鬼，看着都怕人。附近七八家都来采，用线穿起来，挂在房檐底下。家家都挂了三四串，挺老长的三四串。老乡们说，这个圈就不会再长蘑菇了，它死了。萧胜也采了好些。他兴奋极了，心里直跳。“好家伙！好家伙！这么多！这么多！”他发了财了。<br>他为什么这样兴奋？蘑菇是可以吃的呀！</p>
-<p>他一边用线穿蘑菇，一边流出了眼泪。他想起奶奶，他要给奶奶送两串蘑菇去。他知道，奶奶是饿死的。人不是一下饿死的，是慢慢地饿死的。</p>
-<p>食堂的红高粱饼子越来越不好吃，因为掺了糠。甜菜叶子汤也越来越不好喝，因为一点油也不放了。他恨这种掺糠的红高粱饼子，恨这种不放油的甜菜叶子汤！</p>
-<p>他还是到处去玩，去瞎跑。</p>
-<p>大队食堂外面忽然热闹起来。起先是拉了一牛车的羊砖来。他问爸爸这是什么，爸爸说：“羊砖。”——“羊砖是啥？”——“羊粪压紧了，切成一块一块。”——“干啥用？”——“烧。”——“这能烧吗？”——“好烧着呢！火顶旺。”后来盘了个大灶。后来杀了十来只羊。萧胜站在旁边看杀羊。他还没有见过杀羊。嘿，一点血都流不到外面，完完整整就把一张羊皮剥下来了！</p>
-<p>这是要干啥呢？</p>
-<p>爸爸说，要开三级干部会。</p>
-<p>“啥叫三级干部会？”</p>
-<p>“等你长大了就知道了！”</p>
-<p>三级干部会就是三级干部吃饭。</p>
-<p>大队原来有两个食堂，南食堂，北食堂，当中隔一个院子，院子里还搭了个小棚，下雨天也可以两个食堂来回串。原来“社员”们分在两个食堂吃饭。开三级干部会，就都挤到北食堂来。南食堂空出来给开会干部用。<br>三级干部会开了三天，吃了三天饭。头一天中午，羊肉口蘑臊子蘸莜面。第二天炖肉大米饭。第三天，黄油烙饼。晚饭倒是马马虎虎的。</p>
-<p>“社员”和“干部”同时开饭。社员在北食堂，干部在南食堂。北食堂还是红高粱饼子，甜菜叶子汤。北食堂的人闻到南食堂里飘过来的香味，就说：“羊肉口蘑臊子蘸莜面，好香好香！”“炖肉大米饭，好香好香！”“黄油烙饼，好香好香！”</p>
-<p>萧胜每天去打饭，也闻到南食堂的香味。羊肉、米饭，他倒不稀罕：他见过，也吃过。黄油烙饼他连闻都没闻过。是香，闻着这种香味，真想吃一口。</p>
-<p>回家，吃着红高粱饼子，他问爸爸：“他们为什么吃黄油烙饼？”</p>
-<p>“他们开会。”</p>
-<p>“开会干嘛吃黄油烙饼？”</p>
-<p>“他们是干部。”</p>
-<p>“干部为啥吃黄油烙饼？”</p>
-<p>“哎呀！你问得太多了！吃你的红高粱饼子吧！”</p>
-<p>正在咽着红饼子的萧胜的妈忽然站起来，把缸里的一点白面倒出来，又从柜子里取出一瓶奶奶没有动过的黄油，启开瓶盖，挖了一大块，抓了一把白糖，兑点起子，擀了两张黄油发面饼。抓了一把莜麦秸塞进灶火，烙熟了。黄油烙饼发出香味，和南食堂里的一样。妈把黄油烙饼放在萧胜面前，说：</p>
-<p>“吃吧，儿子，别问了。”</p>
-<p>萧胜吃了两口，真好吃。他忽然咧开嘴痛哭起来，高叫了一声：“奶奶！”</p>
-<p>妈妈的眼睛里都是泪。</p>
-<p>爸爸说：“别哭了，吃吧。”</p>
-<p>萧胜一边流着一串一串的眼泪，一边吃黄油烙饼。他的眼泪流进了嘴里。黄油烙饼是甜的，眼泪是咸的。</p>
-</body></html>]]></content>
-      <categories>
-        <category>且活且珍惜</category>
-        <category>多读书</category>
-      </categories>
-      <tags>
-        <tag>文字摘要</tag>
+        <tag>git&amp;github</tag>
       </tags>
   </entry>
   <entry>
@@ -1637,153 +1317,6 @@ I/O中断
       </tags>
   </entry>
   <entry>
-    <title>SpringBoot</title>
-    <url>/posts/6f2612a2/</url>
-    <content><![CDATA[<html><head></head><body></body></html>]]></content>
-      <categories>
-        <category>JavaEE框架</category>
-        <category>SpringBoot</category>
-      </categories>
-      <tags>
-        <tag>SpringBoot</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>springboot+mybatis在集成oracle和mysql的区别</title>
-    <url>/posts/5e2b66cd/</url>
-    <content><![CDATA[<html><head></head><body></body></html>]]></content>
-      <categories>
-        <category>日常踩坑</category>
-        <category>Mybatis</category>
-      </categories>
-      <tags>
-        <tag>Mybatis</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Spring</title>
-    <url>/posts/6c92115f/</url>
-    <content><![CDATA[<html><head></head><body><p>Spring</p>
-</body></html>]]></content>
-      <categories>
-        <category>JavaEE框架</category>
-        <category>Spring</category>
-      </categories>
-      <tags>
-        <tag>Spring</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SpringCloud基础篇（一）：微服务与SpringCloud</title>
-    <url>/posts/56e56bf1/</url>
-    <content><![CDATA[<html><head></head><body></body></html>]]></content>
-      <categories>
-        <category>JavaEE框架</category>
-        <category>SpringCloud</category>
-      </categories>
-      <tags>
-        <tag>SpringCloud</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SpringCloud服务经常性挂掉</title>
-    <url>/posts/b5f30007/</url>
-    <content><![CDATA[<html><head></head><body></body></html>]]></content>
-      <categories>
-        <category>疑难杂症</category>
-        <category>SpringCloud</category>
-      </categories>
-      <tags>
-        <tag>SpringCloud</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Kafka</title>
-    <url>/posts/9a7d5a13/</url>
-    <content><![CDATA[<html><head></head><body></body></html>]]></content>
-      <categories>
-        <category>分布式系统</category>
-        <category>消息队列</category>
-        <category>kafka</category>
-      </categories>
-      <tags>
-        <tag>中间件</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>RabbitsMQ</title>
-    <url>/posts/808a8a32/</url>
-    <content><![CDATA[<html><head></head><body></body></html>]]></content>
-      <categories>
-        <category>分布式系统</category>
-        <category>消息队列</category>
-        <category>RabbitsMQ</category>
-      </categories>
-      <tags>
-        <tag>中间件</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>多线程及高并发（一）：概念篇</title>
-    <url>/posts/53da8e41/</url>
-    <content><![CDATA[<html><head></head><body></body></html>]]></content>
-      <categories>
-        <category>Java相关</category>
-        <category>多线程和高并发</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>多线程及高并发（三）：java.util.concurrent</title>
-    <url>/posts/96b9c8e0/</url>
-    <content><![CDATA[<html><head></head><body></body></html>]]></content>
-      <categories>
-        <category>Java相关</category>
-        <category>多线程和高并发</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>多线程及高并发（二）：基础篇</title>
-    <url>/posts/4daad293/</url>
-    <content><![CDATA[<html><head></head><body></body></html>]]></content>
-      <categories>
-        <category>Java相关</category>
-        <category>多线程和高并发</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>多线程及高并发（五）：高并发的相关模式和算法</title>
-    <url>/posts/753b3c/</url>
-    <content><![CDATA[<html><head></head><body></body></html>]]></content>
-      <categories>
-        <category>Java相关</category>
-        <category>多线程和高并发</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>多线程及高并发（四）：锁优化</title>
-    <url>/posts/5dcd98da/</url>
-    <content><![CDATA[<html><head></head><body></body></html>]]></content>
-      <categories>
-        <category>Java相关</category>
-        <category>多线程和高并发</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>2018年总结</title>
     <url>/posts/fa88ee57/</url>
     <content><![CDATA[<html><head></head><body><h3 id="2018年总结"><a href="#2018年总结" class="headerlink" title="2018年总结"></a>2018年总结</h3><h4 id="Events"><a href="#Events" class="headerlink" title="Events"></a>Events</h4><ul>
@@ -1817,6 +1350,41 @@ I/O中断
       </tags>
   </entry>
   <entry>
+    <title>关于2020年</title>
+    <url>/posts/6153aaf4/</url>
+    <content><![CDATA[<html><head></head><body><h4 id="To-Dabao"><a href="#To-Dabao" class="headerlink" title="To Dabao"></a>To Dabao</h4><p><img src="/../about/image/2021.jpg" alt="2021.jpg"></p>
+<ul>
+<li><p>思绪万千做总结</p>
+</li>
+<li><p>春日同心战疫魔</p>
+</li>
+<li><p>盛夏相拥闻香气</p>
+</li>
+<li><p>秋雨窗前争闲事</p>
+</li>
+<li><p>寒风绵绵月朦胧</p>
+</li>
+<li><p>今年难忘处处情</p>
+</li>
+<li><p>明月明年倍倍亲</p>
+</li>
+<li><p>欲说还休此话长</p>
+</li>
+<li><p>万语千言不可传</p>
+</li>
+<li><p>道路且长长相忆</p>
+</li>
+</ul>
+</body></html>]]></content>
+      <categories>
+        <category>且活且珍惜</category>
+        <category>日常总结</category>
+      </categories>
+      <tags>
+        <tag>日常杂记</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>2019年总结</title>
     <url>/posts/154a8569/</url>
     <content><![CDATA[<html><head></head><body><p><img src="https://s2.ax1x.com/2020/01/02/ltW4Jg.jpg" alt="ltW4Jg.jpg"></p>
@@ -1835,9 +1403,377 @@ I/O中断
       </tags>
   </entry>
   <entry>
-    <title>关于2020年</title>
-    <url>/posts/6153aaf4/</url>
-    <content><![CDATA[<html><head></head><body><h3 id="关于2020年"><a href="#关于2020年" class="headerlink" title="关于2020年"></a>关于2020年</h3></body></html>]]></content>
+    <title>基本功之Java容器类(一)：Java.util.Arrays</title>
+    <url>/posts/5a746145/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLXXn"><img src="https://s2.ax1x.com/2019/08/30/mjLXXn.png" alt="mjLXXn.png"></a></p>
+<a id="more"></a> 
+</body></html>]]></content>
+      <categories>
+        <category>基本功</category>
+        <category>Java基础</category>
+        <category>容器类</category>
+      </categories>
+      <tags>
+        <tag>源码</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基本功之Java容器类(七)：Java.util.LinkedHashMap</title>
+    <url>/posts/f72406f4/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjL4mt"><img src="https://s2.ax1x.com/2019/08/30/mjL4mt.png" alt="mjL4mt.png"></a></p>
+<a id="more"></a> 
+</body></html>]]></content>
+      <categories>
+        <category>基本功</category>
+        <category>Java基础</category>
+        <category>容器类</category>
+      </categories>
+      <tags>
+        <tag>源码</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基本功之Java容器类(九)：容器类的使用相关</title>
+    <url>/posts/fa835a24/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLRld"><img src="https://s2.ax1x.com/2019/08/30/mjLRld.png" alt="mjLRld.png"></a></p>
+<a id="more"></a> 
+</body></html>]]></content>
+      <categories>
+        <category>基本功</category>
+        <category>Java基础</category>
+        <category>容器类</category>
+      </categories>
+      <tags>
+        <tag>源码</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基本功之Java容器类(三)：Java.util.LinkedList</title>
+    <url>/posts/ba93fcdb/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLLlj"><img src="https://s2.ax1x.com/2019/08/30/mjLLlj.png" alt="mjLLlj.png"></a></p>
+<a id="more"></a> 
+</body></html>]]></content>
+      <categories>
+        <category>基本功</category>
+        <category>Java基础</category>
+        <category>容器类</category>
+      </categories>
+      <tags>
+        <tag>源码</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基本功之Java容器类(二)：Java.util.ArrayList</title>
+    <url>/posts/35c77a54/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLO6s"><img src="https://s2.ax1x.com/2019/08/30/mjLO6s.png" alt="mjLO6s.png"></a></p>
+<a id="more"></a> 
+</body></html>]]></content>
+      <categories>
+        <category>基本功</category>
+        <category>Java基础</category>
+        <category>容器类</category>
+      </categories>
+      <tags>
+        <tag>源码</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基本功之Java容器类(五)：Java.util.HashSet</title>
+    <url>/posts/e2b6b443/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLHfg"><img src="https://s2.ax1x.com/2019/08/30/mjLHfg.png" alt="mjLHfg.png"></a></p>
+<a id="more"></a> 
+</body></html>]]></content>
+      <categories>
+        <category>基本功</category>
+        <category>Java基础</category>
+        <category>容器类</category>
+      </categories>
+      <tags>
+        <tag>源码</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基本功之Java容器类(八)：其他容器类</title>
+    <url>/posts/f0ee3604/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLcfe"><img src="https://s2.ax1x.com/2019/08/30/mjLcfe.png" alt="mjLcfe.png"></a></p>
+<a id="more"></a> 
+</body></html>]]></content>
+      <categories>
+        <category>基本功</category>
+        <category>Java基础</category>
+        <category>容器类</category>
+      </categories>
+      <tags>
+        <tag>源码</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基本功之Java容器类(六)：Java.util.LinkedHashSet</title>
+    <url>/posts/4accc084/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjL6YD"><img src="https://s2.ax1x.com/2019/08/30/mjL6YD.png" alt="mjL6YD.png"></a></p>
+<a id="more"></a> 
+</body></html>]]></content>
+      <categories>
+        <category>基本功</category>
+        <category>Java基础</category>
+        <category>容器类</category>
+      </categories>
+      <tags>
+        <tag>源码</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基本功之Java容器类(四)：Java.util.HashMap</title>
+    <url>/posts/5326a00f/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLqpQ"><img src="https://s2.ax1x.com/2019/08/30/mjLqpQ.png" alt="mjLqpQ.png"></a></p>
+<a id="more"></a> 
+</body></html>]]></content>
+      <categories>
+        <category>基本功</category>
+        <category>Java基础</category>
+        <category>容器类</category>
+      </categories>
+      <tags>
+        <tag>源码</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>多线程及高并发（一）：概念篇</title>
+    <url>/posts/53da8e41/</url>
+    <content><![CDATA[<html><head></head><body></body></html>]]></content>
+      <categories>
+        <category>Java相关</category>
+        <category>多线程和高并发</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>多线程及高并发（三）：java.util.concurrent</title>
+    <url>/posts/96b9c8e0/</url>
+    <content><![CDATA[<html><head></head><body></body></html>]]></content>
+      <categories>
+        <category>Java相关</category>
+        <category>多线程和高并发</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>多线程及高并发（五）：高并发的相关模式和算法</title>
+    <url>/posts/753b3c/</url>
+    <content><![CDATA[<html><head></head><body></body></html>]]></content>
+      <categories>
+        <category>Java相关</category>
+        <category>多线程和高并发</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>多线程及高并发（二）：基础篇</title>
+    <url>/posts/4daad293/</url>
+    <content><![CDATA[<html><head></head><body></body></html>]]></content>
+      <categories>
+        <category>Java相关</category>
+        <category>多线程和高并发</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>多线程及高并发（四）：锁优化</title>
+    <url>/posts/5dcd98da/</url>
+    <content><![CDATA[<html><head></head><body></body></html>]]></content>
+      <categories>
+        <category>Java相关</category>
+        <category>多线程和高并发</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基本功之Java源码(一)：Object类</title>
+    <url>/posts/bb9f0f16/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLW6A"><img src="https://s2.ax1x.com/2019/08/30/mjLW6A.png" alt="mjLW6A.png"></a></p>
+<a id="more"></a> 
+
+</body></html>]]></content>
+      <categories>
+        <category>基本功</category>
+        <category>Java基础</category>
+        <category>源码</category>
+      </categories>
+      <tags>
+        <tag>源码</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基本功之Java源码(三)：Integer类</title>
+    <url>/posts/50e64fc8/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjL7tS"><img src="https://s2.ax1x.com/2019/08/30/mjL7tS.png" alt="mjL7tS.png"></a></p>
+<a id="more"></a> 
+</body></html>]]></content>
+      <categories>
+        <category>基本功</category>
+        <category>Java基础</category>
+        <category>源码</category>
+      </categories>
+      <tags>
+        <tag>源码</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基本功之Java源码(二)：String类</title>
+    <url>/posts/50038871/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLfOI"><img src="https://s2.ax1x.com/2019/08/30/mjLfOI.png" alt="mjLfOI.png"></a></p>
+<a id="more"></a> 
+
+</body></html>]]></content>
+      <categories>
+        <category>基本功</category>
+        <category>Java基础</category>
+        <category>源码</category>
+      </categories>
+      <tags>
+        <tag>源码</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>垃圾回收GC(一)：垃圾回收算法</title>
+    <url>/posts/79e53de4/</url>
+    <content><![CDATA[<html><head></head><body></body></html>]]></content>
+      <categories>
+        <category>Java相关</category>
+        <category>JVM和GC</category>
+        <category>GC</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>垃圾回收GC(二)：垃圾收集器</title>
+    <url>/posts/f198bc8e/</url>
+    <content><![CDATA[<html><head></head><body></body></html>]]></content>
+      <categories>
+        <category>Java相关</category>
+        <category>JVM和GC</category>
+        <category>GC</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>垃圾回收GC(三)：GC日志分析</title>
+    <url>/posts/8ee16aba/</url>
+    <content><![CDATA[<html><head></head><body></body></html>]]></content>
+      <categories>
+        <category>Java相关</category>
+        <category>JVM和GC</category>
+        <category>GC</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JVM(一)：JVM参数和内存模型</title>
+    <url>/posts/c7fe122d/</url>
+    <content><![CDATA[<html><head></head><body></body></html>]]></content>
+      <categories>
+        <category>Java相关</category>
+        <category>JVM和GC</category>
+        <category>JVM</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JVM(二)：JVM性能调优工具使用</title>
+    <url>/posts/16e5a472/</url>
+    <content><![CDATA[<html><head></head><body></body></html>]]></content>
+      <categories>
+        <category>Java相关</category>
+        <category>JVM和GC</category>
+        <category>JVM</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Spring</title>
+    <url>/posts/6c92115f/</url>
+    <content><![CDATA[<html><head></head><body><p>Spring</p>
+</body></html>]]></content>
+      <categories>
+        <category>JavaEE框架</category>
+        <category>Spring</category>
+      </categories>
+      <tags>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SpringBoot</title>
+    <url>/posts/6f2612a2/</url>
+    <content><![CDATA[<html><head></head><body></body></html>]]></content>
+      <categories>
+        <category>JavaEE框架</category>
+        <category>SpringBoot</category>
+      </categories>
+      <tags>
+        <tag>SpringBoot</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SpringCloud基础篇（一）：微服务与SpringCloud</title>
+    <url>/posts/56e56bf1/</url>
+    <content><![CDATA[<html><head></head><body></body></html>]]></content>
+      <categories>
+        <category>JavaEE框架</category>
+        <category>SpringCloud</category>
+      </categories>
+      <tags>
+        <tag>SpringCloud</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>springboot+mybatis在集成oracle和mysql的区别</title>
+    <url>/posts/5e2b66cd/</url>
+    <content><![CDATA[<html><head></head><body></body></html>]]></content>
+      <categories>
+        <category>日常踩坑</category>
+        <category>Mybatis</category>
+      </categories>
+      <tags>
+        <tag>Mybatis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SpringCloud服务经常性挂掉</title>
+    <url>/posts/b5f30007/</url>
+    <content><![CDATA[<html><head></head><body></body></html>]]></content>
+      <categories>
+        <category>疑难杂症</category>
+        <category>SpringCloud</category>
+      </categories>
+      <tags>
+        <tag>SpringCloud</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>2018年书单</title>
+    <url>/posts/daf9fac7/</url>
+    <content><![CDATA[<html><head></head><body></body></html>]]></content>
       <categories>
         <category>且活且珍惜</category>
         <category>日常总结</category>
@@ -1847,207 +1783,99 @@ I/O中断
       </tags>
   </entry>
   <entry>
-    <title>基本功之数据结构（一）：数组</title>
-    <url>/posts/50a44d2c/</url>
+    <title>2019年书单</title>
+    <url>/posts/353b91f9/</url>
     <content><![CDATA[<html><head></head><body></body></html>]]></content>
       <categories>
-        <category>基本功</category>
-        <category>数据结构</category>
+        <category>且活且珍惜</category>
+        <category>日常总结</category>
       </categories>
       <tags>
-        <tag>数据结构</tag>
+        <tag>日常杂记</tag>
       </tags>
   </entry>
   <entry>
-    <title>基本功之数据结构（七）：堆</title>
-    <url>/posts/e322b16c/</url>
+    <title>2020年书单</title>
+    <url>/posts/50ccdc32/</url>
     <content><![CDATA[<html><head></head><body></body></html>]]></content>
       <categories>
-        <category>基本功</category>
-        <category>数据结构</category>
+        <category>且活且珍惜</category>
+        <category>日常总结</category>
       </categories>
       <tags>
-        <tag>数据结构</tag>
+        <tag>日常杂记</tag>
       </tags>
   </entry>
   <entry>
-    <title>基本功之数据结构（三）：队列</title>
-    <url>/posts/55f77e48/</url>
+    <title>2021年书单</title>
+    <url>/posts/bf0eb70c/</url>
     <content><![CDATA[<html><head></head><body></body></html>]]></content>
       <categories>
-        <category>基本功</category>
-        <category>数据结构</category>
+        <category>且活且珍惜</category>
+        <category>日常总结</category>
       </categories>
       <tags>
-        <tag>数据结构</tag>
+        <tag>日常杂记</tag>
       </tags>
   </entry>
   <entry>
-    <title>基本功之数据结构（九）：图</title>
-    <url>/posts/f7b8851/</url>
-    <content><![CDATA[<html><head></head><body></body></html>]]></content>
+    <title>Java新特性之Java10</title>
+    <url>/posts/d628c295/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLITf"><img src="https://s2.ax1x.com/2019/08/30/mjLITf.png" alt="mjLITf.png"></a></p>
+<a id="more"></a> 
+</body></html>]]></content>
       <categories>
         <category>基本功</category>
-        <category>数据结构</category>
+        <category>Java基础</category>
+        <category>新特性</category>
       </categories>
       <tags>
-        <tag>数据结构</tag>
+        <tag>Java</tag>
       </tags>
   </entry>
   <entry>
-    <title>基本功之数据结构（二）：链表</title>
-    <url>/posts/3c10d139/</url>
-    <content><![CDATA[<html><head></head><body></body></html>]]></content>
+    <title>Java新特性之Java11</title>
+    <url>/posts/a12ff203/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLvmq"><img src="https://s2.ax1x.com/2019/08/30/mjLvmq.png" alt="mjLvmq.png"></a></p>
+<a id="more"></a>
+</body></html>]]></content>
       <categories>
         <category>基本功</category>
-        <category>数据结构</category>
+        <category>Java基础</category>
+        <category>新特性</category>
       </categories>
       <tags>
-        <tag>数据结构</tag>
+        <tag>Java</tag>
       </tags>
   </entry>
   <entry>
-    <title>基本功之数据结构（五）：二叉树</title>
-    <url>/posts/b2509142/</url>
-    <content><![CDATA[<html><head></head><body></body></html>]]></content>
+    <title>Java新特性之Java8</title>
+    <url>/posts/88d7b512/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjL50P"><img src="https://s2.ax1x.com/2019/08/30/mjL50P.png" alt="mjL50P.png"></a></p>
+<a id="more"></a> 
+</body></html>]]></content>
       <categories>
         <category>基本功</category>
-        <category>数据结构</category>
+        <category>Java基础</category>
+        <category>新特性</category>
       </categories>
       <tags>
-        <tag>数据结构</tag>
+        <tag>Java</tag>
       </tags>
   </entry>
   <entry>
-    <title>基本功之数据结构（八）：哈希表</title>
-    <url>/posts/b0d2d4e2/</url>
-    <content><![CDATA[<html><head></head><body></body></html>]]></content>
+    <title>Java新特性之Java9</title>
+    <url>/posts/ffd08584/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://imgchr.com/i/mjLTk8"><img src="https://s2.ax1x.com/2019/08/30/mjLTk8.png" alt="mjLTk8.png"></a></p>
+<a id="more"></a> 
+</body></html>]]></content>
       <categories>
         <category>基本功</category>
-        <category>数据结构</category>
+        <category>Java基础</category>
+        <category>新特性</category>
       </categories>
       <tags>
-        <tag>数据结构</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基本功之数据结构（六）：红黑树</title>
-    <url>/posts/9ed02b85/</url>
-    <content><![CDATA[<html><head></head><body></body></html>]]></content>
-      <categories>
-        <category>基本功</category>
-        <category>数据结构</category>
-      </categories>
-      <tags>
-        <tag>数据结构</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基本功之数据结构（十）：前，中，后缀表达式</title>
-    <url>/posts/5cd264da/</url>
-    <content><![CDATA[<html><head></head><body></body></html>]]></content>
-      <categories>
-        <category>基本功</category>
-        <category>数据结构</category>
-      </categories>
-      <tags>
-        <tag>数据结构</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基本功之数据结构（四）：栈</title>
-    <url>/posts/b67e4697/</url>
-    <content><![CDATA[<html><head></head><body></body></html>]]></content>
-      <categories>
-        <category>基本功</category>
-        <category>数据结构</category>
-      </categories>
-      <tags>
-        <tag>数据结构</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基本功之计算机网络（一）：计算机网络知识点</title>
-    <url>/posts/f31406b8/</url>
-    <content><![CDATA[<html><head></head><body></body></html>]]></content>
-      <categories>
-        <category>基本功</category>
-        <category>计算机网络</category>
-      </categories>
-      <tags>
-        <tag>计算机网络</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基本功之计算机网络（七）：HTTPS</title>
-    <url>/posts/2ccd4d5e/</url>
-    <content><![CDATA[<html><head></head><body></body></html>]]></content>
-      <categories>
-        <category>基本功</category>
-        <category>计算机网络</category>
-      </categories>
-      <tags>
-        <tag>计算机网络</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基本功之计算机网络（三）：三次，四次握手</title>
-    <url>/posts/a554dbfc/</url>
-    <content><![CDATA[<html><head></head><body></body></html>]]></content>
-      <categories>
-        <category>基本功</category>
-        <category>计算机网络</category>
-      </categories>
-      <tags>
-        <tag>计算机网络</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基本功之计算机网络（二）：OSI模型</title>
-    <url>/posts/300212ee/</url>
-    <content><![CDATA[<html><head></head><body></body></html>]]></content>
-      <categories>
-        <category>基本功</category>
-        <category>计算机网络</category>
-      </categories>
-      <tags>
-        <tag>计算机网络</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基本功之计算机网络（五）：HTTP原理</title>
-    <url>/posts/447f831c/</url>
-    <content><![CDATA[<html><head></head><body></body></html>]]></content>
-      <categories>
-        <category>基本功</category>
-        <category>计算机网络</category>
-      </categories>
-      <tags>
-        <tag>计算机网络</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基本功之计算机网络（六）：HTTP1.0和HTTP2.0</title>
-    <url>/posts/d195f61f/</url>
-    <content><![CDATA[<html><head></head><body></body></html>]]></content>
-      <categories>
-        <category>基本功</category>
-        <category>计算机网络</category>
-      </categories>
-      <tags>
-        <tag>计算机网络</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基本功之计算机网络（四）：TCP</title>
-    <url>/posts/101abe1d/</url>
-    <content><![CDATA[<html><head></head><body></body></html>]]></content>
-      <categories>
-        <category>基本功</category>
-        <category>计算机网络</category>
-      </categories>
-      <tags>
-        <tag>计算机网络</tag>
+        <tag>Java</tag>
       </tags>
   </entry>
   <entry>
@@ -2195,208 +2023,6 @@ I/O中断
       </categories>
       <tags>
         <tag>设计原则与设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>卡耐基系列之：《人性的弱点》</title>
-    <url>/posts/7506c30e/</url>
-    <content><![CDATA[<html><head></head><body><p>第一篇　待人的基本技巧</p>
-<p>第1章  如欲采蜜，勿蹴蜂房</p>
-<p>★提要：不要批评，责怪或抱怨。</p>
-<p>1、批评是没有用的，因它使人增加一层防御，而且竭力的替自己辩护。批评也是危险的，它会伤害了一个人的自尊，和自重的感觉，并激起他的反抗。——P26</p>
-<p>2、批评就像饲养的鸽子，牠们永远会飞回家的。我们需要暸解，我们要矫正或谴责的人，他也会为自己辩护，而反过来谴责我们的。——P28</p>
-<p>3、你所认识的人，你愿意他改变、调整，或是进步吗？是的，那是最好不过的。可是为什么不从你自己先开始呢？从自私的立场来说，从自己开始要比改进别人，获益得多。——P31</p>
-<p>4、批评是一种危险的导火线——一种能使自尊的火药库爆炸的导火线，这种爆炸，有时会置人于死池。——P32</p>
-<p>5、佛籣克林在年轻的时候，并不伶俐，可是后来成为极有手腕，和处世待人极有技巧的人，甚至担任过美国驻法的大使。他成功的秘诀，是：「我不说任何人的不好！」他又这样说：「而说我所知道的每一个人的好处！」——P32</p>
-<p>6、卡莱尔曾经这样说过：「要显示一个伟大人物的伟大之处，那就要看他如何对待一个卑微的人。」 ；正如强森博士所说的：「上帝在末日之前，还不打算审判人！」 ——P32</p>
-<p>第2章　与人相处的大秘窍</p>
-<p>★提要：献出你真实，诚恳的赞赏。</p>
-<p>7、林肯有次写信开头就说：「每个人都喜欢受人恭维。」威利，贾姆士也有这样说过：「人类天性至深的本质，就是渴求为人所重视。」他并不是说「希望」，或「欲望」，或是「渴望」，而是说了「渴求」为人所重视。——P34</p>
-<p>8、如果有人对自重感，这样的迫切饥渴，甚至于真的成了精神失常只为获得它，试想若是在人们尚未疯癫前，就给他真诚的赞扬，那时你我的成就，又会产生什么样的奇迹？——P37</p>
-<p>9、司华伯他这样说：「我认为，我在人群中有激发他们热诚的能力，那是我所具有最大的资源……我充份发展每一个人才能的方法，是用赞赏和鼓励！」——P38</p>
-<p>10、赞赏和谄媚的区别在……那很容易识别出来，赞赏是出于真诚，而谄媚是虚伪的。一个出于由衷，一个出于嘴裹——一个是不自私的，一个是自私的。一个是为人们所钦佩的，一个是令人不耻而扬弃的。——P40</p>
-<p>11、停止思考我们自己的成就和需要，让我们去研究别人的优点，把对人的恭维、谄媚忘掉，给予人由哀、诚恳的赞赏。人们对你所讲的，将会重视和珍惜，终生藏之背诵……即使你已把这件事忘了很久；可是他还牢牢记着你所说的话。 ——P41</p>
-<p>第3章　左右逢源的方法</p>
-<p>★提要：引起别人的渴望。</p>
-<p>12、世界上唯一能影响对方的方法，就是谈论他所要的，而且还告诉他，如何才能得到它。——P42</p>
-<p>13、行动是由我们基本欲望所产生的……对于未来想要说服人家的人，最好的建议，是无论在商业中、家庭中、学校中、政治中，都要先激起对方某种迫切的需要，若能做到这点就可左右逢源，否则到处碰壁。——P42</p>
-<p>14、亨利．福特曾这样说过：「如果有一个成功秘诀的话，那就是如何得到对方立场”的能力，由他的观点设想，正同由你的观点一样。」——P45</p>
-<p>15、世界上就充满了这些人：掳取、自私。可是那些不可多得的，不自私的，服务他人的人，却相反地获得了很大的利益。「欧文．杨」曾经这样说过：「一个人能设身于他人境地，能了解他人意念活动，他不必考虑到将来的前途如何。」——P49</p>
-<p>第二篇　使人喜欢你的六种方法</p>
-<p>第1章  如果这样做，你将到处受欢迎</p>
-<p>★提要：真诚的对别人发生兴趣。</p>
-<p>1、如果你时刻关心别人，对别人发生兴趣，在两个月的时间里所交的朋友，要比只想让别人关心你，对你发生兴趣，在两年的时间里所交的朋友还多。——P54</p>
-<p>2、如果我们只是想使人注意，使人对我们发生兴趣，我们、水远不会有很多真诚的朋友。——P54</p>
-<p>3、一个不关心别人，对别人不感兴趣的人，他的生活必遭受重大的阻碍、困难，同时会替别人带来极大的损害、困扰，所有人类的失败，都是由于这些人而才发生的。——P55</p>
-<p>4、假如我们想交朋友，应该先出来替别人做些事——需要时间、精力、公义、体恤的事。——P59</p>
-<p>5、你要使别人喜欢你，必需遵守的第一条规则是：真诚的对别人发生兴趣。——P62</p>
-<p>第2章  如何给人好印象</p>
-<p>★提要：微笑。</p>
-<p>6、一个人的行动，比他所说的话，更有具体的表现，而人们脸上的微笑，就有这样的表示：「我喜欢你，你使我快乐，我非常高兴见到你！」——P63</p>
-<p>7、微笑是从内心发出的，那种不诚意的微笑，是机械的、敷衍的，也就是人们所说，那种「皮笑肉不笑」的笑容，那是不能欺骗谁的，也是我们所憎厌的。——P63</p>
-<p>8、一个人的事业成功与否，完全在他对这项事业是否感到兴趣？而不是苦干、钻研的去打开他成功的大门。——P63</p>
-<p>9、如果你希望别人用一副高兴、欢愉的神情来接待你，那么你自己先要用这样的神情去对别人。——P63</p>
-<p>10、你会觉得自己笑不出来？那怎么办？有两件事，不妨可以试一试！第一、强迫你自己微笑，如果你单独一人的时候，吹吹口哨，唱唱歌，尽量让自己高兴起来，就好象你真的很快乐一样，那就能使你快乐。——P65</p>
-<p>11、如果在圣诞节，最后一分钟的忙碌中，我们的店员或许太疲倦了，以致没有给你一个微笑，能不能留下你的微笑？因为没有给人微笑的人，更需要别人给他微笑。所以，如果你希望人们都喜欢你，第二项规则是： 微笑！ ——P67</p>
-<p>第3章  你要避免发生麻烦，就请这样做</p>
-<p>★提要：记住你所接触中，每一个人的姓名。</p>
-<p>12、一般人对自己的姓名，比杷世界上所有的姓名堆在一起的总数，还感到重要，和关心。把一个人的姓名记住，很自然的叫出口来，你已对他含有微妙的恭维、赞赏的意味。若反过来讲，把那人的姓名忘记，或是叫错了，不但使对方难堪，对你自己也是一种很大的损害。——P69</p>
-<p>13、记忆姓名的能力，在事业上、交际上、和政治上是同样重要的。——P73</p>
-<p>14、如果你要人们喜欢你，第三项规则是：你要记住你所接触中，每一个人的姓名。——P73</p>
-<p>第4章  如何养成优美而得人好感的谈吐</p>
-<p>★提要：做一个善于静听的人，鼓励别人多谈谈他们自己。</p>
-<p>15、那种「静听」，是我们对任何人一种尊敬的，和恭维的表示。伍福特在他「异乡人之恋」一书中，曾经这样说过：「很少人能拒受那专心注意所包含的谄媚。」——P75</p>
-<p>16、最爱挑剔的人，最激烈的批评者，往往会在一个怀有忍耐、同情的静听者面前软化下来！这位静听者，必须要有过人的沉着，他必须当着寻衅者像一条大毒蛇张开嘴巴的时候–静听。——P77</p>
-<p>17、有些人不能给人留下好印象的原因，是由于不注意倾听别人的谈话………这些人他们关心自己下面所要说的是什么，可是他们从不打开耳朵………——P80</p>
-<p>18、如果你想要知道，如何使人远远躲开你，背后笑你，甚至轻视你这里有个很好的办法………你永远不要仔细听人家讲话，不断的谈论你自己。如果别人正谈着一件重要事情时，你发现有你自己的见解，不等对方把话说完，马上就提出来。在你想来；他绝对不会比你聪明，为什么你花那么多时间，去听那些没有见解的话？是的，就即插嘴，就用一句话，去制止他人的高论。——P81</p>
-<p>19、跟你说话的人，对他自己来讲，他的需要、他的问题，比你的问题要重要上百倍。他的牙痛，对他来讲，要比发生天灾死了数百万人还重要得多。他注意自己头上一个小疮愈，比注意发生一椿大地震还来得多。——P81</p>
-<p>第5章  如何使人感到兴趣</p>
-<p>★提要：就别人的兴趣谈论。</p>
-<p>20、深入人们心底的最佳途径，就是对那人讲他知道得最多的事物。——P82</p>
-<p>第6章  如何使人很快的喜欢你</p>
-<p>★提要：使别人感觉到他的重要——必需真诚的这样做。</p>
-<p>21、如果我们是那样的卑贱自私，不从别人身上得到什么，就不愿意分给别人一点快乐，假如我们的气量比一个酸苹果还小，那我们所要遭遇到的，也绝对是失败。——P85</p>
-<p>22、如果遵守这项定律，会替我们带来无数的朋友，和永久的快乐。可是如果违反了那项定律，我们就会遭遇到无数的困难。这项定律是．永远使别人感觉重要。——P86</p>
-<p>23、世界上一项 最重要的定律：「你希望别人怎样待你，你就该怎样去对待别人。」——P86</p>
-<p>24、莎士比亚曾经这样说过：「人，骄傲的人，借着一点短促的能力，便在上帝面前胡作妄为，使天使为之落泪。」——P88</p>
-<p>25、有一次，这位狄克斯女士，去访问一位已成为新闻人物的「重婚者」。这人曾经获得二十三个女人的芳心，和她们银行里的存款(这里需附带说明的是，狄克斯女士是在监狱访问他的。)当狄克斯女士问，他获得女人爱情的方法——他说并没有什么诡计，你只要对女人谈论她自己就行了。这技术用在男人身上同样有效。——P94</p>
-<p>第三篇　得人同意于你的十二种方法</p>
-<p>第1章　你不可能在争辩中获胜</p>
-<p>★提要：在辩论中，获得最大利益的唯一方法，就是避免辩论。</p>
-<p>1、一场辩论的终了，十次中有九次，那些辩论的人，会更坚持他们的见解，相信他们是绝对正确，不会错的。——P96</p>
-<p>2、你辩论不能获胜，因为你是真的失败了，可是你如果胜了，还是跟失败一样。为什么呢？假定你辩论胜了对方，把对方的意见，指责得体无完肤，几乎指他是神经错乱，可是结果又怎么样呢？你自然很高兴，可是对方如何呢？你使他感觉到自卑，你伤了他的尊严，他对你获得胜利，心里感到不满。——P96</p>
-<p>3、一个真正成功的推销员，他决不会跟顾客争辩，即使轻微的争辩，也加以避免………人类的思想，不是那么容易改变的。——P97</p>
-<p>4、如果你辩论、反驳，或许你会得到胜利，可是那胜利是短暂、空虚的………你永远得不到，对方给你的好感。——P98</p>
-<p>5、我们绝不可能用辩论使一个无知的人心服口服。另据我的经验，不只是无知的人，任何人你都别想用辩论改变他的意志。——P98</p>
-<p>6、我们要让顾客、爱人、丈夫、或者是妻子，在细小的争论上，胜过我们。——P99</p>
-<p>7、林肯说：「一个成大事的人，不能处处计较别人，消耗自己的时闲去和人家争论。无谓的争论，对自己性情上不但有所损害，且会失去自己的自制力。在尽可能的情形下，不妨对人谦让一点。与其跟一只狗争路走，不如让狗先走一步。如果给狗咬了一口，你即使把这只狗打死，也不能治好你的伤口。」——P99</p>
-<p>第2章  如何避免制造敌人</p>
-<p>★提要：尊重别人的意见，永远别指摘对方是错的。</p>
-<p>8、当罗斯福在白宫的时候，他曾这样承认如果他每天有百分之七十五的时候是对的，那是到达他最高程度的标准了。——P100</p>
-<p>9、你可以用神态、声调，或是手势，告诉一个人他错了，就像我们用话一样的有效……而如果你告诉他错了，你以为他会感激你？不，永远不会！因为你对他的智力、判断、自信、自尊，都直接的给予打击，他不但不会改变他的意志，而且还想向你反击。如果你运用柏拉图、康德的逻辑来跟他理论，他还是不会改变自己的意志，因为你已伤了他的自尊。——P100</p>
-<p>10、人们的观念，是随时在改变的，二十年前我认为对的事，现在看来却似乎是不对了。甚至当我研读爱因斯坦理论时，我也开始存着怀疑的态度。再过二十年，我或许不相信自己在这本书上，所写下的东西。现在我对任何事情，都不像从前那样敢于确定。苏格拉底屡次跟他的门徒这样说：「我所知道的只有一件事，那就是我什么也不知道。」——P100</p>
-<p>11、我们有时发现自己会在毫无抵抗和阻力中，改变自己的意念。可是，如果有人告诉我们所犯的错误，我们却会感到懊恼和怀恨。我们不会去注意一种意念养成，可是当有人要抹去我们那股意念时，我们对这份意念突然坚实而固执起来。并非是我们对那份意念有强烈的偏爱，而是我们自尊受到了损伤。——P102</p>
-<p>第3章　如果你错了就承认</p>
-<p>★提要：如果你错了，迅速、郑重的承认下来。</p>
-<p>12、你如在别人责备你之前，很快的找个机会承认自己的错误，对方想要说的话，你已替他说了，他就没有话可说，那你有百分之九十九会获得他的谅解。——P109</p>
-<p>13、任何一个愚蠢的人，都会尽力辩护自己的过错………而多数愚蠢的人是这样的一个能承认自己错误的人，却可使他出类拔萃，并且给人一种尊贵、高尚的感觉。——P110</p>
-<p>14、若是我们对了，我们巧妙婉转的让别人赞同我们的观点。可是，当我们错误的时候，我们要快速的、坦直的承认我们的错误。运用这种方法，不但能获得惊人的效果，而且在若干情形下，比替自己辩护更为有趣。——P112</p>
-<p>15、用争夺的方法，你永远无法得到满足。可是当你谦让的时候，你可以得到比你所期望的更多。——P112</p>
-<p>第4章  使你走上理智的大路</p>
-<p>★提要：以友善的方法开始。</p>
-<p>16、威尔逊总统有这样说过：「如果你握紧了两个拳头来找我，我可以告诉你，我的拳头会握得更紧。你来我这，若是这样说：『让我们坐下一起商量，如果我们之间意见不同，我们不妨想想看原因到底何在，主要的症结是什么？。我们不久就可看出，彼此的意见相距并不很远，不同的地方很少，而相同的地方却很多。也就是说只要忍耐，加上彼此的诚意，我们就可以更接近了。」——P113</p>
-<p>17、如果有这样一个人，他心已对你有成见、恶感，你就是找出所有的逻辑、理由来，也不能使他接受你的意见。如果用强迫的手段，更不能使他接受你的意见，向你屈服，但是我们如果用和善的友谊，温和的言语，我们可引导他同意。——P114</p>
-<p>18、这是一句古老而真实的格言–「一滴蜂蜜，比一加仑的胆汁，可以捉到更多的苍蝇。」我们对人也是如此，如果要人们同意你的见解，先让他相信你是他的忠实朋友，那就会有一滴蜂蜜，黏住了他的心，你也就走向宽畅、理智的大路了。——P115</p>
-<p>19、慈爱、友善的接近，能使人改变了他原有的心意，那比暴力的攻击更为有效。——P120</p>
-<p>第5章　苏格拉底的秘密</p>
-<p>★提要：使对方很快的回答「是！是！」。</p>
-<p>20、跟人们谈话时，别开始就谈你们意见相左的事，不妨谈些彼此间赞同的事情。如果可能的话，你更应该提出你的见解，告诉对方，你们所追求的是同一个目标，所差异的祇是方法而已。——P121</p>
-<p>21、一个不字的反应，是最不容易克服的障碍，当一个人说出不宇后，为了自己人格的尊严，他就不得不坚持到底。事后，他或许觉得自己说出这个不字是错误的，可是，他必需考虑到自己的尊严。他所说的每句话，必需坚持到底，所以使人在一开始的时候，就往正面走，那是非常重要的。——P121</p>
-<p>22、下次当我们要指出人们的错误时，我们要记住赤足的苏格拉底，并且问一个——能够获得对方「是，是，」反应的和缓问题。——P124</p>
-<p>第6章　处理一个抱怨者的安全手法</p>
-<p>★提要：尽量让对方，有多说话的机会。</p>
-<p>23、如果你不同意他的话，你或许会立刻插嘴，但不要这样，那是危险的。当他还有很多意见要发表时，他不会注意到你身上的。所以，你必需要忍耐的怀着舒畅的心情，静静的听着，而且用最诚恳的态度鼓励他，让他把所要说的话，完全说完。——P125</p>
-<p>24、如果你想得到仇人，你就胜过你的朋友，可是，如果想获得更多的朋友，就让你的朋友胜过你。因为当朋友胜过我们时，那就可以满足了他的自重感。可是，当我们显出胜过朋友时，那会使他有种自卑的感觉，并会引起猜疑和妒忌。——P128</p>
-<p>25、所以，别让我们表现出太多的成就来，我们要虚怀若谷、处处谦冲，那样会永远使人喜欢你，谁都愿意跟你接近。——P128</p>
-<p>第7章　如何使人跟你合作</p>
-<p>★提要：使对方以为这是他的意念。</p>
-<p>26、你对你自己所发现的意念，是不是比别人代你说出的更信得过？如果是的话，你把你的意见，硬生生塞下别人喉咙里，这是不是错误的观念？如果提出意见，启发别人自己去得到他的结论，这不是一个更聪明的辨法吗？——P129</p>
-<p>第8章　一个创造奇迹的公式</p>
-<p>★提要：要真诚的以他人的观点去看事情。</p>
-<p>27、我们要记住，当对方并不承认有错误时，你别斥责他是错误的。在这种情形下，可能祇有愚蠢的人，才会去责备人家，聪明的人决不会如此，他会试着去了解对方，去原谅对方。——P134</p>
-<p>28、你把自己处在他的情况下，你这样对自己说，「如果我处在他的困难中，我将有如何的感受，又作如何的反应?」你有了这样的想法，可以省去许多时问和烦恼。由于你已知道了那个起因，就不会憎厌这个结果了。此外，你可以增加许多人类关系上的技巧。——P134</p>
-<p>29、当我们希望别人完成一件事的时候，不妨闭上眼睛，稍微想一想……把整个的情形，由对方的出发点来想一想！然后问自己：「他为什么要如此做？」是的，那是麻烦的，费时闲的。可是，那样做会获得更多的友谊，会减少原来该有的磨擦，和那些不愉快的气氛。——P136</p>
-<p>第9章　每个人所需要的</p>
-<p>★提要：同情对方的意念和欲望。</p>
-<p>30、「对你所感觉到的情形，我一点也不会责怪你，如果我是你的话，我也有同样的感觉。」 就这样一句简单的话，世界上最狡猾，最固执的人，也会软化下来。——P137</p>
-<p>31、你明天遇到的人，其中可能有四分之三都饥渴似的需要同情…如果你同情他们，他们就会喜欢你。——P138</p>
-<p>第10章　人人都喜欢的吸引力</p>
-<p>★提要：激发更高尚的动机。</p>
-<p>32、人们会时常想到那个真实的理由，而我们都是自己内心的理想家，较喜欢想好听的动机。所以要改变一个人的意志，需要激发他高尚的动机。——P142</p>
-<p>33、如果真是有为难人的人，如果你使他感觉到，你认为他是那么的诚实、公道、正直，大多数时候，他也会给你有像你所给他的同样反应。——P146</p>
-<p>第11章　实行、推进，别停顿下来</p>
-<p>★提要：使你的意念戏剧化。</p>
-<p>第12章　无计可施时，试试这个</p>
-<p>★提要：提出一个挑战。</p>
-<p>34、如果我们想要完成一件事，必须鼓励竞争，那并不是说争着去赚钱，而是要有一种胜过别人的欲望。争胜的欲望加上挑战的心理，对一个有血气的人来说，是一种最有效的激励。——P150</p>
-<p>35、那是任何一个成功的人，都喜爱的竞技。因为那是个表现他自己的机会，证明他的能力、价值胜过别人。所以造成了那些离奇古怪的竞技比赛，就像：竞走比赛、唤猪比赛、吃馒头比赛等等。而这能满足他们争强的欲望，自重感的欲望。——P151</p>
-<p>第四篇　使人同意你的九种方法</p>
-<p>第1章  如果必须批评，这是开始的方法</p>
-<p>★提要：用称赞和真诚的欣赏作开始。</p>
-<p>1、当我们听到别人对我们的称赞后，如果再听到其它不愉快的话，就比较容易接受了。——P153</p>
-<p>第2章　如何批评才不致招怨</p>
-<p>★提要：间接的指出人们的错误。</p>
-<p>2、我们要劝阻一件事，永远躲开正面的批评这是必需要记住的。如果有这个必要的话，我们不妨旁敲侧击的去暗示对方。对人正面的批评，那会毁损了他的自重，剥夺了他的自尊。如果你旁敲侧击，对方知道你用心良善，他不但接受，而且还会感激你。——P158</p>
-<p>第3章　先说出你自己的错误</p>
-<p>★提要：在批评对方之前，不妨先谈谈你自己的过错。</p>
-<p>3、如果批评的人，开始先谦冲的承认自己也不是十全十美的、无可指责的，然后再指出人们的错误，这样就比较容易让人接受了。——P159</p>
-<p>第4章　没有人喜欢接受命令</p>
-<p>★提要：发问时，别用直接的命令。</p>
-<p>第5章　让对方保持他的面子</p>
-<p>★提要：顾全对方的面子。</p>
-<p>4、已故的马洛先生，有一种奇妙的才能，他专门劝解两个水火不兼容的生死仇家……他是如何做的呢？他很仔细的找出双方都有理的事实，对于这一点他加以赞许，直到双方满意为止。并且不论最后如何解决，他决不说任何一方有错。每个仲裁者都懂得让人保全他们的面子。——P163</p>
-<p>第6章　如何鼓励人们成功</p>
-<p>★提要：称赞最细微的进步，而且称赞每一个进步。</p>
-<p>5、我发觉对于犯人们的勤劳，如果加以适度的夸奖，要比严厉的惩罚、责备他们的过失，更能得到他们的合作，更能促进他们恢复人格。——P164</p>
-<p>6、讲到如何改变一个人的意志，假如我们激励我们所接触的人，让他们知道自己潜藏着的财富，那我们所做的，不只是改变他们的意志……而是改变了他们一生的命运！——P166</p>
-<p>7、是的，就如前面所说的，我们具有各种潜在的能力，可是却惯于不会利用。这潜在的能力，其中一项，就是称赞别人、激励别人，让他们知道自己这股潜在的能力，所蕴藏的神奇效力。——P167</p>
-<p>第7章　给狗取个好名字</p>
-<p>★提要：给人们一个美名让他去保全。</p>
-<p>8、如果你想改善一个人某方面的缺点，你要表示出，他已经具有这方面的优点了。莎士比亚说：「如果你没有某种美德，就假定你有。」是好是「假定」对方有你所要激发的美德，给他一个美好的名誉去表现，他会尽其所能，也不愿意使你感到失望的。——P168</p>
-<p>9、如果你必须去对付一个盗贼、骗子，祇有一个办法可以制服他，那就是待他如同一个诚实、体面的绅士，假设他是位规规矩矩的正人君子。他会感到受宠若惊，他会很骄傲的认为有人信任他。——P169</p>
-<p>第8章　使错误看起来容易改正</p>
-<p>★提要：用鼓励，使你要改正的错误，看来很易做到；使你要对方所做的事，好象很易做到。</p>
-<p>10、告诉一个孩子、一个丈夫，或是一个员工，他在某一件事上愚蠢至极，没有一点的天赋，他所做的完全不对。那你就破坏了他想要进取、上进的心情。可是，如果运用一种相反的技巧，多给人们一些鼓励，把事情看成很容易。使对方知道，你对他有信心，他有尚未发展出的才干，那他就会付出最大的努力，争取到这个胜利。——P170</p>
-<p>第9章　使人们乐意做你所要的事</p>
-<p>★提要：使人们乐意去做你所建议的事。</p>
-<p>第五篇　创造奇迹的信件</p>
-<p>1、这是很简单的一封信，是不是？但它却能产生奇迹……因为请对方帮忙，使对方有了自尊、自重的感觉。——P177</p>
-<p>2、我们每一个人，都是希望如何被人欣赏、如何被人重视……甚至会不顾一切的去达到这个目的。可是，没有人会接受不诚恳的、虚伪的奉承。——P181</p>
-<p>第六篇　使你的家庭和睦的七种方法</p>
-<p>第1章　如何最快速的自掘婚姻的坟墓</p>
-<p>★提要：切莫喋喋不休。</p>
-<p>1、地狱中的魔鬼所发明的种种毁减爱情的烈火中，吵闹是最可怕的一种，就像被毒蛇咬到，决无生望。——P183</p>
-<p>第2章　爱–就让他自在的生活</p>
-<p>★提要：别尝试改造你的伴侣。</p>
-<p>2、跟人们交住，第一件应学的事，那是不干涉人们自己原有那种特殊快乐的方法。——P189</p>
-<p>3、婚姻的成功，那不祗是寻找一个适当的人，而是自已该如何做一个适当的人。——P189</p>
-<p>第3章　这样做你就快要离婚了</p>
-<p>★提要：不要任意的批评。</p>
-<p>4、百分之五十以上的婚姻都归于失败；为什么许多甜蜜的美梦，会在结婚以后全部触礁呢？她知道有一个原因，那就是因为批评无用的，令人心碎批评。——P190</p>
-<p>第4章　使人快乐的方法</p>
-<p>★提要：给予真诚的欣赏。</p>
-<p>5、大多数的男士们，他们寻求太太时，不是去寻找一个有经验、才干的女子。而是在找一个长得漂亮，会奉承他的虚荣心，能满足他优越感的女性。——P192</p>
-<p>6、如果一个做妻子的，想要从丈夫身上获得快乐、欢愉，她可以从他的欣赏和热爱中寻找到。如果，那种欣赏，和热爱是真诚的，那也是他的快乐所在。——P195</p>
-<p>第5章　对女人特别有意义的事</p>
-<p>★提要：随时注意琐碎、细微的小地方。</p>
-<p>7、为什么一定要等到你太太病到进医院，才捧了一束鲜花去送她？为什么你就不在明天下午下班回家的时候，给她带回几朵玫瑰花呢？如果你愿意的话，不妨试一试，看看效果如何！——P195</p>
-<p>8、对你所敬爱的人，表示你常想念着她，你希望她愉快。而她的欢愉、快乐，也会使你有同样的感受。——P195</p>
-<p>9、有几个「日子」，是千万不能忘记的，就像一九XX年的那一天，是他妻子的生日……一九XX年的那一天，是他跟妻子结婚的日子。如果不能完全记起来，最重要的，别把自己妻子的生日忘记。——P196</p>
-<p>10、一桩细微的小事，就会成了婚姻不快乐的根源……就拿一桩很简单的事来说，如果一个做妻子的，每天早晨对上班去的丈夫，挥挥手，说一声「再见! 」，就会避免很多触上离婚的暗礁的危险。——P196</p>
-<p>11、这条路，我只能经过一次，所以，凡我所能为人做的任何好事，任何一点仁慈，让我现在就做吧！不要迟延，不要忽略，因为我将不会再从这里经过了。——P196</p>
-<p>第6章　如果你要快乐，别忽略了这些</p>
-<p>★提要：要有礼貌。</p>
-<p>12、无礼、粗暴，会摧毁了爱情的果实。……这情形我相信谁都知道，可是我们对待一位客人，总是比对待自己家里人有礼貌得多，这是很明显的。——P197</p>
-<p>13、那是一桩令人惊诧的事，可是完全是事实……对我们说出那些刻薄、侮辱、伤感情的话的人，差不多都是我们自己的家人。——P197</p>
-<p>14、礼貌是内心的一种特质，它可以教人忽略破旧的园门，而专心注意到园内的好花。礼貌在我们婚后的生活中，就像汽车离不开汽油一样。——P197</p>
-<p>15、婚姻远比他们的事业更重要。一个获得美满婚姻的人，远比一个孤独的天才，更为幸福、快乐。苏俄小说家「托琴尼夫」倍受人们的敬仰，可是他有这样说过：「我宁愿放弃我所怀有的天才，和我的著作……假如在某个地方，有一个女人，她是关心着我是否可以早点回家吃晚饭。」——P198</p>
-<p>16、一个人在婚姻上成功的机会，比其它任何事业的成功机会来得多……一个开杂货店的男人，失败的机会要占百分之七十，可是进入婚姻的男女，有百分之七十是成功的。——P198</p>
-<p>17、如果说，他知道如何称赞太太几句话，说她是能干的主妇，她会更善尽她的本份，把这件事做得 更十全十美。如果有个做丈夫的，赞美他太太去年做的那套衣服，如何的美丽，她决不会打算今年再订制一套巴黎新式的时装。——P199</p>
-<p>第7章　不要做一个「婚姻的文盲」</p>
-<p>★提要：阅读一本有关婚姻中性生活方面的好书。</p>
-<p>18、美国离婚案件主要的原因，是生理上配合的错误。——P200</p>
-<p>19、大多数婚后的冲突，并非由于性的配合错误——那只是武断、疏忽的精神病理学家的 意见。也就是访，如果夫妇之间，性生活十分美满，其它许多小的冲突，亦自然地消失了。——P200</p>
-<p>20、鲍宾诺博士是洛杉矶家庭关系研究所主任，他曾研究过数千人的婚姻情况，他也是美国一位研究家庭生活的权威者。依鲍宾诺博士见解，婚姻的失败，通常由于四种原因而引起的。他把这四种情形列举出来：   一、性的不调和。  二、关于消遣的意见不相同。  三、受到经济的威胁。  四、身心和情绪的不稳定、异常。   以上四点，是依其重要性，而先后分别举出的，而「性」居了第一位，使人感到奇怪的，「经济困难」只居了第三位。——P200</p>
-<p>21、性，那只是婚后生活中一项满足、愉快的事。可是，必需要把这件事，调和的很适宜，不然，其它什么事也不用谈了。——P201</p>
-<p>22、对求取性生活知识的态度，那是要严肃的，就像我们阅读一部世界文学名著一样。你有这种态度，怀有这样的心情，才会有你应有的收获。——P202</p>
-<p><a href="https://baijiahao.baidu.com/s?id=1593602591268976582&wfr=spider&for=pc">https://baijiahao.baidu.com/s?id=1593602591268976582&wfr=spider&for=pc</a></p>
-</body></html>]]></content>
-      <categories>
-        <category>且活且珍惜</category>
-        <category>多读书</category>
-      </categories>
-      <tags>
-        <tag>文字摘要</tag>
       </tags>
   </entry>
 </search>
