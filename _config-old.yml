@@ -1,0 +1,113 @@
+# Hexo Configuration
+## Docs: https://hexo.io/docs/configuration.html
+## Source: https://github.com/hexojs/hexo/
+
+#站点配置
+# Site 
+title: Mozss Tech
+subtitle:
+description: 我们只能越来越像我们自己。
+keywords:
+author: Mozss
+language: zh-CN
+timezone:
+
+# URL（站点路径）
+## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
+url: http://yoursite.com
+root: /
+# permalink: :year/:month/:day/:title/
+permalink: posts/:abbrlink/ 
+permalink_defaults:
+
+# abbrlink config上面站点路径的生存算法
+abbrlink:
+  alg: crc32  # 算法：crc16(default) and crc32
+  rep: hex    # 进制：dec(default) and hex
+
+# Directory
+source_dir: source
+public_dir: public
+tag_dir: tags
+archive_dir: archives
+category_dir: categories
+code_dir: downloads/code
+i18n_dir: :lang
+skip_render:
+
+# Writing
+new_post_name: :title.md # File name of new posts
+default_layout: post
+titlecase: false # Transform title into titlecase
+#external_link: true # Open external links in new tab
+external_link: 
+  enable: true
+  field: site  
+  exclude: ''
+filename_case: 0
+render_drafts: false
+post_asset_folder: false
+relative_link: false
+future: true
+highlight:
+  enable: true
+  line_number: true
+  auto_detect: false
+  tab_replace:
+  
+# Home page setting
+# path: Root path for your blogs index page. (default = '')
+# per_page: Posts displayed per page. (0 = disable pagination)
+# order_by: Posts order. (Order by date descending by default)
+index_generator:
+  path: ''
+  per_page: 10
+  order_by: -date
+  
+# Category & Tag
+default_category: uncategorized
+category_map:
+tag_map:
+
+# Date / Time format
+## Hexo uses Moment.js to parse and display date
+## You can customize the date format as defined in
+## http://momentjs.com/docs/#/displaying/format/
+date_format: YYYY-MM-DD
+time_format: HH:mm:ss
+
+# Pagination
+## Set per_page to 0 to disable pagination
+per_page: 10
+pagination_dir: page
+
+# Extensions
+## Plugins: https://hexo.io/plugins/
+## Themes: https://hexo.io/themes/
+#更换主题，默认是landscape,这里我们安装了next
+#theme: landscape
+theme: next
+
+# Deployment
+## Docs: https://hexo.io/docs/deployment.html  git@github.com:mozss/mozss.github.io.git
+deploy:
+  type: git
+  repository: https://github.com/mozss/mozss.github.io.git
+  branch: master
+  
+  
+
+# 图片懒加载  
+# onlypost: 是否仅文章中的图片做懒加载, 如果为 false, 则主题中的其他图片, 也会做懒加载, 如头像, logo 等任何图片.
+# loadingImg - 图片未加载时的代替图 不填写使用默认加载图片, 
+# 如果需要自定义，添填入 loading 图片地址，如果是本地图片，
+# 不要忘记把图片添加到你的主题目录下。 
+# Next 主题需将图片放到 \themes\next\source\images 目录下, 
+# 然后引用时: loadingImg: /images/图片文件名
+lazyload:
+  enable: true
+  onlypost: false
+  loadingImg: /images/loading.png 
+
+# 使用 hexo-all-minifier 插件 进行压缩  
+all_minifier: true

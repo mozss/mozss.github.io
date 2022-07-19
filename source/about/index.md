@@ -1,0 +1,37 @@
+---
+title: about
+date:  2018-06-02 20:22:12 
+type:  'About'
+typora-root-url: ..\image
+---
+
+### Who is Mozss?
+![图](image\who.jpg)
+
+### What do I want to do?
+![字](image\where.jpg)
+<br>
+A few years ago，在某次编程比赛中，三个长相奇异的菜鸟组队报名了这次比赛。他们的参赛目  
+的是开发一款无敌好玩的安卓端AVG游戏。这款游戏的主角叫Mozss，名字灵感来自墨子号量子卫星，  
+本着单词尽可能简短和发音相近的原则，他们商定出Mozss作为主角的名字。他们希望通过Mozss这个  
+角色，向玩家们传递出只有敢于冒险，不断去碰撞更强的对手, 才能遇见更好的自己的价值观。
+这三个菜鸟们期待着Mozss的破壳而出之日，也期待着它仗剑走天涯的冒险之旅。但是，不幸的事情发
+生了，各种不可抗力的影响下，这款游戏最终走向了流产。就这样，Mozss结束了它的一生，Mozss的
+一生是悲催的，它本可以拥有精彩而充满美好的冒险之路，却夭折在几位“心狠手辣”的菜鸟手中，实在
+令人惋惜。这则寓言故事告诉我们：珍爱生命，远离菜鸟！！！
+
+### About Blog
+本博客用于记录工作和生活的点滴。
+
+### To EveryOne
+“世界上只有一种英雄主义,就是看清生活的真相之后依然热爱生活。” --罗曼·罗兰
+
+### Contact
+Email : mozss1024@gmail.com 
+微信: mozss1024
+
+### Thanks
+Thanks for the technical support of Hexo & Icarus.
+
+
+

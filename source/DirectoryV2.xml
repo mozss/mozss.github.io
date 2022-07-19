@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+ <trees>
+     <tree path="/_posts/springcloud" title="2021年的博客"/>
+     <tree path="/_posts/spring" title="2020年的博客"/>
+     <tree path="/_posts/Java" title="2019年的博客"/>
+     <tree path="/_posts/zookeeper" title="2022年的博客"/>
+ </trees>
