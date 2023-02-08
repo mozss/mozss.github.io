@@ -6,10 +6,9 @@ typora-root-url: ..\image
 ---
 
 ### Who is Mozss?
-![图](image\who.jpg)
-
+![who.jpg](https://s2.loli.net/2022/07/20/rZ2IymO6kAgjQXS.jpg)
 ### What do I want to do?
-![字](image\where.jpg)
+![where.jpg](https://s2.loli.net/2022/07/20/3F9uy5LGnoDVRYk.jpg)
 <br>
 A few years ago，在某次编程比赛中，三个长相奇异的菜鸟组队报名了这次比赛。他们的参赛目  
 的是开发一款无敌好玩的安卓端AVG游戏。这款游戏的主角叫Mozss，名字灵感来自墨子号量子卫星，  

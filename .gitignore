@@ -4,4 +4,16 @@ db.json
 *.log
 node_modules/
 public/
-.deploy*/
+.deploy*/!/source/_posts/=it-golang/golang-02-数据类型-变量.md
+
+!/source/_posts/=code-golang/golang-03-语句.md
+
+!/source/_posts/=code-golang/golang-04-函数.md
+
+!/source/_posts/=code-golang/golang-05-参数.md
+
+!/source/_posts/=code-golang/golang-06-指针.md
+
+!/source/_posts/=code-golang/golang-07-并发.md
+
+!/source/_posts/=code-golang/golang-02-数据类型-变量.md
