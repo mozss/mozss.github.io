@@ -3,8 +3,8 @@ title: golang初识----数据类型, 变量
 tags:
   - golang
 categories:
-  - it
-  - it-golang
+  - code
+  - code-golang
 abbrlink: 31734
 date: 2022-02-07 10:16:20
 ---

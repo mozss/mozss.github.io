@@ -1,7 +1,7 @@
 ---
 title: hello
 tags:
-  - java
+  - hello
 categories:
   - code
   - code-java

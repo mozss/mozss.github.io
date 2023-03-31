@@ -1,7 +1,7 @@
 ---
-title: hello
+title: juc总结
 tags:
-  - java
+  - java-juc
 categories:
   - code
   - code-java

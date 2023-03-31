@@ -3,8 +3,8 @@ title: golang初识
 tags:
   - golang
 categories:
-  - it
-  - it-golang
+  - code
+  - code-golang
 abbrlink: 53225
 date: 2022-01-22 22:22:09
 ---
