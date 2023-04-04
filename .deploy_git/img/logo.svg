@@ -1,0 +1,14 @@
+<svg width="949" height="256" xmlns="http://www.w3.org/2000/svg">
+
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <path id="svg_1" d="m110.85125,128l110.85125,64l-110.85125,64l-110.85125,-64l110.85125,-64z" fill="#333333"/>
+  <path stroke="null" id="svg_2" d="m110.85125,64l110.85125,64l-110.85125,64l-110.85125,-64l110.85125,-64z" fill="#656565"/>
+  <path id="svg_3" d="m111.85125,-1l110.85125,64l-110.85125,64l-110.85125,-64l110.85125,-64z" fill="#969696"/>
+  <text stroke="#000" transform="matrix(8.414760781249251,0,0,7.570345827060935,-2458.8393297964726,-568.2938058199098) " xml:space="preserve" text-anchor="start" font-family="Georgia, Times, 'Times New Roman', serif" font-size="24" id="svg_6" y="100.589533" x="322.546834" stroke-width="0" fill="#282828">MOZSS</text>
+ </g>
+</svg>
